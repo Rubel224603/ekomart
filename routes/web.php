@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Backend\CategoryController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,3 +24,4 @@ Route::get('/about',[WelcomeController::class,'about'])->name('about');
 //dashboard controller....
 //Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+Route::get('/category-add', [CategoryController::class, 'create'])->name('category.create');
