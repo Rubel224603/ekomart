@@ -16,13 +16,12 @@
 
     <!-- FAVICON -->
     @include('website.backend.includes.style')
+
 </head>
 <body class="ltr app sidebar-mini">
 
     <!-- GLOBAL-LOADER -->
-    <div id="global-loader">
-        <img src="{{asset('/')}}website/assets/images/logo/logo-01.svg" class="loader-img" alt="Loader">
-    </div>
+
     <!-- /GLOBAL-LOADER -->
     <!-- PAGE -->
     <div class="page">
@@ -65,6 +64,38 @@
 
     @include('website.backend.includes.script')
 
+    <script>
+        // Import flasher in your JS file
+        import flasher from '@flasher/flasher';
+
+        document.getElementById('saveForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+
+            fetch('/api/save', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    // Explicitly call flasher methods based on the response
+                    if (data.status === 'success') {
+                        flasher.success(data.message);
+                    } else {
+                        flasher.error(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    flasher.error('An unexpected error occurred');
+                });
+        });
+    </script>
 </body>
 
 

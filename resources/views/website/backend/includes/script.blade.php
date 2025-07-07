@@ -46,3 +46,4 @@
 
 <!-- SWITCHER JS -->
 <script src="{{asset('/')}}backend/assets/switcher/js/switcher.js"></script>
+

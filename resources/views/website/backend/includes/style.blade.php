@@ -15,3 +15,5 @@
 <!-- INTERNAL Switcher css -->
 <link href="{{asset('/')}}backend/assets/switcher/css/switcher.css" rel="stylesheet">
 <link href="{{asset('/')}}backend/assets/switcher/demo.css" rel="stylesheet">
+<link href="{{asset('/')}}backend/assets/css/style2.css" rel="stylesheet">
+

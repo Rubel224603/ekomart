@@ -25,3 +25,4 @@ Route::get('/about',[WelcomeController::class,'about'])->name('about');
 //Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
 Route::get('/category-add', [CategoryController::class, 'create'])->name('category.create');
+Route::post('/category-store', [CategoryController::class, 'store'])->name('category.store');
