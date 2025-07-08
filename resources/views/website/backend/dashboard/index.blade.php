@@ -2,9 +2,6 @@
 
 
 
-
-
-
 @section('content')
     <!-- PAGE-HEADER -->
     <div class="page-header mt-7">

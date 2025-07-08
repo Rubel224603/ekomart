@@ -5,6 +5,7 @@ use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\SubCategoryController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,3 +31,6 @@ Route::get('/category-list', [CategoryController::class, 'listCategory'])->name(
 Route::get('/category-edit/{id}', [CategoryController::class, 'editCategory'])->name('category.edit');
 Route::post('/category-update/{id}', [CategoryController::class, 'updateCategory'])->name('category.update');
 Route::get('/category-delete/{id}', [CategoryController::class, 'deleteCategory'])->name('category.delete');
+Route::get('/sub-category/add',[SubCategoryController::class,'createSubCategory'])->name('create.sub-category');
+Route::post('/sub-category/store',[SubCategoryController::class,'storeSubCategory'])->name('store.sub-category');
+Route::get('/sub-category/list',[SubCategoryController::class,'listSubCategory'])->name('list.sub-category');

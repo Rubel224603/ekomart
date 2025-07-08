@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use function League\Flysystem\fileExists;
+use Illuminate\Support\Str;
+
 
 
 class CategoryController extends Controller
@@ -18,6 +19,7 @@ class CategoryController extends Controller
        //return $request;
         $newCategory = new Category();
         $newCategory->category_name     = $request->category_name;
+        $newCategory->slug              = Str::slug($request->category_name);
         $newCategory->status            = $request->status;
         $newCategory->description       = $request->description;
 
@@ -25,11 +27,17 @@ class CategoryController extends Controller
             //upload image...
             $imagName = time().'-category-.'.$request->image->getClientOriginalExtension();
             $request->image->move('backend/upload/images/category/',$imagName);
+            //generate image url...
+            $imageUrl = url('backend/upload/images/category/'.$imagName);
+
             //save to db...
-            $newCategory->image = $imagName;
+
+             $newCategory->image = $imagName;
+             $newCategory->image_url =$imageUrl;
 
 
         }
+
         $newCategory->save();
         flash()->success('Product created successfully!');
 
@@ -55,6 +63,7 @@ class CategoryController extends Controller
         $category = Category::find($id);
         //return $category;
         $category->category_name = $request->category_name;
+        $category->slug  = Str::slug($request->category_name);
         $category->status = $request->status;
         $category->description = $request->description;
         if(isset($request->image)){
@@ -63,6 +72,8 @@ class CategoryController extends Controller
             }
             $imageName  = time().'-category-.'.$request->image->getClientOriginalExtension();
             $request->image->move('backend/upload/images/category/',$imageName);
+            $imageUrl = url('backend/upload/images/category/'.$imageName);
+            $category->image_url = $imageUrl;
             $category->image = $imageName;
         }
         $category->save();

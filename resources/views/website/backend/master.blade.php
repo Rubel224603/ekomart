@@ -30,8 +30,11 @@
         <div class="page-main">
 
             <!-- app-Header -->
-            @include('website.backend.includes.navbar')
-            <!-- /app-Header -->
+
+        @include('website.backend.includes.navbar')
+
+
+        <!-- /app-Header -->
 
                 <!--APP-SIDEBAR-->
             @include('website.backend.includes.sidebar')
