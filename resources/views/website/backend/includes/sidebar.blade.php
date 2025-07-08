@@ -34,7 +34,7 @@
                     <ul class="slide-menu">
                         <li class="side-menu-label1"><a href="javascript:void(0)">Forms</a></li>
                         <li><a href="{{route('category.create')}}" class="slide-item">Add Category</a></li>
-                        <li><a href="form-layouts.html" class="slide-item">List Category</a></li>
+                        <li><a href="{{route('category.list')}}" class="slide-item">List Category</a></li>
 
                     </ul>
                 </li>

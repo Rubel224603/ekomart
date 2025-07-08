@@ -7,7 +7,7 @@
 
 @section('content')
     <!-- PAGE-HEADER -->
-    <div class="page-header">
+    <div class="page-header mt-7">
         <div>
             <h1 class="page-title">Dashboard</h1>
         </div>
