@@ -2,14 +2,17 @@
 
 
 
-
-
-
 @section('content')
     <!-- PAGE-HEADER -->
+<<<<<<< HEAD
     <div class="page-header mt-8">
         <div class=''>
             <h1 class="page-title">Dashboard </h1>
+=======
+    <div class="page-header mt-7">
+        <div>
+            <h1 class="page-title">Dashboard</h1>
+>>>>>>> ed19bcc326120ea71d01a86fe366c60362f19db2
         </div>
         <div class="ms-auto pageheader-btn">
             <ol class="breadcrumb">

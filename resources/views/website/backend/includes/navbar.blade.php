@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <div class="app-header marmu header sticky">
+=======
+<div class="app-header marmu header">
+>>>>>>> ed19bcc326120ea71d01a86fe366c60362f19db2
     <div class="container-fluid main-container">
         <div class="d-flex">
             <a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar" href="#"></a>
