@@ -6,16 +6,16 @@
     <div class="col-lg-12">
         <div class="card custom-card">
             <div class="card-header border-bottom">
-                <h3 class="card-title">Category List Table</h3>
+                <h3 class="card-title">Sub Category List Table</h3>
             </div>
             <div class="card-body">
-                <p class="text-muted">Add borders on all sides of the table and cells.</p>
                 <div class="table-responsive">
                     <table class="table text-nowrap text-md-nowrap table-bordered">
                         <thead>
                         <tr>
                             <th>Sl</th>
-                            <th>Name</th>
+                            <th>Sub-category</th>
+                            <th> Category Id     </th>
                             <th>Status</th>
                             <th>Description</th>
                             <th>Image</th>
@@ -24,16 +24,17 @@
                         </thead>
 
                         <tbody>
-                        @foreach($categories as $category)
+                        @foreach($subcategories as $subcategory)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{$category->category_name}}</td>
-                                <td>{{$category->status==1?'Published':"Unpublished"}}</td>
-                                <td>{{$category->description}}</td>
-                                <td><img src="{{asset('backend/upload/images/category/'.$category->image)}}" alt="image here" height="70" width="150" ></td>
+                                <td>{{$subcategory->sub_category_name}}</td>
+                                <td>{{$subcategory->cat_id}}</td>
+                                <td>{{$subcategory->status==1?'Published':"Unpublished"}}</td>
+                                <td>{{$subcategory->description}}</td>
+                                <td><img src="{{asset('backend/upload/images/sub-category/'.$subcategory->image)}}" alt="image here" height="70" width="150" ></td>
                                 <td>
-                                    <a href="{{route('category.edit',['id'=>$category->id])}}" class="btn btn-warning">Edit</a>
-                                    <a href="{{route('category.delete',['id'=>$category->id])}}" class="btn btn-danger">Delete</a>
+                                    <a href="{{route('edit.sub-category',['id'=>$subcategory->id])}}" class="btn btn-warning">Edit</a>
+                                    <a href="{{route('delete.sub-category',['id'=>$subcategory->id])}}" class="btn btn-danger">Delete</a>
                                 </td>
 
                             </tr>

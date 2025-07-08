@@ -18,18 +18,18 @@ class SubCategoryController extends Controller
     public function storeSubCategory(Request $request){
         //return $request;
         $subCategory                    = new SubCategory();
+        $subCategory->sub_category_name = $request->sub_category_name;
         $subCategory->cat_id            = $request->cat_id;
-        $subCategory->name              = $request->name;
-        $subCategory->slug              = Str::slug($request->name);
+        $subCategory->slug              = Str::slug($request->sub_category_name);
         $subCategory->status            = $request->status;
         $subCategory->description       = $request->description;
 
         if(isset($request->image)){
             //upload image...
-            $imagName = time().'-category-.'.$request->image->getClientOriginalExtension();
-            $request->image->move('backend/upload/images/category/',$imagName);
+            $imagName = time().'-sub-category-.'.$request->image->getClientOriginalExtension();
+            $request->image->move('backend/upload/images/sub-category/',$imagName);
             //generate image url...
-            $imageUrl = url('backend/upload/images/category/'.$imagName);
+            $imageUrl = url('backend/upload/images/sub-category/'.$imagName);
 
             //save to db...
 
@@ -47,51 +47,55 @@ class SubCategoryController extends Controller
         return redirect()->back();
 
 
-        //return view('website.backend.admin.category.create');
-    }
-    public function listSubCategory(){
-        $subCategory = SubCategory::all();
-        return view('website.backend.admin.category.index',compact('categories'));
 
     }
-    public function editCategory($id){
-        $SubCategory = SubCategory::find($id);
-        return view('website.backend.admin.category.edit',compact('category'));
+    public function listSubCategory(){
+        $subcategories = SubCategory::all();
+       // return $subCategories;
+        return view('website.backend.admin.sub-category.index',compact('subcategories'));
+
+    }
+    public function editSubCategory($id){
+        $subcategory = SubCategory::find($id);
+        $categories = Category::all();
+
+        return view('website.backend.admin.sub-category.edit',compact('subcategory','categories'));
 
     }
     public function updateSubCategory($id,Request $request){
         $subCategory = SubCategory::find($id);
         //return $category;
-        $subCategory->category_name = $request->category_name;
-        $subCategory->slug  = Str::slug($request->category_name);
-        $subCategory->status = $request->status;
-        $subCategory->description = $request->description;
+        $subCategory->sub_category_name = $request->sub_category_name;
+        $subCategory->slug              = Str::slug($request->sub_category_name);
+        $subCategory->cat_id            = $request->cat_id;
+        $subCategory->status            = $request->status;
+        $subCategory->description       = $request->description;
         if(isset($request->image)){
-            if($subCategory->image && file_exists('backend/upload/images/category/'.$subCategory->image)){
-                unlink('backend/upload/images/category/'.$subCategory->image);
+            if($subCategory->image && file_exists('backend/upload/images/sub-category/'.$subCategory->image)){
+                unlink('backend/upload/images/sub-category/'.$subCategory->image);
             }
-            $imageName  = time().'-category-.'.$request->image->getClientOriginalExtension();
-            $request->image->move('backend/upload/images/category/',$imageName);
-            $imageUrl = url('backend/upload/images/category/'.$imageName);
+            $imageName  = time().'-sub-category-.'.$request->image->getClientOriginalExtension();
+            $request->image->move('backend/upload/images/sub-category/',$imageName);
+            $imageUrl = url('backend/upload/images/sub-category/'.$imageName);
             $subCategory->image_url = $imageUrl;
             $subCategory->image = $imageName;
         }
         $subCategory->save();
         flash()->success('Sub-Category Updated successfully!');
 
-        return redirect()->route('category.list');
+        return redirect()->route('list.sub-category');
 
 
     }
     public function deleteSubCategory($id){
         $subCategory = SubCategory::find($id);
         if($subCategory->image && file_exists('backend/upload/images/category/'.$subCategory->image)){
-            unlink('backend/upload/images/category/'.$subCategory->image);
+            unlink('backend/upload/images/sub-category/'.$subCategory->image);
 
         }
         $subCategory->delete();
         flash()->success('Sub-Category deleted!');
-        return redirect()->route('category.list');
+        return redirect()->route('sub-category.list');
 
     }
 }

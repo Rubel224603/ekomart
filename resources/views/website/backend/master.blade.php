@@ -31,7 +31,7 @@
 
             <!-- app-Header -->
 
-        @include('website.backend.includes.navbar')
+   
 
 
         <!-- /app-Header -->

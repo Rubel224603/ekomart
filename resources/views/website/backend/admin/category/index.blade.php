@@ -9,7 +9,6 @@
                 <h3 class="card-title">Category List Table</h3>
             </div>
             <div class="card-body">
-                <p class="text-muted">Add borders on all sides of the table and cells.</p>
                 <div class="table-responsive">
                     <table class="table text-nowrap text-md-nowrap table-bordered">
                         <thead>
