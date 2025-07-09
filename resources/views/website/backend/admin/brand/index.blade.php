@@ -5,8 +5,9 @@
 <div class="row row-sm mt-8">
     <div class="col-lg-12">
         <div class="card custom-card">
-            <div class="card-header border-bottom">
-                <h3 class="card-title">Category List Table</h3>
+            <div class="card-header border-bottom d-flex justify-content-between">
+                <h3 class="card-title">Sub Category List </h3>
+                <a href="{{route('brand.create')}}" class="btn btn-primary">Add New</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

@@ -7,7 +7,7 @@
         <div class="card custom-card">
             <div class="card-header border-bottom d-flex justify-content-between">
                 <h3 class="card-title">Sub Category List </h3>
-                <a href="{{route('create.sub-category')}}" class="btn btn-primary">Add New</a>
+                <a href="{{route('unit.create')}}" class="btn btn-primary">Add New</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -15,27 +15,27 @@
                         <thead>
                         <tr>
                             <th>Sl</th>
-                            <th>Sub-category</th>
-                            <th> Category  </th>
+                            <th>Name</th>
+                            <th>Code</th>
                             <th>Status</th>
                             <th>Description</th>
-                            <th>Image</th>
+
                             <th>Action</th>
                         </tr>
                         </thead>
 
                         <tbody>
-                        @foreach($subcategories as $subcategory)
+                        @foreach($units as $unit)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{$subcategory->sub_category_name}}</td>
-                                <td>{{$subcategory->category->category_name}}</td>
-                                <td>{{$subcategory->status==1?'Published':"Unpublished"}}</td>
-                                <td>{{$subcategory->description}}</td>
-                                <td><img src="{{asset('backend/upload/images/sub-category/'.$subcategory->image)}}" alt="image here" height="70" width="150" ></td>
+                                <td>{{$unit->name}}</td>
+                                <th>{{$unit->code}}</th>
+                                <td>{{$unit->status==1?'Published':"Unpublished"}}</td>
+                                <td>{{$unit->description}}</td>
+
                                 <td>
-                                    <a href="{{route('edit.sub-category',['id'=>$subcategory->id])}}" class="btn btn-warning">Edit</a>
-                                    <a href="{{route('delete.sub-category',['id'=>$subcategory->id])}}" class="btn btn-danger">Delete</a>
+                                    <a href="{{route('unit.edit',['id'=>$unit->id])}}" class="btn btn-warning">Edit</a>
+                                    <a href="{{route('unit.delete',['id'=>$unit->id])}}" class="btn btn-danger" onclick="return confirm('Are you sure Delete this!!!')">Delete</a>
                                 </td>
 
                             </tr>
