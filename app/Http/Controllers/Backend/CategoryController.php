@@ -50,7 +50,7 @@ class CategoryController extends Controller
         //return view('website.backend.admin.category.create');
     }
     public function listCategory(){
-        $categories = Category::all();
+        $categories = Category::latest()->get();
         return view('website.backend.admin.category.index',compact('categories'));
 
     }

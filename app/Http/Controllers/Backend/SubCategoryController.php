@@ -50,7 +50,7 @@ class SubCategoryController extends Controller
 
     }
     public function listSubCategory(){
-        $subcategories = SubCategory::all();
+        $subcategories = SubCategory::latest()->get();
        // return $subCategories;
         return view('website.backend.admin.sub-category.index',compact('subcategories'));
 
