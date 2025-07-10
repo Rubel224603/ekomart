@@ -27,7 +27,7 @@ Route::get('/about',[WelcomeController::class,'about'])->name('about');
 
 //Backend route....
 Route::middleware('auth','admin')->group(function(){
-    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
 
     //Category...
     Route::get('/admin/category-add', [CategoryController::class, 'createCategory'])->name('category.create');
