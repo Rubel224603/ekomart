@@ -34,10 +34,10 @@
                             <div class="row mb-4">
                                 <label for="firstName" class="col-md-3 form-label">Select Sub-Category</label>
                                 <div class="col-md-7">
-                                    <select name="sub_category_id"  class="form-control">
+                                    <select name="subcategory_id"  class="form-control">
                                         <option selected disabled>---Select Sub Category---</option>
-                                        @foreach($subcategories as $subcateroy)
-                                            <option value="{{$subcateroy->id}}" selected>{{$subcateroy->name}}</option>
+                                        @foreach($subcategories as $subcategory)
+                                            <option value="{{$subcategory->id}}" selected>{{$subcategory->name}}</option>
                                         @endforeach
 
                                     </select>

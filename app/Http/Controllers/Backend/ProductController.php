@@ -24,12 +24,13 @@ class ProductController extends Controller
 
     }
     public function storeProduct(Request $request){
+       // return $request;
 
         $product                    = new Product();
 
         $product->name              = $request->name;
         $product->category_id       = $request->category_id;
-        $product->sub_category_id   = $request->sub_category_id;
+        $product->subcategory_id    = $request->subcategory_id;
         $product->brand_id          = $request->brand_id;
         $product->unit_id           = $request->unit_id;
         $product->code              = $request->code;
@@ -95,7 +96,67 @@ class ProductController extends Controller
 
     public function updateProduct($id,Request $request){
         $product = Product::find($id);
-        return $product;
+       // return $product;
+        $product->name = $request->name;
+        $product->category_id       = $request->category_id;
+        $product->subcategory_id    = $request->subcategory_id;
+        $product->brand_id          = $request->brand_id;
+        $product->unit_id           = $request->unit_id;
+        $product->code              = $request->code;
+        $product->product_price     = $request->product_price;
+        $product->selling_price     = $request->selling_price;
+        $product->stock             = $request->stock;
+        $product->published_status  = $request->published_status;
+        $product->sort_description  = $request->sort_description;
+        $product->long_description  = $request->long_description;
+        $product->meta_title        = $request->meta_title;
+        $product->meta_description  = $request->meta_description;
+
+        if(isset($request->image)){
+            if($product->image && file_exists('backend/upload/images/product/'.$product->image)){
+                unlink('backend/upload/images/product/'.$product->image);
+            }
+            $imageName = time().'-product-.'.$request->image->getClientOriginalExtension();
+            $request->image->move('backend/upload/images/product',$imageName);
+            $product->image         = $imageName;
+        }
+        $product->save();
+        if($request->other_image){
+
+           $otherImage = OtherImage::where('product_id',$product->id)->get();
+
+           //delete old other image...
+           foreach ($otherImage as $item){
+               if($item->other_image && file_exists('backend/upload/images/other-image/'.$item->other_image)){
+                   unlink('backend/upload/images/other-image/'.$item->other_image);
+               }
+               $item->delete();
+           }
+
+          //upload new other image...
+
+          foreach ($request->other_image as $newImage){
+
+              $newOtherImage             = new OtherImage();
+
+              $newOtherImage->product_id = $product->id;
+              $imageName                 = time().'-other-image-.'.$newImage->getClientOriginalExtension();
+              $newImage->move('backend/upload/images/other-image/',$imageName);
+
+              $newOtherImage->other_image = $imageName;
+              $newOtherImage->save();
+
+
+          }
+
+            flash()->success('Product Updated successfully!');
+            return redirect()->route('product.list');
+
+        }
+
+
+
+
 
     }
 
