@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\UnitController;
+use App\Http\Controllers\Backend\ProductController;
 
 
 //Route::get('/', function () {
@@ -60,6 +61,15 @@ Route::middleware('auth','admin')->group(function(){
     Route::get('/admin/unit-edit/{id}',[UnitController::class,'editUnit'])->name('unit.edit');
     Route::post('/admin/unit-update/{id}',[UnitController::class,'updateUnit'])->name('unit.update');
     Route::get('/admin/unit-delete/{id}',[UnitController::class,'deleteUnit'])->name('unit.delete');
+
+    //Products...
+    Route::get('/admin/product-add',[ProductController::class,'createProduct'])->name("product.create");
+    Route::post('/admin/product-store',[ProductController::class,'storeProduct'])->name("product.store");
+    Route::get('/admin/product-list',[ProductController::class,'listProduct'])->name("product.list");
+    Route::get('/admin/product-edit/{id}',[ProductController::class,'editProduct'])->name("product.edit");
+    Route::post('/admin/product-update/{id}',[ProductController::class,'updateProduct'])->name("product.update");
+    Route::get('/admin/product-details/{id}',[ProductController::class,'detailsProduct'])->name("product.details");
+    Route::get('/admin/product-delete/{id}',[ProductController::class,'deleteProduct'])->name("product.delete");
 
 
 });

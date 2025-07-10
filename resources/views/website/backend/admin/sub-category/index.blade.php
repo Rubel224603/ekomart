@@ -28,8 +28,8 @@
                         @foreach($subcategories as $subcategory)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{$subcategory->sub_category_name}}</td>
-                                <td>{{$subcategory->category->category_name}}</td>
+                                <td>{{$subcategory->name}}</td>
+                                <td>{{$subcategory->category->name}}</td>
                                 <td>{{$subcategory->status==1?'Published':"Unpublished"}}</td>
                                 <td>{{$subcategory->description}}</td>
                                 <td><img src="{{asset('backend/upload/images/sub-category/'.$subcategory->image)}}" alt="image here" height="70" width="150" ></td>

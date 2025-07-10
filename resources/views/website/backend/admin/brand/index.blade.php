@@ -27,7 +27,7 @@
                         @foreach($brands as $brand)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{$brand->brand_name}}</td>
+                                <td>{{$brand->name}}</td>
                                 <td>{{$brand->status==1?'Published':"Unpublished"}}</td>
                                 <td>{{$brand->description}}</td>
                                 <td><img src="{{asset('backend/upload/images/brand/'.$brand->image)}}" alt="image here" height="70" width="150" ></td>

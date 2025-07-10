@@ -27,7 +27,7 @@
                         @foreach($categories as $category)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{$category->category_name}}</td>
+                                <td>{{$category->name}}</td>
                                 <td>{{$category->status==1?'Published':"Unpublished"}}</td>
                                 <td>{{$category->description}}</td>
                                 <td><img src="{{asset('backend/upload/images/category/'.$category->image)}}" alt="image here" height="70" width="150" ></td>

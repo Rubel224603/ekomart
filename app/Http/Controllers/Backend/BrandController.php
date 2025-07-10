@@ -15,7 +15,7 @@ class BrandController extends Controller
     }
     public function storeBrand(Request $request){
         $brand = new Brand();
-        $brand->brand_name= $request->brand_name;
+        $brand->name= $request->name;
         $brand->slug=  Str::slug($request->brand_name);
         $brand->status= $request->status;
         $brand->description= $request->description;
@@ -44,7 +44,7 @@ class BrandController extends Controller
     public function updateBrand($id, Request $request){
         $brand = Brand::find($id);
         //return $brand;
-        $brand->brand_name = $request->brand_name;
+        $brand->name = $request->name;
         $brand->slug = Str::slug($request->brand_name);
         $brand->status = $request->status;
         $brand->description = $request->description;

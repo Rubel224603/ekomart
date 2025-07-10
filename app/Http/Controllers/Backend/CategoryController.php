@@ -18,7 +18,7 @@ class CategoryController extends Controller
     public function storeCategory(Request $request){
        //return $request;
         $newCategory = new Category();
-        $newCategory->category_name     = $request->category_name;
+        $newCategory->name     = $request->name;
         $newCategory->slug              = Str::slug($request->category_name);
         $newCategory->status            = $request->status;
         $newCategory->description       = $request->description;
@@ -62,7 +62,7 @@ class CategoryController extends Controller
     public function updateCategory($id,Request $request){
         $category = Category::find($id);
         //return $category;
-        $category->category_name = $request->category_name;
+        $category->name = $request->name;
         $category->slug  = Str::slug($request->category_name);
         $category->status = $request->status;
         $category->description = $request->description;

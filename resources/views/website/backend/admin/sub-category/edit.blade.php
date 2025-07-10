@@ -16,16 +16,16 @@
                             <div class="row mb-4">
                                 <label for="firstName" class="col-md-3 form-label">Sub Category Name</label>
                                 <div class="col-md-7">
-                                    <input class="form-control"  value="{{$subcategory->sub_category_name}}" type="text" name="sub_category_name">
+                                    <input class="form-control"  value="{{$subcategory->name}}" type="text" name="name">
                                 </div>
                             </div>
                             <div class="row mb-4">
                                 <label for="firstName" class="col-md-3 form-label">Select Category</label>
                                 <div class="col-md-7">
-                                    <select name="cat_id" id="cat_id" class="form-control">
+                                    <select name="category_id"  class="form-control">
                                         <option  selected disabled>-----Select Category----</option>
                                         @foreach($categories as $category)
-                                            <option value="{{$category->id}}" @selected($category->id==$subcategory->cat_id)>{{$category->category_name}}</option>
+                                            <option value="{{$category->id}}" @selected($category->id==$subcategory->category_id)>{{$category->name}}</option>
 
                                         @endforeach
                                     </select>

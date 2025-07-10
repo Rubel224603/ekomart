@@ -18,9 +18,9 @@ class SubCategoryController extends Controller
     public function storeSubCategory(Request $request){
         //return $request;
         $subCategory                    = new SubCategory();
-        $subCategory->sub_category_name = $request->sub_category_name;
-        $subCategory->cat_id            = $request->cat_id;
-        $subCategory->slug              = Str::slug($request->sub_category_name);
+        $subCategory->name              = $request->name;
+        $subCategory->category_id       = $request->category_id;
+        $subCategory->slug              = Str::slug($request->name);
         $subCategory->status            = $request->status;
         $subCategory->description       = $request->description;
 
@@ -63,22 +63,22 @@ class SubCategoryController extends Controller
 
     }
     public function updateSubCategory($id,Request $request){
-        $subCategory = SubCategory::find($id);
+        $subCategory                = SubCategory::find($id);
         //return $category;
-        $subCategory->sub_category_name = $request->sub_category_name;
-        $subCategory->slug              = Str::slug($request->sub_category_name);
-        $subCategory->cat_id            = $request->cat_id;
-        $subCategory->status            = $request->status;
-        $subCategory->description       = $request->description;
+        $subCategory->name          = $request->name;
+        $subCategory->slug          = Str::slug($request->name);
+        $subCategory->category_id   = $request->category_id;
+        $subCategory->status        = $request->status;
+        $subCategory->description   = $request->description;
         if(isset($request->image)){
             if($subCategory->image && file_exists('backend/upload/images/sub-category/'.$subCategory->image)){
                 unlink('backend/upload/images/sub-category/'.$subCategory->image);
             }
-            $imageName  = time().'-sub-category-.'.$request->image->getClientOriginalExtension();
+            $imageName              = time().'-sub-category-.'.$request->image->getClientOriginalExtension();
             $request->image->move('backend/upload/images/sub-category/',$imageName);
-            $imageUrl = url('backend/upload/images/sub-category/'.$imageName);
+            $imageUrl               = url('backend/upload/images/sub-category/'.$imageName);
             $subCategory->image_url = $imageUrl;
-            $subCategory->image = $imageName;
+            $subCategory->image     = $imageName;
         }
         $subCategory->save();
         flash()->success('Sub-Category Updated successfully!');

@@ -16,7 +16,7 @@
                             <div class="row mb-4">
                                 <label for="firstName" class="col-md-3 form-label">Brand Name</label>
                                 <div class="col-md-7">
-                                    <input class="form-control" id="firstName" value="{{$brand->brand_name}}" type="text" name="brand_name">
+                                    <input class="form-control" id="firstName" value="{{$brand->name}}" type="text" name="name">
                                 </div>
                             </div>
                             <div class="row mb-4">
