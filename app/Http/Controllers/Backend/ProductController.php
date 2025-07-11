@@ -171,6 +171,17 @@ class ProductController extends Controller
             unlink('backend/upload/images/product/'.$product->image);
         }
         $product->delete();
+        $otherImages  = OtherImage::where('product_id',$id)->get();
+        //return $otherImages;
+        foreach ($otherImages as $image){
+            if($image->other_image && file_exists('backend/upload/images/other-image/'.$image->other_image)){
+                unlink('backend/upload/images/other-image/'.$image->other_image);
+            }
+            $image->delete();
+
+
+        }
+
         flash()->success('Product Deleted !');
         return redirect()->back();
 
