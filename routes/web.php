@@ -25,6 +25,9 @@ Route::get('/account',[WelcomeController::class,'account'])->name('account');
 Route::get('/shop',[WelcomeController::class,'shop'])->name('shop');
 Route::get('/contact',[WelcomeController::class,'contact'])->name('contact');
 Route::get('/about',[WelcomeController::class,'about'])->name('about');
+Route::get('category-product/{slug}', [WelcomeController::class, 'productCategory'])->name('category-product');
+Route::get('/subcategory-product/{slug}', [ProductController::class, 'subcategoryProduct'])->name('subcategory-product');
+
 
 //Backend route....
 Route::middleware('auth','admin')->group(function(){

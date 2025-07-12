@@ -50,8 +50,8 @@ class SubCategoryController extends Controller
 
     }
     public function listSubCategory(){
-        $subcategories = SubCategory::latest()->get();
-       // return $subCategories;
+        $subcategories = SubCategory::all();
+        //return $subcategories;
         return view('website.backend.admin.sub-category.index',compact('subcategories'));
 
     }
@@ -88,8 +88,10 @@ class SubCategoryController extends Controller
 
     }
     public function deleteSubCategory($id){
+
         $subCategory = SubCategory::find($id);
-        if($subCategory->image && file_exists('backend/upload/images/category/'.$subCategory->image)){
+
+        if($subCategory->image && file_exists('backend/upload/images/sub-category/'.$subCategory->image)){
             unlink('backend/upload/images/sub-category/'.$subCategory->image);
 
         }

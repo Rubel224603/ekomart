@@ -175,92 +175,30 @@
                             <div class="category-btn category-hover-header five-style">
                                 <img class="parent" src="{{asset('/')}}website/assets/images/icons/14.svg" alt="icons">
                                 <span class="ml--10">All Categories</span>
+
                                 <ul class="category-sub-menu" id="category-active-four">
-                                    <li>
-                                        <a href="#" class="menu-item">
-                                            <img src="{{asset('/')}}website/assets/images/icons/01.svg" alt="icons">
-                                            <span>Breakfast &amp; Dairy</span>
-                                            <i class="fa-regular fa-plus"></i>
-                                        </a>
-                                        <ul class="submenu mm-collapse">
-                                            <li><a class="mobile-menu-link" href="#">Breakfast</a></li>
-                                            <li><a class="mobile-menu-link" href="#">Dinner</a></li>
-                                            <li><a class="mobile-menu-link" href="#"> Pumking</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="menu-item">
-                                            <img src="{{asset('/')}}website/assets/images/icons/02.svg" alt="icons">
-                                            <span>Meats &amp; Seafood</span>
-                                            <i class="fa-regular fa-plus"></i>
-                                        </a>
-                                        <ul class="submenu mm-collapse">
-                                            <li><a class="mobile-menu-link" href="#">Breakfast</a></li>
-                                            <li><a class="mobile-menu-link" href="#">Dinner</a></li>
-                                            <li><a class="mobile-menu-link" href="#"> Pumking</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="menu-item">
-                                            <img src="{{asset('/')}}website/assets/images/icons/03.svg" alt="icons">
-                                            <span>Breads &amp; Bakery</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="menu-item">
-                                            <img src="{{asset('/')}}website/assets/images/icons/04.svg" alt="icons">
-                                            <span>Chips &amp; Snacks</span>
-                                            <i class="fa-regular fa-plus"></i>
-                                        </a>
-                                        <ul class="submenu mm-collapse">
-                                            <li><a class="mobile-menu-link" href="#">Breakfast</a></li>
-                                            <li><a class="mobile-menu-link" href="#">Dinner</a></li>
-                                            <li><a class="mobile-menu-link" href="#"> Pumking</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="menu-item">
-                                            <img src="{{asset('/')}}website/assets/images/icons/05.svg" alt="icons">
-                                            <span>Medical Healthcare</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="menu-item">
-                                            <img src="{{asset('/')}}website/assets/images/icons/06.svg" alt="icons">
-                                            <span>Breads &amp; Bakery</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="menu-item">
-                                            <img src="{{asset('/')}}website/assets/images/icons/07.svg" alt="icons">
-                                            <span>Biscuits &amp; Snacks</span>
-                                            <i class="fa-regular fa-plus"></i>
-                                        </a>
-                                        <ul class="submenu mm-collapse">
-                                            <li><a class="mobile-menu-link" href="#">Breakfast</a></li>
-                                            <li><a class="mobile-menu-link" href="#">Dinner</a></li>
-                                            <li><a class="mobile-menu-link" href="#"> Pumking</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="menu-item">
-                                            <img src="{{asset('/')}}website/assets/images/icons/08.svg" alt="icons">
-                                            <span>Frozen Foods</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="menu-item">
-                                            <img src="{{asset('/')}}website/assets/images/icons/09.svg" alt="icons">
-                                            <span>Grocery &amp; Staples</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="menu-item">
-                                            <img src="{{asset('/')}}website/assets/images/icons/10.svg" alt="icons">
-                                            <span>Other Items</span>
-                                        </a>
-                                    </li>
+                                    @foreach($categories as $category)
+                                        <li>
+                                            <a href="#{{'category_product/'.$category->slug}}" class="menu-item">
+                                                <img src="{{asset('/')}}website/assets/images/icons/01.svg" alt="icons">
+                                                <span>{{ $category->name }}</span>
+                                                <i class="fa-regular fa-plus"></i>
+                                            </a>
+                                            <ul class="submenu mm-collapse">
+                                                @foreach($category->subcategories as $subcategory)
+                                                    <li>
+                                                        <a class="mobile-menu-link" href="{{ route('subcategory-product', ['slug' => $subcategory->slug]) }}">
+                                                            {{ $subcategory->name }}
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </li>
+                                    @endforeach
                                 </ul>
+
+
+
                             </div>
                             <div class="nav-area">
                                 <nav>

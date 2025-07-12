@@ -15,7 +15,7 @@
                         <thead>
                         <tr>
                             <th>Sl</th>
-                            <th>Sub-category</th>
+                            <th>Sub Category</th>
                             <th> Category  </th>
                             <th>Status</th>
                             <th>Description</th>
@@ -25,11 +25,15 @@
                         </thead>
 
                         <tbody>
+{{--                        <pre>--}}
+{{--                            {{$subcategories}}--}}
+{{--                        </pre>--}}
                         @foreach($subcategories as $subcategory)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$subcategory->name}}</td>
-                                <td>{{$subcategory->category->name}}</td>
+
+                                <td>{{isset($subcategory->category->name)? $subcategory->category->name:'Uncategories'}}</td>
                                 <td>{{$subcategory->status==1?'Published':"Unpublished"}}</td>
                                 <td>{{$subcategory->description}}</td>
                                 <td><img src="{{asset('backend/upload/images/sub-category/'.$subcategory->image)}}" alt="image here" height="70" width="150" ></td>

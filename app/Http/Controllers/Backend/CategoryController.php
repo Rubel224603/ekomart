@@ -51,6 +51,7 @@ class CategoryController extends Controller
     }
     public function listCategory(){
         $categories = Category::latest()->get();
+        //return $categories;
         return view('website.backend.admin.category.index',compact('categories'));
 
     }
@@ -63,7 +64,7 @@ class CategoryController extends Controller
         $category = Category::find($id);
         //return $category;
         $category->name = $request->name;
-        $category->slug  = Str::slug($request->category_name);
+        $category->slug  = Str::slug($request->name);
         $category->status = $request->status;
         $category->description = $request->description;
         if(isset($request->image)){

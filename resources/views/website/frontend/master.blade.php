@@ -23,6 +23,7 @@
     @yield('account')
     @yield('contact')
     @yield('about')
+    @yield('product_category')
 
 
 
