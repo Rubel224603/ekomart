@@ -153,7 +153,7 @@ class ProductController extends Controller
         }
         flash()->success('Product Updated successfully!');
         return redirect()->route('product.list');
-        
+
 
     }
 

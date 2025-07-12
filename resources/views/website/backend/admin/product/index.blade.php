@@ -33,7 +33,7 @@
 
 
 
-                                    <td>{{$product->status==1?'Published':"Unpublished"}}</td>
+                                    <td>{{$product->published_status == 1?'Published' : "Unpublished"}}</td>
 
                                     <td><img src="{{asset('backend/upload/images/product/'.$product->image)}}" alt="image here" height="70" width="150" ></td>
                                     <td class="text-center">

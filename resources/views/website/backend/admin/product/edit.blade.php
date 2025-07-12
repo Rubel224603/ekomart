@@ -96,14 +96,14 @@
                                 <label for="" class="col-md-3 form-label">Published Status</label>
                                 <div class="d-flex gap-3 col-md-9">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="published_status" value="1" {{$product->published_status==1?'checked':''}} >
+                                        <input class="form-check-input" type="radio" name="published_status" value="1"  {{$product->published_status == 1 ? "checked": '' }} >
                                         <label class="form-check-label" for="Published">
                                             Published
                                         </label>
                                     </div>
 
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="published_status" value="0" {{$product->published_status==0?'checked':''}}>
+                                        <input class="form-check-input" type="radio" name="published_status" value="0" {{$product->published_status ==0 ? "checked" :''}}>
                                         <label class="form-check-label" for="Unpublished">
                                             Unpublished
                                         </label>
