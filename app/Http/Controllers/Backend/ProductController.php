@@ -121,7 +121,7 @@ class ProductController extends Controller
             $product->image         = $imageName;
         }
         $product->save();
-        if($request->other_image){
+        if(isset($request->other_image)){
 
            $otherImage = OtherImage::where('product_id',$product->id)->get();
 
@@ -149,14 +149,11 @@ class ProductController extends Controller
 
           }
 
-            flash()->success('Product Updated successfully!');
-            return redirect()->route('product.list');
 
         }
-
-
-
-
+        flash()->success('Product Updated successfully!');
+        return redirect()->route('product.list');
+        
 
     }
 
