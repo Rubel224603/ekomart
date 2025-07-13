@@ -30,7 +30,10 @@
                                 <td>{{$category->name}}</td>
                                 <td>{{$category->status==1?'Published':"Unpublished"}}</td>
                                 <td>{{$category->description}}</td>
-                                <td><img src="{{asset('backend/upload/images/category/'.$category->image)}}" alt="image here" height="70" width="150" ></td>
+                                <td>
+                                    <img src="{{asset('backend/upload/images/category/'.$category->image)}}" alt="image here" height="70" width="150" >
+                                    <a href="{{route('category.image.download',['id'=>$category->id])}}" class="btn btn-primary" download>Download</a>
+                                </td>
                                 <td>
                                     <a href="{{route('category.edit',['id'=>$category->id])}}" class="btn btn-warning">Edit</a>
                                     <a href="{{route('category.delete',['id'=>$category->id])}}" class="btn btn-danger">Delete</a>

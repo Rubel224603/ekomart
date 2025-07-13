@@ -184,5 +184,11 @@ class ProductController extends Controller
 
 
     }
+    public function getCategoryBySubCategory(){
+        $categoryId = $_GET['id'];
+        $subcategories = SubCategory::where('category_id',$categoryId)->get();
+        return response()->json($subcategories);
+
+    }
 
 }

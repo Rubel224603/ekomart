@@ -25,8 +25,8 @@ Route::get('/account',[WelcomeController::class,'account'])->name('account');
 Route::get('/shop',[WelcomeController::class,'shop'])->name('shop');
 Route::get('/contact',[WelcomeController::class,'contact'])->name('contact');
 Route::get('/about',[WelcomeController::class,'about'])->name('about');
-Route::get('category-product/{slug}', [WelcomeController::class, 'productCategory'])->name('category-product');
-Route::get('/subcategory-product/{slug}', [ProductController::class, 'subcategoryProduct'])->name('subcategory-product');
+//Route::get('category-product/{slug}', [WelcomeController::class, 'productCategory'])->name('category-product');
+Route::get('/subcategory-product/{slug}', [WelcomeController::class, 'productCategory'])->name('subcategory-product');
 
 
 //Backend route....
@@ -40,6 +40,7 @@ Route::middleware('auth','admin')->group(function(){
     Route::get('/admin/category-edit/{id}', [CategoryController::class, 'editCategory'])->name('category.edit');
     Route::post('/admin/category-update/{id}', [CategoryController::class, 'updateCategory'])->name('category.update');
     Route::get('/admin/category-delete/{id}', [CategoryController::class, 'deleteCategory'])->name('category.delete');
+    Route::get('/admin/category-image-download/{id}', [CategoryController::class, 'categoryImageDownlaod'])->name('category.image.download');
 
     //Sub-category...
     Route::get('/admin/sub-category/add',[SubCategoryController::class,'createSubCategory'])->name('create.sub-category');
@@ -73,6 +74,7 @@ Route::middleware('auth','admin')->group(function(){
     Route::post('/admin/product-update/{id}',[ProductController::class,'updateProduct'])->name("product.update");
     Route::get('/admin/product-details/{id}',[ProductController::class,'detailsProduct'])->name("product.details");
     Route::get('/admin/product-delete/{id}',[ProductController::class,'deleteProduct'])->name("product.delete");
+    Route::get('/get-category-by-sub-category',[ProductController::class,'getCategoryBySubCategory'])->name('get-category-by-sub-category');
 
 
 });

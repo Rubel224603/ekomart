@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,8 @@ class WelcomeController extends Controller
     public function index(){
         $categories = Category::latest()->get();
         $subcategories = SubCategory::latest()->get();
-        return view('website.frontend.home.welcome',compact('categories','subcategories'));
+        $products = Product::latest()->get();
+        return view('website.frontend.home.welcome',compact('categories','subcategories','products'));
     }
     public function shop(){
         return view('website.frontend.home.shop');
@@ -28,7 +30,7 @@ class WelcomeController extends Controller
     }
     public function productCategory(){
       //  $categories = Category::latest()->get();
-        $subcategories = SubCategory::latest()->get();
+        //$subcategories = SubCategory::latest()->get();
         return view('website.frontend.home.productcategory');
     }
 
