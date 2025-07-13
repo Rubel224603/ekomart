@@ -5,8 +5,8 @@
 @section('content')
     <!-- PAGE-HEADER -->
 
-         @include('website.backend.includes.navbar')
-     
+
+
         <!-- PAGE-HEADER -->
            <div class="page-header">
                 <div>

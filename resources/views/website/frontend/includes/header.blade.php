@@ -187,7 +187,7 @@
                                             <ul class="submenu mm-collapse">
                                                 @foreach($category->subcategories as $subcategory)
                                                     <li>
-                                                        <a class="mobile-menu-link" href="{{ route('subcategory-product', ['slug' => $subcategory->slug]) }}">
+                                                        <a class="mobile-menu-link" href="{{route('subcategory-product', ['slug' => $subcategory->slug]) }}">
                                                             {{ $subcategory->name }}
                                                         </a>
                                                     </li>

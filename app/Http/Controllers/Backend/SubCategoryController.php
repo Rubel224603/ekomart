@@ -100,4 +100,5 @@ class SubCategoryController extends Controller
         return redirect()->route('sub-category.list');
 
     }
+
 }

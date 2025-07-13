@@ -84,15 +84,27 @@ class CategoryController extends Controller
 
 
     }
-    public function deleteCategory($id){
+    public function deleteCategory($id)
+    {
         $category = Category::find($id);
-        if($category->image && file_exists('backend/upload/images/category/'.$category->image)){
-            unlink('backend/upload/images/category/'.$category->image);
+        if ($category->image && file_exists('backend/upload/images/category/' . $category->image)) {
+            unlink('backend/upload/images/category/' . $category->image);
 
         }
         $category->delete();
         flash()->success('Category deleted!');
         return redirect()->route('category.list');
 
+    }
+
+    public function categoryImageDownlaod($id){
+
+        $category = Category::find($id);
+        //return $category->image;
+        if($category->image && file_exists('backend/upload/images/category/'.$category->image)){
+                return response()->download('backend/upload/images/category/'.$category->image);
+        }else{
+            return "no file ";
+        }
     }
 }

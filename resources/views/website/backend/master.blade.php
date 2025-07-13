@@ -31,8 +31,8 @@
 
             <!-- app-Header -->
 
-   
 
+        @include('website.backend.includes.navbar')
 
         <!-- /app-Header -->
 
@@ -98,6 +98,31 @@
                     flasher.error('An unexpected error occurred');
                 });
         });
+    </script>
+    <script>
+        function getCategoryBySubCategory($categoryId) {
+            $.ajax({
+                type:"GET",
+                url:"{{route('get-category-by-sub-category')}}",
+                data: {'id':$categoryId},
+                DataType:"JSON",
+                success:function ($response) {
+                    console.log($response);
+                    var option='';
+                    option+='<option value=""> ---Select Sub Category---</option>';
+                    $.each($response, function(key , value){
+                        option+='<option value ="'+value.id+'">'+value.name+'</option>';
+                    });
+                    $('#subcategory').empty();
+                    $('#subcategory').append(option);
+
+
+
+
+                }
+            });
+
+        }
     </script>
 </body>
 
