@@ -2,6 +2,7 @@
     <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
     <div class="app-sidebar">
         <div class="side-header">
+            <!-- LOGO -->
             <a class="header-brand1" href="{{route('dashboard')}}">
                 <img src="{{asset('/')}}website/assets/images/logo/logo-01.svg" class="header-brand-img desktop-logo" alt="logo">
                 <img src="{{asset('/')}}website/assets/images/logo/logo-01.svg" class="header-brand-img toggle-logo" alt="logo">

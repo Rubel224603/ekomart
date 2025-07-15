@@ -80,7 +80,7 @@ class ProductController extends Controller
 
     }
     public function listProduct(){
-        $products = Product::all();
+        $products = Product::latest()->get();
         return view('website.backend.admin.product.index',compact('products'));
     }
     public function editProduct($id){

@@ -14,7 +14,10 @@ class WelcomeController extends Controller
         $categories = Category::latest()->get();
         $subcategories = SubCategory::latest()->get();
         $products = Product::latest()->get();
-        return view('website.frontend.home.welcome',compact('categories','subcategories','products'));
+        $subcategori =SubCategory::latest()->take(5)->with(['products'=> function($query){
+            $query->take(3);
+        }])->get();
+        return view('website.frontend.home.welcome',compact('categories','subcategories','products','subcategori'));
     }
     public function shop(){
         return view('website.frontend.home.shop');
