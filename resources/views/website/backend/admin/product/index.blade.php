@@ -15,7 +15,9 @@
                             <thead>
                             <tr>
                                 <th  class="fw-bold">Sl</th>
-                                <th  class="fw-bold">Name</th>
+                                <th  class="fw-bold">Product Name</th>
+                                <th  class="fw-bold">Category Name</th>
+                                <th  class="fw-bold">Subcategory Name</th>
 
 
                                 <th  class="fw-bold">Status</th>
@@ -30,6 +32,8 @@
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$product->name}}</td>
+                                    <td>  {{isset($product->category->name) ? $product->category->name: ''}}</td>
+                                    <td> {{isset($product->subcategory->name) ? $product->subcategory->name: ''}}</td>
 
 
 

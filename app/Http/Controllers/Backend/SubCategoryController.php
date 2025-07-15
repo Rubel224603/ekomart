@@ -50,7 +50,7 @@ class SubCategoryController extends Controller
 
     }
     public function listSubCategory(){
-        $subcategories = SubCategory::all();
+        $subcategories = SubCategory::latest()->get();
         //return $subcategories;
         return view('website.backend.admin.sub-category.index',compact('subcategories'));
 
@@ -97,7 +97,7 @@ class SubCategoryController extends Controller
         }
         $subCategory->delete();
         flash()->success('Sub-Category deleted!');
-        return redirect()->route('sub-category.list');
+        return redirect()->route('list.sub-category');
 
     }
 
