@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\OtherImage;
 use App\Models\Product;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
@@ -38,6 +39,20 @@ class WelcomeController extends Controller
       //  $categories = Category::latest()->get();
         //$subcategories = SubCategory::latest()->get();
         return view('website.frontend.home.productcategory');
+    }
+    public function productDetails($slug){
+       // return $slug;
+        //find work when id  get and it's primary key...
+
+        $product = Product::where('slug',$slug)->first();
+        //return $product;
+        //return $product->id;
+        $otherImages= OtherImage::where('product_id',$product->id)->get();
+        //return $otherImag;
+
+
+
+        return view('website.frontend.home.product-Details',compact('product','otherImages'));
     }
 
 }

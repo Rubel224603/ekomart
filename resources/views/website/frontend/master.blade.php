@@ -26,7 +26,7 @@
     @yield('product_category')
 
 
-
+@include('website.frontend.includes.footer')
 
     @include('website.frontend.includes.script')
 
