@@ -35,10 +35,12 @@ class WelcomeController extends Controller
     public function about(){
         return view('website.frontend.home.about');
     }
-    public function productCategory(){
-      //  $categories = Category::latest()->get();
-        //$subcategories = SubCategory::latest()->get();
-        return view('website.frontend.home.productcategory');
+    public function SubCategoryProduct($slug){
+        //return $slug;
+        $subcategory = SubCategory::where('slug',$slug)->first();
+        //return $subcategory->category->name;
+
+        return view('website.frontend.home.product.sub-category',compact('subcategory'));
     }
     public function productDetails($slug){
        // return $slug;
@@ -51,8 +53,19 @@ class WelcomeController extends Controller
         //return $otherImag;
 
 
+        $categoryProducts = Product::where('category_id',$product->category_id)->latest()->get();
+        //return $categoryProducts;
+        return view('website.frontend.home.product.details',compact('product','otherImages','categoryProducts'));
+    }
+    public function categoryProducts($slug){
+        //return $slug;
+       // $categories = Category::where('slug',$slug)->latest()->get();
+        $category = Category::where('slug',$slug)->first();
+        $products = Product::where('category_id',$category->id)->latest()->get();
 
-        return view('website.frontend.home.product-Details',compact('product','otherImages'));
+        //return $products;
+
+        return view('website.frontend.home.product.category',compact('products','category'));
     }
 
 }

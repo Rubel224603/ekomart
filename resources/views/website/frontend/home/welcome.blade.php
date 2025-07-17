@@ -125,7 +125,7 @@
                                                             @foreach($category->products as $product)
                                                                 <div class="swiper-slide">
                                                                     <div class="single-category-one height-230">
-                                                                        <a href="shop-details.html" class="thumbnail">
+                                                                        <a href="{{route('shop-product.details',$product->slug)}}" class="thumbnail">
                                                                             <img src="{{asset('backend/upload/images/product/'.$product->image)}}" alt="category">
                                                                         </a>
                                                                         <div class="inner-content-category">
@@ -253,7 +253,7 @@
                                                         <i class="fa-solid fa-star"></i>
                                                         <i class="fa-solid fa-star"></i>
                                                     </div>
-                                                    <a href="">
+                                                    <a href="{{route('shop-product.details',$product->slug)}}">
                                                         <h4 class="title">{{$product->name}}</h4>
                                                     </a>
                                                     <span class="availability">500g Pack</span>
@@ -367,7 +367,7 @@
                                         <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                                             <div class="single-shopping-card-one deals-of-day">
                                                 <div class="image-and-action-area-wrapper">
-                                                    <a href="shop-details.html" class="thumbnail-preview">
+                                                    <a href="{{route('shop-product.details',$product->slug)}}" class="thumbnail-preview">
                                                         <img src="{{asset('backend/upload/images/product/'.$product->image)}}" alt="grocery" style="width:250px !important; height:180px !important;">
                                                     </a>
                                                     <div class="action-share-option">
@@ -390,7 +390,7 @@
                                                         <i class="fa-solid fa-star"></i>
                                                         <i class="fa-solid fa-star"></i>
                                                     </div>
-                                                    <a href="shop-details.html">
+                                                    <a href="{{route('shop-product.details',$product->slug)}}">
                                                         <h4 class="title">{{$product->name}}</h4>
                                                     </a>
                                                     <span class="availability">500g Pack</span>
@@ -398,6 +398,7 @@
                                                         <span class="current">{{$product->selling_price}}</span>
                                                         <div class="previous">{{$product->product_price}}</div>
                                                     </div>
+
                                                     <div class="cart-counter-action">
                                                         <a href="#" class="rts-btn btn-primary radious-sm with-icon">
                                                             <div class="btn-text">
@@ -411,6 +412,7 @@
                                                             </div>
                                                         </a>
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -447,7 +449,7 @@
                         </div>
                         @foreach($recentProducts as $product)
                             <div class="single-product-list">
-                                <a href="shop-details.html" class="thumbnail">
+                                <a href="{{route('shop-product.details',$product->slug)}}" class="thumbnail">
                                     <img src="{{asset('/backend/upload/images/product/'.$product->image)}}" alt="product" style=" height: 110px !important;">
                                 </a>
                                 <div class="body-content">
@@ -459,13 +461,21 @@
                                         <i class="fa-solid fa-star"></i>
                                         <i class="fa-solid fa-star"></i>
                                     </div>
-                                    <a href="shop-details.html">
+                                    <a href="{{route('shop-product.details',$product->slug)}}">
                                         <h4 class="title">{{$product->name}}</h4>
                                     </a>
                                     <div class="price-area">
                                         <span class="current">${{$product->selling_price}}</span>
                                         <div class="previous">${{$product->product_price}}</div>
                                     </div>
+
+                                    <div class="mt-1">
+                                        <a href="" class ="btn btn-success ">Add to Cart</a>
+                                    </div>
+
+
+
+
                                 </div>
                             </div>
                             </div>
@@ -486,7 +496,7 @@
                         @foreach($topRatedProducts as $product)
                             <div class="single-product-list">
 
-                            <a href="shop-details.html" class="thumbnail">
+                            <a href="{{route('shop-product.details',$product->slug)}}" class="thumbnail">
                                 <img src="{{asset('/backend/upload/images/product/'.$product->image)}}" alt="product" style=" height: 110px !important;">
                             </a>
                             <div class="body-content">
@@ -498,12 +508,15 @@
                                         <i class="fa-solid fa-star"></i>
                                         <i class="fa-solid fa-star"></i>
                                     </div>
-                                    <a href="shop-details.html">
+                                    <a href="{{route('shop-product.details',$product->slug)}}">
                                         <h4 class="title">{{$product->name}}</h4>
                                     </a>
                                     <div class="price-area">
                                         <span class="current">${{$product->product_price}}</span>
                                         <div class="previous">${{$product->selling_price}}</div>
+                                    </div>
+                                    <div class="mt-1">
+                                        <a href="" class ="btn btn-success ">Add to Cart</a>
                                     </div>
                                 </div>
                             </div>
@@ -522,8 +535,10 @@
                             </h2>
                         </div>
                         <div class="single-product-list">
+
                             <a href="shop-details.html" class="thumbnail">
                                 <img src="{{asset('/')}}website/assets/images/grocery/06.jpg" alt="product">
+
                             </a>
                             <div class="body-content">
                                 <div class="top">
