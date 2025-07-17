@@ -180,7 +180,7 @@
                                     @foreach($categories as $category)
                                         <li>
                                             <a href="#{{'category_product/'.$category->slug}}" class="menu-item">
-                                                <img src="{{asset('/')}}website/assets/images/icons/01.svg" alt="icons">
+                                                 <img src="{{asset('/')}}website/assets/images/icons/01.svg" alt="icons">
                                                 <span>{{ $category->name }}</span>
                                                 <i class="fa-regular fa-plus"></i>
                                             </a>

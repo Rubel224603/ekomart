@@ -25,10 +25,14 @@ Route::get('/account',[WelcomeController::class,'account'])->name('account');
 Route::get('/shop',[WelcomeController::class,'shop'])->name('shop');
 Route::get('/contact',[WelcomeController::class,'contact'])->name('contact');
 Route::get('/about',[WelcomeController::class,'about'])->name('about');
-//Route::get('category-product/{slug}', [WelcomeController::class, 'productCategory'])->name('category-product');
-Route::get('/subcategory-product/{slug}', [WelcomeController::class, 'productCategory'])->name('subcategory-product');
+
+Route::get('category-product/{slug}', [WelcomeController::class, 'categoryProducts'])->name('category.product');
+
+//Route::get('category-product/{slug}', [WelcomeController::class, 'productCategory'])->name('category-product')
+Route::get('/sub-category-product/{slug}', [WelcomeController::class, 'SubCategoryProduct'])->name('subcategory-product');
 
 
+Route::get('shop/product/details/{slug}',[WelcomeController::class,'productDetails'])->name('shop-product.details');
 //Backend route....
 Route::middleware('auth','admin')->group(function(){
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');

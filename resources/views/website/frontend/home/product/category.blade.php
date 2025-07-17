@@ -1,7 +1,139 @@
 @extends('website.frontend.master')
-@section('product_category')
 
 
+@section('category_product')
+
+
+    <div class="rts-navigation-area-breadcrumb bg_light-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="navigator-breadcrumb-wrapper">
+                        <a href="{{route('/')}}">Home</a>
+                        <i class="fa-regular fa-chevron-right"></i>
+                        <a class="#" href="{{route('shop')}}">All Category Product</a>
+                        <i class="fa-regular fa-chevron-right"></i>
+                        <span>{{$category->name}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-seperator bg_light-1">
+            <div class="container">
+                <hr class="section-seperator">
+            </div>
+        </div>
+
+
+        <!-- popular -product wrapper 7 -->
+        <div class="popular-product-col-7-area rts-section-gapBottom">
+            <div class="container cover-card-main-over-white mt--60 ">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="title-area-between mb--15">
+                            <h2 class="title-left">
+                              Category: {{$category->name}}
+                            </h2>
+                            <ul class="nav nav-tabs best-selling-grocery" id="myTab" role="tablist">
+                                @foreach($subcategories as $key=>$subcategory)
+
+
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link {{$key== 0? 'active':''}}" id="home-tab" data-bs-toggle="tab" data-bs-target="#home{{$key}}" type="button" role="tab" aria-controls="home" aria-selected="true">
+                                            {{$subcategory->name}}</button>
+                                    </li>
+
+                                @endforeach
+
+                            </ul>
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row plr--30 plr_sm--5">
+                    <div class="col-lg-12">
+                        <div class="tab-content" id="myTabContent">
+                            <!-- first tabs area start-->
+                            @foreach($subcategories as $key1 => $subcategory)
+
+                                <div class="tab-pane fade show {{$key1==0?'active':''}}" id="home{{$key1}}" role="tabpanel" aria-labelledby="home-tab">
+                                    <div class="row g-4 mt--0">
+                                        @foreach($subcategory->products as $product)
+                                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+                                                <div class="single-shopping-card-one deals-of-day">
+                                                    <div class="image-and-action-area-wrapper">
+                                                        <a href="{{route('shop-product.details',['slug'=>$product->slug])}}" class="thumbnail-preview">
+                                                            <img src="{{asset('backend/upload/images/product/'.$product->image)}}" alt="grocery"  style="width:250px !important; height:180px !important;">
+                                                        </a>
+                                                        <div class="action-share-option">
+                                                            <div class="single-action openuptip message-show-action" data-flow="up" title="Add To Wishlist">
+                                                                <i class="fa-light fa-heart"></i>
+                                                            </div>
+                                                            <div class="single-action openuptip" data-flow="up" title="Compare" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                                <i class="fa-solid fa-arrows-retweet"></i>
+                                                            </div>
+                                                            <div class="single-action openuptip cta-quickview product-details-popup-btn" data-flow="up" title="Quick View">
+                                                                <i class="fa-regular fa-eye"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="body-content">
+                                                        <div class="start-area-rating">
+                                                            <i class="fa-solid fa-star"></i>
+                                                            <i class="fa-solid fa-star"></i>
+                                                            <i class="fa-solid fa-star"></i>
+                                                            <i class="fa-solid fa-star"></i>
+                                                            <i class="fa-solid fa-star"></i>
+                                                        </div>
+                                                        <a href="{{route('shop-product.details',$product->slug)}}">
+                                                            <h4 class="title">{{$product->name}}</h4>
+                                                        </a>
+                                                        <span class="availability">500g Pack</span>
+                                                        <div class="price-area">
+                                                            <span class="current">{{$product->selling_price}}</span>
+                                                            <div class="previous">{{$product->product_price}}</div>
+                                                        </div>
+                                                        <div class="cart-counter-action">
+                                                            <a href="shop-grid-top-filter.html" class="rts-btn btn-primary radious-sm with-icon">
+                                                                <div class="btn-text">
+                                                                    Add To Cart
+                                                                </div>
+                                                                <div class="arrow-icon">
+                                                                    <i class="fa-regular fa-cart-shopping"></i>
+                                                                </div>
+                                                                <div class="arrow-icon">
+                                                                    <i class="fa-regular fa-cart-shopping"></i>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        @endforeach
+
+
+                                    </div>
+                                </div>
+                                <!-- first tabs area start-->
+
+
+                            @endforeach
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- popular -product wrapper 7 end -->
+
+
+
+    </div>
 
     <!-- shop[ grid sidebar wrapper -->
     <div class="shop-grid-sidebar-area rts-section-gap">
@@ -1710,144 +1842,6 @@
         </div>
     </div>
     <!-- shop[ grid sidebar wrapper end -->
-
-
-
-
-
-
-    <!-- rts footer one area start -->
-    <div class="rts-footer-area pt--80 bg_light-1">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="footer-main-content-wrapper pb--70">
-                        <!-- single footer area wrapper -->
-                        <div class="single-footer-wized">
-                            <h3 class="footer-title">About Company</h3>
-                            <div class="call-area">
-                                <div class="icon">
-                                    <i class="fa-solid fa-phone-rotary"></i>
-                                </div>
-                                <div class="info">
-                                    <span>Have Question? Call Us 24/7</span>
-                                    <a href="#" class="number">+258 3692 2569</a>
-                                </div>
-                            </div>
-                            <div class="opening-hour">
-                                <div class="single">
-                                    <p>Monday - Friday: <span>8:00am - 6:00pm</span></p>
-                                </div>
-                                <div class="single">
-                                    <p>Saturday: <span>8:00am - 6:00pm</span></p>
-                                </div>
-                                <div class="single">
-                                    <p>Sunday: <span>Service Close</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- single footer area wrapper -->
-                        <!-- single footer area wrapper -->
-                        <div class="single-footer-wized">
-                            <h3 class="footer-title">Our Stores</h3>
-                            <div class="footer-nav">
-                                <ul>
-                                    <li><a href="#">Delivery Information</a></li>
-                                    <li><a href="#">Privacy Policy</a></li>
-                                    <li><a href="#">Terms & Conditions</a></li>
-                                    <li><a href="#">Support Center</a></li>
-                                    <li><a href="#">Careers</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- single footer area wrapper -->
-                        <!-- single footer area wrapper -->
-                        <div class="single-footer-wized">
-                            <h3 class="footer-title">Shop Categories</h3>
-                            <div class="footer-nav">
-                                <ul>
-                                    <li><a href="#">Contact Us</a></li>
-                                    <li><a href="#">Information</a></li>
-                                    <li><a href="#">About Us</a></li>
-                                    <li><a href="#">Careers</a></li>
-                                    <li><a href="#">Nest Stories</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- single footer area wrapper -->
-                        <!-- single footer area wrapper -->
-                        <div class="single-footer-wized">
-                            <h3 class="footer-title">Useful Links</h3>
-                            <div class="footer-nav">
-                                <ul>
-                                    <li><a href="#">Cancellation & Returns</a></li>
-                                    <li><a href="#">Report Infringement</a></li>
-                                    <li><a href="#">Payments</a></li>
-                                    <li><a href="#">Shipping</a></li>
-                                    <li><a href="#">FAQ</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- single footer area wrapper -->
-                        <!-- single footer area wrapper -->
-                        <div class="single-footer-wized">
-                            <h3 class="footer-title">Our Newsletter</h3>
-                            <p class="disc-news-letter">
-                                Subscribe to the mailing list to receive updates one <br> the new arrivals and other discounts
-                            </p>
-                            <form class="footersubscribe-form" action="#">
-                                <input type="email" placeholder="Your email address" required>
-                                <button class="rts-btn btn-primary">Subscribe</button>
-                            </form>
-
-                            <p class="dsic">
-                                I would like to receive news and special offer
-                            </p>
-                        </div>
-                        <!-- single footer area wrapper -->
-                    </div>
-                    <div class="social-and-payment-area-wrapper">
-                        <div class="social-one-wrapper">
-                            <span>Follow Us:</span>
-                            <ul>
-                                <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
-                                <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
-                                <li><a href="#"><i class="fa-brands fa-whatsapp"></i></a></li>
-                                <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="payment-access">
-                            <span>Payment Accepts:</span>
-                            <img src="assets/images/payment/01.png" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- rts footer one area end -->
-
-    <!-- rts copyright-area start -->
-    <div class="rts-copyright-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="copyright-between-1">
-                        <p class="disc">
-                            Copyright 2024 <a href="#">©Ekomart</a>. All rights reserved.
-                        </p>
-                        <a href="#" class="playstore-app-area">
-                            <span>Download App</span>
-                            <img src="assets/images/payment/02.png" alt="">
-                            <img src="assets/images/payment/03.png" alt="">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- rts copyright-area end -->
 
 
 

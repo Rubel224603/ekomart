@@ -18,7 +18,7 @@ class CategoryController extends Controller
     public function storeCategory(Request $request){
        //return $request;
         $newCategory = new Category();
-        $newCategory->name     = $request->name;
+        $newCategory->name              = $request->name;
         $newCategory->slug              = Str::slug($request->category_name);
         $newCategory->status            = $request->status;
         $newCategory->description       = $request->description;

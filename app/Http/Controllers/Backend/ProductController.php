@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\SubCategory;
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -29,6 +30,15 @@ class ProductController extends Controller
         $product                    = new Product();
 
         $product->name              = $request->name;
+
+        $slug   = Str::slug($request->name);
+        $count = 1;
+        if(Product::where('slug',$slug)->exists()){
+            $slug = $slug."-".$count;
+            $count++;
+
+        }
+        $product->slug              = $slug;
         $product->category_id       = $request->category_id;
         $product->subcategory_id    = $request->subcategory_id;
         $product->brand_id          = $request->brand_id;
@@ -98,6 +108,15 @@ class ProductController extends Controller
         $product = Product::find($id);
        // return $product;
         $product->name = $request->name;
+
+        $slug   = Str::slug($request->name);
+        $count = 1;
+        if(Product::where('slug',$slug)->exists()){
+            $slug = $slug."-".$count;
+            $count++;
+
+        }
+        $product->slug              = $slug;
         $product->category_id       = $request->category_id;
         $product->subcategory_id    = $request->subcategory_id;
         $product->brand_id          = $request->brand_id;
