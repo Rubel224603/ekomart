@@ -26,6 +26,7 @@ Route::get('/shop',[WelcomeController::class,'shop'])->name('shop');
 Route::get('/contact',[WelcomeController::class,'contact'])->name('contact');
 Route::get('/about',[WelcomeController::class,'about'])->name('about');
 
+Route::get('all-category-product', [WelcomeController::class, 'allCategoryProduct'])->name('all-category.product');
 Route::get('category-product/{slug}', [WelcomeController::class, 'categoryProducts'])->name('category.product');
 
 //Route::get('category-product/{slug}', [WelcomeController::class, 'productCategory'])->name('category-product')

@@ -7,9 +7,11 @@
                     <div class="navigator-breadcrumb-wrapper">
                         <a href="{{route('/')}}">Home</a>
                         <i class="fa-regular fa-chevron-right"></i>
-                        <a class="#" href="index.html">{{$product->category->name}}</a>
+                        <a class="#" href="{{route('category.product',$product->category->slug)}}">{{$product->category->name}}</a>
                         <i class="fa-regular fa-chevron-right"></i>
-                        <a class="current" href="index.html">{{$product->name}}</a>
+                        <a class="current" href="{{route('subcategory-product',$product->subcategory->slug)}}">{{$product->subcategory->name}}</a>
+                        <i class="fa-regular fa-chevron-right"></i>
+                        <span >{{$product->name}}</span>
                     </div>
                 </div>
             </div>

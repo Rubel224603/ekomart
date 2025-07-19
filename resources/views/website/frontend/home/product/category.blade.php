@@ -11,7 +11,7 @@
                     <div class="navigator-breadcrumb-wrapper">
                         <a href="{{route('/')}}">Home</a>
                         <i class="fa-regular fa-chevron-right"></i>
-                        <a class="#" href="{{route('shop')}}">All Category Product</a>
+                        <a class="#" href="{{route('all-category.product')}}">All Category Product</a>
                         <i class="fa-regular fa-chevron-right"></i>
                         <span>{{$category->name}}</span>
                     </div>
@@ -36,13 +36,15 @@
                               Category: {{$category->name}}
                             </h2>
                             <ul class="nav nav-tabs best-selling-grocery" id="myTab" role="tablist">
-                                @foreach($subcategories as $key=>$subcategory)
+                                @foreach($category->subcategories as $key=>$subcategory)
 
 
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link {{$key== 0? 'active':''}}" id="home-tab" data-bs-toggle="tab" data-bs-target="#home{{$key}}" type="button" role="tab" aria-controls="home" aria-selected="true">
                                             {{$subcategory->name}}</button>
+
                                     </li>
+
 
                                 @endforeach
 
@@ -57,7 +59,7 @@
                     <div class="col-lg-12">
                         <div class="tab-content" id="myTabContent">
                             <!-- first tabs area start-->
-                            @foreach($subcategories as $key1 => $subcategory)
+                            @foreach($category->subcategories as $key1 => $subcategory)
 
                                 <div class="tab-pane fade show {{$key1==0?'active':''}}" id="home{{$key1}}" role="tabpanel" aria-labelledby="home-tab">
                                     <div class="row g-4 mt--0">
