@@ -59,13 +59,29 @@ class WelcomeController extends Controller
     }
     public function categoryProducts($slug){
         //return $slug;
-       // $categories = Category::where('slug',$slug)->latest()->get();
+       //$categories = Category::where('slug',$slug)->latest()->get();
         $category = Category::where('slug',$slug)->first();
+
+       // return $category;
         $products = Product::where('category_id',$category->id)->latest()->get();
 
         //return $products;
 
         return view('website.frontend.home.product.category',compact('products','category'));
+    }
+
+    public function allCategoryProduct(){
+        $categories = Category::latest()->get();
+        $products = Product::latest()->get();
+        $total=  $products->count();
+        $firstHalf = ceil($total/2) ;
+
+        $firstHalfProducts = $products->take($firstHalf);
+        //return $firstHalfProducts;
+        $lastHalfProducts =$products->skip($firstHalf);
+        //return $lastHalfProducts;
+
+        return view('website.frontend.home.product.all',compact('products','categories','firstHalfProducts','lastHalfProducts'));
     }
 
 }
