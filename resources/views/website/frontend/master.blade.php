@@ -25,6 +25,7 @@
     @yield('about')
     @yield('product_category')
     @yield('category_product')
+    @yield('cart')
 
 
 @include('website.frontend.includes.footer')

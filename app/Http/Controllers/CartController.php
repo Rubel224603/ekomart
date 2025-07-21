@@ -1,0 +1,50 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Cart;
+use App\Models\Product;
+use Illuminate\Http\Request;
+
+class CartController extends Controller
+{
+    //
+    public function addToCart(Request $request){
+
+        //$product = Product::where('slug',$slug)->first();
+         $userIp = $request->ip();
+        //return $request->ip();
+
+        $carts = Cart::where('ip_address',$userIp)->latest()->get();
+       // return $carts;
+        //return $product;
+        return view('website.frontend.home.cart.index',compact('carts'));
+    }
+    public function cartStore(Request $request,$id){
+        //return $request;
+        $product = Product::find($id);
+       // return $product;
+        $cart = New Cart();
+        $cart->product_id = $product->id;
+        $cart->ip_address = $request->ip();
+        if(isset($request->qty)){
+            $cart->qty = $request->qty;
+
+        }else{
+            $cart->qty = 1;
+        }
+
+        $cart->price = $product->selling_price * $cart->qty;
+        //return $cart->price ;
+        $cart->save();
+
+        return redirect()->route('cart.add');
+
+
+    }
+     public function checkout(){
+        return view('website.frontend.home.cart.checkout');
+    }
+
+
+}
