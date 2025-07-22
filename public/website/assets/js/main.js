@@ -37,7 +37,7 @@
             rtsJs.stickyHeader();
             rtsJs.backToTopInit();
             rtsJs.swiperActivation();
-            rtsJs.cartNumberIncDec();
+            //rtsJs.cartNumberIncDec();
             rtsJs.countDown();
             // rtsJs.zoonImage();
             rtsJs.modalpopupCard();
@@ -171,41 +171,41 @@
 
         },
 
-
-        cartNumberIncDec: function(){
-          $(document).ready(function(){
-
-            $(function () {
-              $(".button").on("click", function () {
-                var $button = $(this);
-                var $parent = $button.parents('.quantity-edit');
-                var oldValue = $parent.find('.input').val();
-
-                if ($button.text() == "+") {
-                  var newVal = parseFloat(oldValue) + 1;
-                } else {
-                  // Don't allow decrementing below zero
-                  if (oldValue > 1) {
-                    var newVal = parseFloat(oldValue) - 1;
-                  } else {
-                    newVal = 1;
-                  }
-                }
-                $parent.find('a.add-to-cart').attr('data-quantity', newVal);
-                $parent.find('.input').val(newVal);
-              });
-            });
-          });
-
-          $(".coupon-click").on('click', function (){
-            $(this).parents('.coupon-input-area-1').find(".coupon-input-area").toggleClass('show');
-          });
-
-          $('.close-c1').on('click', function () {
-            $('.close-c1'),$(this).parents( '.cart-item-1' ).addClass('deactive');
-          });
-
-        },
+        //
+        // cartNumberIncDec: function(){
+        //   $(document).ready(function(){
+        //
+        //     $(function () {
+        //       $(".button").on("click", function () {
+        //         var $button = $(this);
+        //         var $parent = $button.parents('.quantity-edit');
+        //         var oldValue = $parent.find('.input').val();
+        //
+        //         if ($button.text() == "+") {
+        //           var newVal = parseFloat(oldValue) + 1;
+        //         } else {
+        //           // Don't allow decrementing below zero
+        //           if (oldValue > 1) {
+        //             var newVal = parseFloat(oldValue) - 1;
+        //           } else {
+        //             newVal = 1;
+        //           }
+        //         }
+        //         $parent.find('a.add-to-cart').attr('data-quantity', newVal);
+        //         $parent.find('.input').val(newVal);
+        //       });
+        //     });
+        //   });
+        //
+        //   $(".coupon-click").on('click', function (){
+        //     $(this).parents('.coupon-input-area-1').find(".coupon-input-area").toggleClass('show');
+        //   });
+        //
+        //   $('.close-c1').on('click', function () {
+        //     $('.close-c1'),$(this).parents( '.cart-item-1' ).addClass('deactive');
+        //   });
+        //
+        // },
 
         countDown: function(){
           $(function() {

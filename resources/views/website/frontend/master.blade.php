@@ -31,6 +31,7 @@
 @include('website.frontend.includes.footer')
 
     @include('website.frontend.includes.script')
+    @stack('cart_script')
 
 
 

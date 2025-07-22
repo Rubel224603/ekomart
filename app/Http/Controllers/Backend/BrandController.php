@@ -38,7 +38,7 @@ class BrandController extends Controller
     }
     public function editBrand($id){
         $brand = Brand::find($id);
-        //return $brands;
+        //return $brand;
         return view('website.backend.admin.brand.edit',compact('brand'));
     }
     public function updateBrand($id, Request $request){

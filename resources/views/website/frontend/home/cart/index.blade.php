@@ -5,8 +5,6 @@
 
 
 
-
-
     <div class="rts-navigation-area-breadcrumb bg_light-1">
         <div class="container">
             <div class="row">
@@ -52,7 +50,8 @@
                             </div>
                         </div>
 
-                        @foreach($carts as $cart)
+                        @foreach($carts as $index=>$cart)
+
 
                         <div class="single-cart-area-list main  item-parent">
 
@@ -64,7 +63,7 @@
                                     <img src="{{asset('backend/upload/images/product/'.$cart->product->image)}}" alt="shop">
                                 </div>
                                 <div class="information">
-                                    <h6 class="title">{{$cart->product_id}}</h6>
+                                    <h6 class="title">{{$cart->product->name}}</h6>
                                     <span>SKU:BG-1001</span>
                                 </div>
                             </div>
@@ -74,26 +73,23 @@
 
                             <div class="quantity">
                                 <div class="quantity-edit">
-                                    <input type="text" class="input" value="1">
+                                    <input type="text" class="input qty-input" value="{{ $cart->qty }}" data-index="{{ $index }}"  data-price="{{ $cart->product->selling_price }}">
                                     <div class="button-wrapper-action">
-                                        <button class="button"><i class="fa-regular fa-chevron-down"></i></button>
-                                        <button class="button plus">+<i class="fa-regular fa-chevron-up"></i></button>
+                                        <button type="button" class="button down-btn" data-index="{{ $index }}"><i class="fa-regular fa-chevron-down"></i></button>
+                                        <button type="button" class="button plus up-btn" data-index="{{ $index }}">+<i class="fa-regular fa-chevron-up"></i></button>
                                     </div>
                                 </div>
                             </div>
+
+
                             <div class="subtotal">
-                                <p>$550.00</p>
+                                <p class="subtotal-value" data-index="{{$index}}">$1200</p>
                             </div>
 
                         </div>
 
 
                         @endforeach
-
-
-
-
-
 
 
 
@@ -114,46 +110,17 @@
                             <span>Subtotal</span>
                             <h6 class="price">$1100.00</h6>
                         </div>
-                        <div class="shipping">
+                        <div class="subtotal">
                             <span>Shipping</span>
-                            <ul>
-                                <li>
-                                    <input type="radio" id="f-option" name="selector">
-                                    <label for="f-option">Free Shipping</label>
-
-                                    <div class="check"></div>
-                                </li>
-
-                                <li>
-                                    <input type="radio" id="s-option" name="selector">
-                                    <label for="s-option">Flat Rate</label>
-
-                                    <div class="check">
-                                        <div class="inside"></div>
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <input type="radio" id="t-option" name="selector">
-                                    <label for="t-option">Local Pickup</label>
-
-                                    <div class="check">
-                                        <div class="inside"></div>
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <p>Shipping options will be updated
-                                        during checkout</p>
-                                    <p class="bold">Calculate Shipping</p>
-                                </li>
-                            </ul>
+                            <h6 class="price">$100.00</h6>
                         </div>
-                        <div class="bottom">
-                            <div class="wrapper">
-                                <span>Subtotal</span>
-                                <h6 class="price">$1100.00</h6>
-                            </div>
+                        <div class="subtotal">
+                            <span>total pay</span>
+                            <h6 class="price">$1000.00</h6>
+                        </div>
+
+                        <div class="bottom mt-3">
+
                             <div class="button-area">
                                 <a class="rts-btn btn-primary" href="{{route('cart.checkout')}}">Proceed To Checkout </a>
                             </div>
@@ -163,8 +130,56 @@
             </div>
         </div>
     </div>
+
     <!-- rts cart area end -->
 
 
 
 @endsection
+@push('cart_script')
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const upButtons = document.querySelectorAll('.up-btn');
+            const downButtons = document.querySelectorAll('.down-btn');
+
+            upButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const index = this.dataset.index;
+                    const input = document.querySelector(`.qty-input[data-index="${index}"]`);
+                    let value = parseInt(input.value);
+                    if (value < 100) {
+                        value++;
+                        input.value = value;
+
+                        const price = parseFloat(input.dataset.price);
+                        console.log(price);
+                        const subtotal = value * price;
+
+                        const subtotalElement = document.querySelector(`.subtotal-value[data-index="${index}"]`);
+                        subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+                    }
+                });
+            });
+
+            downButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const index = this.dataset.index;
+                    const input = document.querySelector(`.qty-input[data-index="${index}"]`);
+                    let value = parseInt(input.value);
+                    if (value > 1) {
+                        value--;
+                        input.value = value;
+                        const price = parseFloat(input.dataset.price);
+                        console.log(price);
+                        const subtotal = value * price;
+
+                        const subtotalElement = document.querySelector(`.subtotal-value[data-index="${index}"]`);
+                        subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+                    }
+                });
+            });
+        });
+    </script>
+@endpush
