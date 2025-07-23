@@ -34,8 +34,7 @@ class CartController extends Controller
             $cart->qty = 1;
         }
 
-        $cart->price = $product->selling_price * $cart->qty;
-        //return $cart->price ;
+        $cart->price = $product->selling_price ;      //return $cart->price ;
         $cart->save();
 
         return redirect()->route('cart.add');

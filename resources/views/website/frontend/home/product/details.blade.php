@@ -65,7 +65,6 @@
 
                                         @endforeach
 
-
                                         <div class="product-thumb-filter-group">
                                             @foreach($otherImages as $key=>$otherImage)
                                             <div class="thumb-filter filter-btn {{$key== 0 ? 'active':''}}"
@@ -97,18 +96,17 @@
                                             <p class="mt--20 mb--20">
                                                 {{$product->sort_description}}
                                             </p>
-                                            <span class="product-price mb--15 d-block"
-                                                style="color: #DC2626; font-weight: 600;">${{$product->selling_price}}<span
-                                                    class="old-price ml--15">${{$product->product_price}}</span></span>
+                                           <div class="d-flex align-items-center">
+                                               <span class="product-price mb--15 d-block" style="color: #DC2626; font-weight: 600;" id="PriceId">${{$product->selling_price}}</span>
+                                               <span class="old-price ml--15"><del>${{$product->product_price}} </del></span>
+                                           </div>
                                             <div class="product-bottom-action">
 
                                                 <div class="cart-edits">
                                                     <div class="quantity-edit action-item">
-                                                        <button type="button" class="button"><i
-                                                                class="fal fa-minus minus"></i></button>
-                                                        <input type="text" class="input" value="01" name="qty"/>
-                                                        <button type='button' class="button plus">+<i
-                                                                class="fal fa-plus plus"></i></button>
+                                                        <button type="button" class="button down-btn"><i class="fal fa-minus minus"></i></button>
+                                                        <input type="text" class="input qty-input" value="1" name="qty" data-index=""/>
+                                                        <button type='button' class="button plus up-btn"><i class="fal fa-plus plus"></i></button>
                                                     </div>
                                                 </div>
                                                 <input type="hidden" name='product_id' value="{{$product->id}}">
@@ -612,3 +610,48 @@
 
 
 @endsection
+
+@push('cart_script')
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const upButton = document.querySelector('.up-btn');
+            const downButton = document.querySelector('.down-btn');
+
+            let input= document.querySelector('.qty-input').value;
+            //let priceText=  document.querySelector('#PriceId').innerText;
+           // let realPrice = parseFloat(priceText.replace(/[^0-9.]/g, ''));
+
+            upButton.addEventListener('click', function () {
+
+                   if(input<100){
+                       input++;
+                       document.querySelector('.qty-input').value=input;
+
+                       //document.querySelector('#PriceId').innerText= realPrice*input;
+
+
+
+                   }
+
+                });
+                downButton.addEventListener('click', function () {
+
+                   if(input>1){
+                       input--;
+                       document.querySelector('.qty-input').value=input;
+
+                      // document.querySelector('#PriceId').innerText= realPrice*input;
+
+
+
+                   }
+
+                });
+
+        });
+
+
+    </script>

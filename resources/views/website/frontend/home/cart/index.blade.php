@@ -83,7 +83,9 @@
 
 
                             <div class="subtotal">
-                                <p class="subtotal-value" data-index="{{$index}}">$1200</p>
+                                    <p class="subtotal-value" data-index="{{$index}}">
+                                        ${{ $cart->qty * $cart->product->selling_price}}
+                                    </p>
                             </div>
 
                         </div>
