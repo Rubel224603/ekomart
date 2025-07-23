@@ -95,6 +95,27 @@
 
 
 
+                        <div class="single-cart-area-list head">
+                            <div class="product-main">
+
+                            </div>
+                            <div class="price">
+
+                            </div>
+                            <div class="quantity">
+                                <p>SubTotal  all</p>
+                            </div>
+                            <div class="subtotal">
+                                <p class="subtotal-all-value">
+
+                                </p>
+                            </div>
+                        </div>
+
+
+
+
+
 
                         <div class="bottom-cupon-code-cart-area">
                             <form action="#">
@@ -110,15 +131,15 @@
                         <h5 class="title">Cart Totals</h5>
                         <div class="subtotal">
                             <span>Subtotal</span>
-                            <h6 class="price">$1100.00</h6>
+                            <h6 class="price cart-total">$1100.00</h6>
                         </div>
                         <div class="subtotal">
                             <span>Shipping</span>
-                            <h6 class="price">$100.00</h6>
+                            <h6 class="price shipping-charge">$100.00</h6>
                         </div>
                         <div class="subtotal">
                             <span>total pay</span>
-                            <h6 class="price">$1000.00</h6>
+                            <h6 class="price total-pay">$1000.00</h6>
                         </div>
 
                         <div class="bottom mt-3">
@@ -145,6 +166,33 @@
         document.addEventListener("DOMContentLoaded", function () {
             const upButtons = document.querySelectorAll('.up-btn');
             const downButtons = document.querySelectorAll('.down-btn');
+            // let subTotalElement = document.querySelector('.subtotal-value');
+            // alert(subTotalElement);
+
+
+            function updateTotalSubtotalAll() {
+                let total = 0;
+                let subtotalElements = document.querySelectorAll('.subtotal-value');
+                //alert(subtotalElements);
+
+
+                for (let i = 0; i < subtotalElements.length; i++) {
+                    let value = parseFloat(subtotalElements[i].textContent.replace(/[^0-9.]/g, ''));
+
+
+                        total += value;
+
+                }
+
+                let totalElement = document.querySelector('.subtotal-all-value');
+                let cartTotal = document.querySelector('.cart-total');
+                cartTotal.textContent =`$${total.toFixed(2)}`;
+                totalElement.textContent = `$${total.toFixed(2)}`;
+                // if (totalElement) {
+                //     totalElement.textContent = `$${total.toFixed(2)}`;
+                // }
+            }
+
 
             upButtons.forEach(button => {
                 button.addEventListener('click', function () {
@@ -156,11 +204,12 @@
                         input.value = value;
 
                         const price = parseFloat(input.dataset.price);
-                        console.log(price);
+                        //console.log(price);
                         const subtotal = value * price;
 
                         const subtotalElement = document.querySelector(`.subtotal-value[data-index="${index}"]`);
                         subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+                        updateTotalSubtotalAll();
                     }
                 });
             });
@@ -174,14 +223,34 @@
                         value--;
                         input.value = value;
                         const price = parseFloat(input.dataset.price);
-                        console.log(price);
+                        //console.log(price);
                         const subtotal = value * price;
 
                         const subtotalElement = document.querySelector(`.subtotal-value[data-index="${index}"]`);
                         subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+                        updateTotalSubtotalAll();
                     }
                 });
             });
+
+            updateTotalSubtotalAll();
+
+            function totalPay(){
+               let shippingElement = document.querySelector('.shipping-charge');
+               let shippingText = document.querySelector('.shipping-charge').innerText;
+               //console.log(shippingElement);
+                let shippingAmount = parseFloat(shippingText.replace(/[^0-9.]/g,''));
+
+               // alert(shippingAmount);
+                let totalPayElement = document.querySelector('.cart-total');
+                let subTotalText = document.querySelector('.cart-total').innerText;
+                let subTotalAmount = parseFloat(subTotalText.replace(/[^0-9.]/g,''));
+                console.log(subTotalAmount);
+                 //let pay = shippingAmount +
+
+
+            }
+            totalPay();
         });
     </script>
 @endpush
