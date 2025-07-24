@@ -41,7 +41,8 @@ class CartController extends Controller
 
 
     }
-     public function checkout(){
+     public function checkout(Request $request){
+        return $request;
         return view('website.frontend.home.cart.checkout');
     }
 

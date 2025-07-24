@@ -73,7 +73,7 @@
 
                             <div class="quantity">
                                 <div class="quantity-edit">
-                                    <input type="text" class="input qty-input" value="{{ $cart->qty }}" data-index="{{ $index }}"  data-price="{{ $cart->product->selling_price }}">
+                                    <input type="text" name="qty" class="input qty-input" value="{{ $cart->qty }}" data-index="{{ $index }}"  data-price="{{ $cart->product->selling_price }}">
                                     <div class="button-wrapper-action">
                                         <button type="button" class="button down-btn" data-index="{{ $index }}"><i class="fa-regular fa-chevron-down"></i></button>
                                         <button type="button" class="button plus up-btn" data-index="{{ $index }}">+<i class="fa-regular fa-chevron-up"></i></button>
@@ -210,6 +210,7 @@
                         const subtotalElement = document.querySelector(`.subtotal-value[data-index="${index}"]`);
                         subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
                         updateTotalSubtotalAll();
+                        totalPay();
                     }
                 });
             });
@@ -229,6 +230,7 @@
                         const subtotalElement = document.querySelector(`.subtotal-value[data-index="${index}"]`);
                         subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
                         updateTotalSubtotalAll();
+                        totalPay();
                     }
                 });
             });
@@ -242,15 +244,27 @@
                 let shippingAmount = parseFloat(shippingText.replace(/[^0-9.]/g,''));
 
                // alert(shippingAmount);
-                let totalPayElement = document.querySelector('.cart-total');
+                let totalPayElement = document.querySelector('.total-pay');
+                //alert(totalPayElement);
                 let subTotalText = document.querySelector('.cart-total').innerText;
                 let subTotalAmount = parseFloat(subTotalText.replace(/[^0-9.]/g,''));
-                console.log(subTotalAmount);
-                 //let pay = shippingAmount +
+
+                //alert(subTotalAmount);
+
+                let pay = shippingAmount + subTotalAmount;
+
+                //alert(pay);
+
+                totalPayElement.textContent = `$ ${pay.toFixed(2)}`;
+               // console.log(totalPayElement);
+
 
 
             }
             totalPay();
+
+
         });
+
     </script>
 @endpush
