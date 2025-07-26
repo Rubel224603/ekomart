@@ -39,7 +39,9 @@ Route::get('cart-added/index',[CartController::class,'addToCart'])->name('cart.a
 Route::post('cart-store/{id}',[CartController::class,'cartStore'])->name('cart.store');
 Route::get('cart-checkout/',[CartController::class,'checkout'])->name('cart.checkout');
 
+//ajax fetch...
 Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+Route::post('/cart/delete', [CartController::class, 'cartDelete'])->name('cart.delete');
 
 //Backend route....
 Route::middleware('auth','admin')->group(function(){

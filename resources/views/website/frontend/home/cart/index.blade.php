@@ -60,8 +60,10 @@
 
                             <div class="product-main-cart">
                                 <div class="close section-activation">
-                                    <i class="fa-regular fa-x"></i>
+                                    <i class="fa-regular fa-x deleteCartItem" data-cart-id="{{$cart->id}}"></i>
+
                                 </div>
+
                                 <div class="thumbnail">
                                     <img src="{{asset('backend/upload/images/product/'.$cart->product->image)}}" alt="shop">
                                 </div>
@@ -301,6 +303,40 @@
             });
 
             updateTotalSubtotalAll();
+
+            //cartItem remove/delete ....
+
+
+                const cartElements = document.querySelectorAll('.deleteCartItem');
+                 cartElements.forEach(function (element){
+                    element.addEventListener('click',function () {
+                        //alert('hi');
+                        let cartId =  element.getAttribute('data-cart-id');
+                       //alert(cartId);
+
+                        fetch('/cart/delete',{
+                            method:"POST",
+                            headers:{
+                                "Content-Type":"application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+
+                            },
+                            body: JSON.stringify({
+                                cart_id:cartId,
+
+                            }),
+
+                        })
+                            .then(result=>result.json())
+                            .then(data=>console.log(data.message))
+                            .catch(error=>console.log("Error deleting cart",error));
+
+
+                    });
+                 });
+
+
+
 
             function totalPay(){
                let shippingElement = document.querySelector('.shipping-charge');
