@@ -39,6 +39,8 @@ Route::get('cart-added/index',[CartController::class,'addToCart'])->name('cart.a
 Route::post('cart-store/{id}',[CartController::class,'cartStore'])->name('cart.store');
 Route::get('cart-checkout/',[CartController::class,'checkout'])->name('cart.checkout');
 
+Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+
 //Backend route....
 Route::middleware('auth','admin')->group(function(){
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');

@@ -42,8 +42,26 @@ class CartController extends Controller
 
     }
      public function checkout(Request $request){
-        return $request;
+        //return $request;
         return view('website.frontend.home.cart.checkout');
+    }
+
+
+
+    public function update(Request $request)
+    {
+
+        $cart = Cart::find($request->cart_id);
+
+        if ($cart) {
+            $cart->qty = $request->qty;
+            $cart->save();
+
+            return response()->json(['message' => 'Cart updated successfully.']);
+        } else {
+            return response()->json(['message' => 'Cart not found.'], 404);
+        }
+
     }
 
 

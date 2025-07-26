@@ -1,5 +1,8 @@
-@extends('website.frontend.master')
 
+@extends('website.frontend.master')
+@section('head')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
 
 @section('cart')
 
@@ -73,7 +76,7 @@
 
                             <div class="quantity">
                                 <div class="quantity-edit">
-                                    <input type="text" name="qty" class="input qty-input" value="{{ $cart->qty }}" data-index="{{ $index }}"  data-price="{{ $cart->product->selling_price }}">
+                                    <input type="text" name="qty" class="input qty-input" value="{{ $cart->qty }}" data-cart-id="{{$cart->id}}" data-index="{{ $index }}"  data-price="{{ $cart->product->selling_price }}">
                                     <div class="button-wrapper-action">
                                         <button type="button" class="button down-btn" data-index="{{ $index }}"><i class="fa-regular fa-chevron-down"></i></button>
                                         <button type="button" class="button plus up-btn" data-index="{{ $index }}">+<i class="fa-regular fa-chevron-up"></i></button>
@@ -170,6 +173,10 @@
             // alert(subTotalElement);
 
 
+            let quantityInput = document.querySelectorAll('.qty-input');
+            //alert(quantityInput);
+
+
             function updateTotalSubtotalAll() {
                 let total = 0;
                 let subtotalElements = document.querySelectorAll('.subtotal-value');
@@ -193,24 +200,61 @@
                 // }
             }
 
-
+            //btn click & update
             upButtons.forEach(button => {
                 button.addEventListener('click', function () {
-                    const index = this.dataset.index;
+                    const index = this.dataset.index;       //loop index
+
                     const input = document.querySelector(`.qty-input[data-index="${index}"]`);
+                    //alert(input);
+
+
+
+
+                    //alert(input.tagName);
                     let value = parseInt(input.value);
-                    if (value < 100) {
+                    //alert(value);
+                    const cartId = input.getAttribute('data-cart-id');
+                    //alert(cartId);
+
+                    if (value < 100) {              //value means quantity...
                         value++;
+
                         input.value = value;
 
+                        //for update quantity in db...
+
+
+                        fetch('/cart/update', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                            },
+                            body: JSON.stringify({
+                                cart_id: cartId,
+                                qty: input.value
+                            }),
+                        })
+                            .then(res => res.json())
+                            .then(data => console.log(data.message))
+                            .catch(error => console.error("Error updating cart:", error));
+
+
+
+
                         const price = parseFloat(input.dataset.price);
+
+
                         //console.log(price);
                         const subtotal = value * price;
 
                         const subtotalElement = document.querySelector(`.subtotal-value[data-index="${index}"]`);
                         subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+
                         updateTotalSubtotalAll();
                         totalPay();
+
                     }
                 });
             });
@@ -220,9 +264,30 @@
                     const index = this.dataset.index;
                     const input = document.querySelector(`.qty-input[data-index="${index}"]`);
                     let value = parseInt(input.value);
+
+                    const cartId = input.getAttribute('data-cart-id');
+
                     if (value > 1) {
                         value--;
                         input.value = value;
+
+                        //quantity update  db...
+                        fetch('/cart/update',{
+                            method:"POST",
+                            headers:{
+                                "Content-Type" : "application/json",
+                                "X-CSRF-TOKEN" : document.querySelector('meta[name="csrf-token"]').content,
+                            },
+                            body: JSON.stringify({
+                                cart_id:cartId,
+                                qty: input.value,
+                             }),
+
+                        })
+                          .then(result=>result.json())
+                          .then(data=>console.log(data.message))
+                           .catch(error=>console.log("Error updating cart",error));
+
                         const price = parseFloat(input.dataset.price);
                         //console.log(price);
                         const subtotal = value * price;
