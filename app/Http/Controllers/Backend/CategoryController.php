@@ -17,23 +17,23 @@ class CategoryController extends Controller
     }
     public function storeCategory(Request $request){
        //return $request;
-        $newCategory = new Category();
-        $newCategory->name              = $request->name;
-        $newCategory->slug              = Str::slug($request->category_name);
-        $newCategory->status            = $request->status;
-        $newCategory->description       = $request->description;
+        $newCategory                  = new Category();
+        $newCategory->name            = $request->name;
+        $newCategory->slug            = Str::slug($request->name);
+        $newCategory->status          = $request->status;
+        $newCategory->description     = $request->description;
 
         if(isset($request->image)){
             //upload image...
-            $imagName = time().'-category-.'.$request->image->getClientOriginalExtension();
+            $imagName                 = time().'-category-.'.$request->image->getClientOriginalExtension();
             $request->image->move('backend/upload/images/category/',$imagName);
             //generate image url...
-            $imageUrl = url('backend/upload/images/category/'.$imagName);
+            $imageUrl                 = url('backend/upload/images/category/'.$imagName);
 
             //save to db...
 
-             $newCategory->image = $imagName;
-             $newCategory->image_url =$imageUrl;
+             $newCategory->image      = $imagName;
+             $newCategory->image_url  =  $imageUrl;
 
 
         }

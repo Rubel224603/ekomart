@@ -27,12 +27,12 @@ class ProductController extends Controller
     public function storeProduct(Request $request){
        // return $request;
 
-        $product                    = new Product();
+        $product        = new Product();
 
-        $product->name              = $request->name;
+        $product->name  = $request->name;
 
-        $slug   = Str::slug($request->name);
-        $count = 1;
+        $slug           = Str::slug($request->name);
+        $count          = 1;
         if(Product::where('slug',$slug)->exists()){
             $slug = $slug."-".$count;
             $count++;
