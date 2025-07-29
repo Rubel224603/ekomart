@@ -42,7 +42,7 @@ Route::post('/cart-store/{id}',[CartController::class,'cartStore'])->name('cart.
 Route::get('/cart-checkout/',[CartController::class,'checkout'])->name('cart.checkout');
 
 //New order...
-Route::get('/order-confirm/welcome',[CustomerController::class,'confirmOrder'])->name('order.confirm');
+Route::post('/order-confirm/welcome',[CustomerController::class,'confirmOrder'])->name('order.confirm');
 
 //ajax fetch...
 Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');

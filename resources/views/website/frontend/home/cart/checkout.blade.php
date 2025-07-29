@@ -4,56 +4,48 @@
 
 <div class="checkout-area rts-section-gap">
     <div class="container">
+      <form action="{{route('order.confirm')}}" method="POST">
 
 
         <div class="row">
             <div class="col-lg-2"></div>
             <div class="col-lg-4  pr_sm--5 order-2 order-xl-1 order-lg-2 order-md-2 order-sm-2 mt_md--30 mt_sm--30 me-5">
 
-                <div class="coupon-input-area-1 ">
-                    <div class="coupon-area ">
-{{--                        <div class="coupon-ask  cupon-wrapper-1 shadow">--}}
-{{--                            <button class="coupon-click">Have a coupon? Click here to enter your code</button>--}}
-{{--                        </div>--}}
-                        <div class="coupon-input-area cupon1">
-                            <div class="inner">
-                                <p class="mt--0 mb--20"> If you have a coupon code, please apply it below.</p>
-                                <div class="form-area">
-                                    <input type="text" placeholder="Enter Coupon Code...">
-                                    <button type="submit" class="btn-primary rts-btn">Apply Coupon</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="rts-billing-details-area card  shadow  p-5">
+
+
+
+
+                <div class=" card  shadow  p-5">
 
                         <h3 class="title">Billing Details</h3>
 
-                        <form action="{{route('order.confirm')}}" method="POST">
                             @csrf
-                            <div class="single-input">
-                                <label for="email">Email Address*</label>
-                                <input id="email" type="text" name="email" required>
-                            </div>
-                            <div class="single-input">
-                                <label for="email">Full Name*</label>
-                                <input  type="name" name="full_name" id="full_name" required>
-                            </div>
 
-                            <div class="single-input">
-                                <label for="phone">Phone*</label>
-                                <input id="phone" type="number" name="phone">
-                            </div>
-                            <div class="single-input">
-                                <label for="ordernotes">Your Address*</label>
-                                <textarea id="ordernotes" rows="5" cols="5" name="address"></textarea>
-                            </div>
-                        </form>
+
+                    <div class="mb-3">
+                        <label for="" class="form-label">Your Name</label>
+                        <input class="form-control" type="text" name="full_name" placeholder="Enter your Name" style="font-size: 15px !important;border:1px solid #CED4DA !important;padding:4px !important;border-radius: .25rem; !important; " />
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Email</label>
+                        <input  class="form-control" type="email" name="email" placeholder="enter your Email" style="font-size: 15px !important;border:1px solid #CED4DA !important;padding:4px !important;border-radius: .25rem; !important;"  />
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Phone</label>
+                        <input class="form-control " type="number" name="phone" placeholder="01xxxxxxxx"  style="font-size: 15px !important;border:1px solid #CED4DA !important;padding:4px !important;border-radius: .25rem; !important; "/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Delevery Address</label>
+                        <textarea class="form-control" rows="4" placeholder="enter your address"  name="address" style="font-size: 15px !important;border:1px solid #CED4DA !important;padding:4px !important;border-radius: .25rem; !important;" ></textarea>
+                    </div>
+
+
 
 
                 </div>
+
+
             </div>
 
             <div class="col-lg-4 order-1 order-xl-2 order-lg-1 order-md-1 order-sm-1 ms-5">
@@ -91,16 +83,13 @@
                                 <input type="radio" id="f-option" name="selector">
                                 <label for="f-option">Check Payments</label>
 
-                                <div class="check"></div>
                             </li>
 
                             <li>
                                 <input type="radio" id="s-option" name="selector">
                                 <label for="s-option">Cash On Delivery</label>
 
-                                <div class="check">
-                                    <div class="inside"></div>
-                                </div>
+
                             </li>
 
 
@@ -112,6 +101,7 @@
                 </div>
             </div>
         </div>
+      </form>
     </div>
 </div>
 
