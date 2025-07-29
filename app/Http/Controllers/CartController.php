@@ -42,8 +42,10 @@ class CartController extends Controller
 
     }
      public function checkout(Request $request){
-        //return $request;
-        return view('website.frontend.home.cart.checkout');
+        //return $request->ip();
+         $cartProducts= Cart::with('product')->where('ip_address',$request->ip())->get();
+         //return $cartProducts;
+        return view('website.frontend.home.cart.checkout',compact('cartProducts'));
     }
 
 
@@ -74,6 +76,23 @@ class CartController extends Controller
            }else{
               return response()->json(['message'=>"Cart Item not found"]);
           }
+    }
+
+
+
+   public function all(){
+//        $cart = Cart::with(['product'=>function($query){
+//                $query->select('id','product_price');
+//            }])->where('id',$id)->get();
+//
+//        return $cart;
+
+       $carts = Cart::whereHas('product', function($q) {
+                    $q->where('product_price', 400);
+                })->with('product')->get();
+       return $carts;
+
+
     }
 
 

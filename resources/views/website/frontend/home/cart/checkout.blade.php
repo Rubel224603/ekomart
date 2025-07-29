@@ -12,9 +12,9 @@
 
                 <div class="coupon-input-area-1 ">
                     <div class="coupon-area ">
-                        <div class="coupon-ask  cupon-wrapper-1 shadow">
-                            <button class="coupon-click">Have a coupon? Click here to enter your code</button>
-                        </div>
+{{--                        <div class="coupon-ask  cupon-wrapper-1 shadow">--}}
+{{--                            <button class="coupon-click">Have a coupon? Click here to enter your code</button>--}}
+{{--                        </div>--}}
                         <div class="coupon-input-area cupon1">
                             <div class="inner">
                                 <p class="mt--0 mb--20"> If you have a coupon code, please apply it below.</p>
@@ -30,25 +30,26 @@
                 <div class="rts-billing-details-area card  shadow  p-5">
 
                         <h3 class="title">Billing Details</h3>
-                        <form action="#">
+
+                        <form action="{{route('order.confirm')}}" method="POST">
+                            @csrf
                             <div class="single-input">
                                 <label for="email">Email Address*</label>
-                                <input id="email" type="text" required>
+                                <input id="email" type="text" name="email" required>
                             </div>
                             <div class="single-input">
                                 <label for="email">Full Name*</label>
-                                <input  type="name" required>
+                                <input  type="name" name="full_name" id="full_name" required>
                             </div>
 
                             <div class="single-input">
                                 <label for="phone">Phone*</label>
-                                <input id="phone" type="text">
+                                <input id="phone" type="number" name="phone">
                             </div>
                             <div class="single-input">
                                 <label for="ordernotes">Your Address*</label>
-                                <textarea id="ordernotes"></textarea>
+                                <textarea id="ordernotes" rows="5" cols="5" name="address"></textarea>
                             </div>
-                            <button class="rts-btn btn-primary">Update Cart</button>
                         </form>
 
 
@@ -57,6 +58,7 @@
 
             <div class="col-lg-4 order-1 order-xl-2 order-lg-1 order-md-1 order-sm-1 ms-5">
                 <h3 class="title-checkout">Your Order</h3>
+
                 <div class="right-card-sidebar-checkout">
                     <div class="top-wrapper">
                         <div class="product">
@@ -66,28 +68,21 @@
                             Price
                         </div>
                     </div>
-                    <div class="single-shop-list">
-                        <div class="left-area">
-                            <a href="#" class="thumbnail">
-                                <img src="assets/images/shop/04.png" alt="">
-                            </a>
-                            <a href="#" class="title">
-                                Foster Farms Breast Nuggets Shaped Chicken
-                            </a>
+                    @foreach($cartProducts as $cartProduct)
+                       <div class="single-shop-list">
+                            <div class="left-area">
+                                <a href="#" class="thumbnail">
+                                    <img src="{{asset('backend/upload/images/product/'.$cartProduct->product->image)}}" alt="">
+                                </a>
+                                <a href="#" class="title">
+                                    {{$cartProduct->product->name}}
+                                </a>
+                            </div>
+                            <span class="price"> $ {{$cartProduct->qty * $cartProduct->price }} </span>
                         </div>
-                        <span class="price">$500.00</span>
-                    </div>
-                    <div class="single-shop-list">
-                        <div class="left-area">
-                            <a href="#" class="thumbnail">
-                                <img src="assets/images/shop/04.png" alt="">
-                            </a>
-                            <a href="#" class="title">
-                                Foster Farms Breast Nuggets Shaped Chicken
-                            </a>
-                        </div>
-                        <span class="price">$500.00</span>
-                    </div>
+
+
+                    @endforeach
 
                     <div class="cottom-cart-right-area">
 
@@ -111,8 +106,9 @@
 
                         </ul>
 
-                        <a href="#" class="rts-btn btn-primary">Place Order</a>
+                        <button id="placeOrder" class="rts-btn btn-primary">Place Order</button>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -120,3 +116,25 @@
 </div>
 
 @endsection
+@push('checkout_orderConfirm')
+    <script>
+        document.querySelector('#placeOrder').addEventListener('click',function () {
+            //alert('hil');
+            const email= document.querySelector('#email').value;
+
+            //alert('enter the email');
+            if(!email){
+               alert("email is required");
+            }
+            const fullName= document.querySelector('#full_name').value;
+            if(!fullName){
+                alert("email is required");
+            }
+            const phone= document.querySelector('#phone').value;
+            if(!phone){
+                alert("phone number is required");
+            }
+        })
+    </script>
+@endpush
+

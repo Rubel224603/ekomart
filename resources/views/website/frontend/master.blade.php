@@ -33,6 +33,7 @@
 
     @include('website.frontend.includes.script')
     @stack('cart_script')
+    @stack('checkout_orderConfirm')
 
 
 
