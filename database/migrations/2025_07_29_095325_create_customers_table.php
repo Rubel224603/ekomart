@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('full_name');
             $table->string('phone');
             $table->string('address');
+            $table->string('ip_address');
             $table->string('date_of_birth')->nullable();
             $table->string('blood_group')->nullable();
             $table->text('image')->nullable();

@@ -129,7 +129,7 @@
                                                                             <img src="{{asset('backend/upload/images/product/'.$product->image)}}" alt="category">
                                                                         </a>
                                                                         <div class="inner-content-category">
-                                                                            <p>{{$product->name}}</p>
+                                                                            <a href="{{route('shop-product.details',$product->slug)}}"> <span>{{$product->name}}</span></a>
                                                                             <span>{{$product->stock}} Items</span>
                                                                         </div>
                                                                     </div>

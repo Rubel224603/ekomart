@@ -4,14 +4,14 @@
 
 <div class="checkout-area rts-section-gap">
     <div class="container">
+
       <form action="{{route('order.confirm')}}" method="POST">
 
 
         <div class="row">
+
             <div class="col-lg-2"></div>
             <div class="col-lg-4  pr_sm--5 order-2 order-xl-1 order-lg-2 order-md-2 order-sm-2 mt_md--30 mt_sm--30 me-5">
-
-
 
 
 
@@ -36,9 +36,27 @@
                         <input class="form-control " type="number" name="phone" placeholder="01xxxxxxxx"  style="font-size: 15px !important;border:1px solid #CED4DA !important;padding:4px !important;border-radius: .25rem; !important; "/>
                     </div>
                     <div class="mb-3">
-                        <label for="" class="form-label">Delevery Address</label>
+                        <label for="" class="form-label">Delivery Address</label>
                         <textarea class="form-control" rows="4" placeholder="enter your address"  name="address" style="font-size: 15px !important;border:1px solid #CED4DA !important;padding:4px !important;border-radius: .25rem; !important;" ></textarea>
                     </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Payment Method</label> <br>
+                        <input class="form-check-input" type="radio" name="payment_method"  value="Cash">
+                        <span>Cash On Delivery</span>
+                        <br>
+                        <input class="form-check-input" type="radio" name="payment_method"  value="Online">
+                        <span>Online</span>
+                    </div>
+
+
+
+                    <div class="mb-3">
+
+                        <button class="rts-btn btn-primary ">Place Order</button>
+                  </div>
+
+
+
 
 
 
@@ -49,7 +67,6 @@
             </div>
 
             <div class="col-lg-4 order-1 order-xl-2 order-lg-1 order-md-1 order-sm-1 ms-5">
-                <h3 class="title-checkout">Your Order</h3>
 
                 <div class="right-card-sidebar-checkout">
                     <div class="top-wrapper">
@@ -60,6 +77,9 @@
                             Price
                         </div>
                     </div>
+                    @php
+                        $total = 0;
+                    @endphp
                     @foreach($cartProducts as $cartProduct)
                        <div class="single-shop-list">
                             <div class="left-area">
@@ -73,30 +93,28 @@
                             <span class="price"> $ {{$cartProduct->qty * $cartProduct->price }} </span>
                         </div>
 
+                        @php
+                            $total += $cartProduct->qty * $cartProduct->price;
+                        @endphp
 
                     @endforeach
 
-                    <div class="cottom-cart-right-area">
-
-                        <ul>
-                            <li>
-                                <input type="radio" id="f-option" name="selector">
-                                <label for="f-option">Check Payments</label>
-
-                            </li>
-
-                            <li>
-                                <input type="radio" id="s-option" name="selector">
-                                <label for="s-option">Cash On Delivery</label>
-
-
-                            </li>
+                   <div class="d-flex justify-content-between me-5 ms-5 mt--20">
+                       <p>subtotal</p>
+                       <span> {{$subTotal = $total}}</span>
+                   </div>
+                    <div class="d-flex justify-content-between me-5 ms-5 " >
+                       <p>Shipping</p>
+                       <span> $100</span>
+                   </div>
+                    <div class="d-flex justify-content-between me-5 ms-5 border-top" >
+                       <p>Order Total</p>
+                       <span> {{$orderTotal = $subTotal +100 }}</span>
+                        <input type="hidden" value="{{$orderTotal}}" name="order_total">
+                   </div>
 
 
-                        </ul>
 
-                        <button id="placeOrder" class="rts-btn btn-primary">Place Order</button>
-                    </div>
 
                 </div>
             </div>

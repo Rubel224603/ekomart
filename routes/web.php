@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\UnitController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\OrderController;
 
 //Route::get('/', function () {
 //    return view('welcome');
@@ -42,7 +43,8 @@ Route::post('/cart-store/{id}',[CartController::class,'cartStore'])->name('cart.
 Route::get('/cart-checkout/',[CartController::class,'checkout'])->name('cart.checkout');
 
 //New order...
-Route::post('/order-confirm/welcome',[CustomerController::class,'confirmOrder'])->name('order.confirm');
+Route::post('/order-confirm/',[OrderController::class,'confirmOrder'])->name('order.confirm');
+Route::get('/completed-order/welcome',[OrderController::class,'completedOrder'])->name('order.welcome');
 
 //ajax fetch...
 Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');

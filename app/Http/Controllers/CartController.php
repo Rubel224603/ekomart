@@ -22,19 +22,21 @@ class CartController extends Controller
     }
     public function cartStore(Request $request,$id){
         //return $request;
-        $product = Product::find($id);
-       // return $product;
-        $cart = New Cart();
-        $cart->product_id = $product->id;
-        $cart->ip_address = $request->ip();
+        $product            = Product::find($id);
+        //return $product;
+        $cart               = New Cart();
+        $cart->product_id   = $product->id;
+        $cart->product_name = $product->name;
+        $cart->ip_address   = $request->ip();
+
         if(isset($request->qty)){
-            $cart->qty = $request->qty;
+            $cart->qty      = $request->qty;
 
         }else{
-            $cart->qty = 1;
+            $cart->qty      = 1;
         }
 
-        $cart->price = $product->selling_price ;      //return $cart->price ;
+        $cart->price        = $product->selling_price ;  //return $cart->price ;
         $cart->save();
 
         return redirect()->route('cart.add');

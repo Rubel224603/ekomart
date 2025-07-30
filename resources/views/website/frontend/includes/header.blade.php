@@ -67,11 +67,13 @@
                                                 <i class="fa-light fa-user"></i>
                                                 Account
                                             </a>
+
                                             <a href="wishlist.html" class="btn-border-only wishlist">
                                                 <i class="fa-regular fa-heart"></i>
                                                 Wishlist
                                                 <span class="number">2</span>
                                             </a>
+
                                             <div class="btn-border-only cart category-hover-header">
                                                 <i class="fa-sharp fa-regular fa-cart-shopping"></i>
                                                 <span class="text">My Cart</span>
