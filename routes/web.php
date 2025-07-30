@@ -9,7 +9,9 @@ use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\UnitController;
 use App\Http\Controllers\Backend\ProductController;
-
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\OrderController;
 
 //Route::get('/', function () {
 //    return view('welcome');
@@ -26,14 +28,28 @@ Route::get('/shop',[WelcomeController::class,'shop'])->name('shop');
 Route::get('/contact',[WelcomeController::class,'contact'])->name('contact');
 Route::get('/about',[WelcomeController::class,'about'])->name('about');
 
+
 Route::get('all-category-product', [WelcomeController::class, 'allCategoryProduct'])->name('all-category.product');
 Route::get('category-product/{slug}', [WelcomeController::class, 'categoryProducts'])->name('category.product');
 
 //Route::get('category-product/{slug}', [WelcomeController::class, 'productCategory'])->name('category-product')
 Route::get('/sub-category-product/{slug}', [WelcomeController::class, 'SubCategoryProduct'])->name('subcategory-product');
-
-
 Route::get('shop/product/details/{slug}',[WelcomeController::class,'productDetails'])->name('shop-product.details');
+
+//Cart...
+Route::get('/cart-all',[CartController::class,'all']);
+Route::get('/cart-added/index',[CartController::class,'addToCart'])->name('cart.add');
+Route::post('/cart-store/{id}',[CartController::class,'cartStore'])->name('cart.store');
+Route::get('/cart-checkout/',[CartController::class,'checkout'])->name('cart.checkout');
+
+//New order...
+Route::post('/order-confirm/',[OrderController::class,'confirmOrder'])->name('order.confirm');
+Route::get('/completed-order/welcome',[OrderController::class,'completedOrder'])->name('order.welcome');
+
+//ajax fetch...
+Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+Route::post('/cart/delete', [CartController::class, 'cartDelete'])->name('cart.delete');
+
 //Backend route....
 Route::middleware('auth','admin')->group(function(){
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');

@@ -129,7 +129,7 @@
                                                                             <img src="{{asset('backend/upload/images/product/'.$product->image)}}" alt="category">
                                                                         </a>
                                                                         <div class="inner-content-category">
-                                                                            <p>{{$product->name}}</p>
+                                                                            <a href="{{route('shop-product.details',$product->slug)}}"> <span>{{$product->name}}</span></a>
                                                                             <span>{{$product->stock}} Items</span>
                                                                         </div>
                                                                     </div>
@@ -246,6 +246,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="body-content">
+
                                                     <div class="start-area-rating">
                                                         <i class="fa-solid fa-star"></i>
                                                         <i class="fa-solid fa-star"></i>
@@ -261,19 +262,23 @@
                                                         <span class="current">{{$product->selling_price}}</span>
                                                         <div class="previous">{{$product->product_price}}</div>
                                                     </div>
-                                                    <div class="cart-counter-action">
-                                                        <a href="shop-grid-top-filter.html" class="rts-btn btn-primary radious-sm with-icon">
-                                                            <div class="btn-text">
-                                                                Add To Cart
-                                                            </div>
-                                                            <div class="arrow-icon">
-                                                                <i class="fa-regular fa-cart-shopping"></i>
-                                                            </div>
-                                                            <div class="arrow-icon">
-                                                                <i class="fa-regular fa-cart-shopping"></i>
-                                                            </div>
-                                                        </a>
-                                                    </div>
+                                                   <form action="{{route('cart.store',['id'=>$product->id])}}" method="post" enctype="multipart/form-data">
+                                                        @csrf
+                                                        <div class="cart-counter-action">
+                                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                            <button  class="rts-btn btn-primary radious-sm with-icon">
+                                                                <div class="btn-text">
+                                                                    Add To Cart
+                                                                </div>
+                                                                <div class="arrow-icon">
+                                                                    <i class="fa-regular fa-cart-shopping"></i>
+                                                                </div>
+                                                                <div class="arrow-icon">
+                                                                    <i class="fa-regular fa-cart-shopping"></i>
+                                                                </div>
+                                                            </button>
+                                                        </div>
+                                                  </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -295,9 +300,6 @@
         </div>
     </div>
     <!-- popular -product wrapper 7 end -->
-
-
-
 
 
 

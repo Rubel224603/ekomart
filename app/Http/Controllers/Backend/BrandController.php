@@ -16,7 +16,7 @@ class BrandController extends Controller
     public function storeBrand(Request $request){
         $brand = new Brand();
         $brand->name= $request->name;
-        $brand->slug=  Str::slug($request->brand_name);
+        $brand->slug=  Str::slug($request->name);
         $brand->status= $request->status;
         $brand->description= $request->description;
         if(isset($request->image)){
@@ -38,7 +38,7 @@ class BrandController extends Controller
     }
     public function editBrand($id){
         $brand = Brand::find($id);
-        //return $brands;
+        //return $brand;
         return view('website.backend.admin.brand.edit',compact('brand'));
     }
     public function updateBrand($id, Request $request){
