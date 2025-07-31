@@ -23,7 +23,12 @@ class CartController extends Controller
     public function cartStore(Request $request,$id){
         //return $request;
         $product            = Product::find($id);
-        //return $product;
+        //product hit count...
+        $product->hit_count++;
+
+        $product->save();
+       // return $product->hit_count;
+
         $cart               = New Cart();
         $cart->product_id   = $product->id;
         $cart->product_name = $product->name;
@@ -82,20 +87,20 @@ class CartController extends Controller
 
 
 
-   public function all(){
-//        $cart = Cart::with(['product'=>function($query){
-//                $query->select('id','product_price');
-//            }])->where('id',$id)->get();
+//   public function all(){
+////        $cart = Cart::with(['product'=>function($query){
+////                $query->select('id','product_price');
+////            }])->where('id',$id)->get();
+////
+////        return $cart;
 //
-//        return $cart;
-
-       $carts = Cart::whereHas('product', function($q) {
-                    $q->where('product_price', 400);
-                })->with('product')->get();
-       return $carts;
-
-
-    }
+//       $carts = Cart::whereHas('product', function($q) {
+//                    $q->where('product_price', 400);
+//                })->with('product')->get();
+//       return $carts;
+//
+//
+//    }
 
 
 

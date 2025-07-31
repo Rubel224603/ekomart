@@ -83,10 +83,10 @@
                     @foreach($cartProducts as $cartProduct)
                        <div class="single-shop-list">
                             <div class="left-area">
-                                <a href="#" class="thumbnail">
+                                <a href="{{route('shop-product.details',$cartProduct->product->slug)}}" class="thumbnail">
                                     <img src="{{asset('backend/upload/images/product/'.$cartProduct->product->image)}}" alt="">
                                 </a>
-                                <a href="#" class="title">
+                                <a href="{{route('shop-product.details',$cartProduct->product->slug)}}" class="title">
                                     {{$cartProduct->product->name}}
                                 </a>
                             </div>
