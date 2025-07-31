@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\Backend\AdminOrderController;
 
 //Route::get('/', function () {
 //    return view('welcome');
@@ -97,5 +98,7 @@ Route::middleware('auth','admin')->group(function(){
     Route::get('/admin/product-delete/{id}',[ProductController::class,'deleteProduct'])->name("product.delete");
     Route::get('/get-category-by-sub-category',[ProductController::class,'getCategoryBySubCategory'])->name('get-category-by-sub-category');
 
+    //Order Manage...
+    Route::get('/admin/order',[AdminOrderController::class,'index'])->name('order.index');
 
 });
