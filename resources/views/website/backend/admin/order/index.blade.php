@@ -16,11 +16,9 @@
                             <tr>
                                 <th  class="fw-bold">Sl</th>
                                 <th  class="fw-bold">Customer Name</th>
-                                <th  class="fw-bold">Product Name</th>
-                                <th  class="fw-bold">Price</th>
+                                <th  class="fw-bold">Order Total</th>
+                                <th  class="fw-bold">Order Status</th>
 
-
-                                <th  class="fw-bold">Status</th>
 
 
                                 <th class="text-center fw-bold">Action</th>
@@ -28,21 +26,25 @@
                             </thead>
 
                             <tbody>
-                            @foreach($orders as $product)
+                            @foreach($orders as $order)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td>{{$product->customer->full_name}}</td>
-                                    <td>  {{isset($product->products->name) ? $product->products->name: ''}}</td>
-                                    <td> {{isset($product->subcategory->name) ? $product->subcategory->name: ''}}</td>
+                                    <td>
+                                        <b>{{$order->customer->full_name}}</b> <br>
+                                        <b>{{$order->customer->phone}}</b>
+                                    </td>
+                                    <td>  {{isset($order->order_total) ? $order->order_total: ''}}</td>
+                                    <td> {{isset($order->order_status) ? $order->order_status: ''}}</td>
 
 
-
-                                    <td>{{$product->published_status == 1?'Published' : "Unpublished"}}</td>
 
                                     <td class="text-center">
-                                        <a href="{{route('product.details',['id'=>$product->id])}}" class="btn btn-primary">View </a>
-                                        <a href="{{route('product.edit',['id'=>$product->id])}}" class="btn btn-warning">Edit</a>
-                                        <a href="{{route('product.delete',['id'=>$product->id])}}" class="btn btn-danger" onclick="return confirm('Are you sure? Delete this!!!')">Delete</a>
+                                        <a href="{{route('product.details',['id'=>$order->id])}}" class="btn btn-primary">View </a>
+                                        <a href="{{route('product.edit',['id'=>$order->id])}}" class="btn btn-warning">Edit</a>
+
+                                        <a href="" class="btn btn-primary">Invoice</a>
+                                        <a href="" target="_blank" class="btn btn-warning">Print</a>
+                                        <a href="{{route('product.delete',['id'=>$order->id])}}" class="btn btn-danger" onclick="return confirm('Are you sure? Delete this!!!')">Delete</a>
                                     </td>
 
                                 </tr>
