@@ -264,6 +264,7 @@
                                                     </div>
                                                    <form action="{{route('cart.store',['id'=>$product->id])}}" method="post" enctype="multipart/form-data">
                                                         @csrf
+
                                                         <div class="cart-counter-action">
                                                             <input type="hidden" name="product_id" value="{{ $product->id }}">
                                                             <button  class="rts-btn btn-primary radious-sm with-icon">
@@ -279,6 +280,7 @@
                                                             </button>
                                                         </div>
                                                   </form>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -471,9 +473,18 @@
                                         <div class="previous">${{$product->product_price}}</div>
                                     </div>
 
-                                    <div class="mt-1">
-                                        <a href="" class ="btn btn-success ">Add to Cart</a>
-                                    </div>
+                                    <form action="{{route('cart.store',['id'=>$product->id])}}" method="post" enctype="multipart/form-data">
+                                        @csrf
+
+
+                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                            <button  class="btn btn-success mt-1" style="font-size: 10px; height: 27px; width: 69px !important;">Add to Cart</button>
+
+
+                                    </form>
+
+
+
 
 
 
@@ -498,30 +509,37 @@
                         @foreach($topRatedProducts as $product)
                             <div class="single-product-list">
 
-                            <a href="{{route('shop-product.details',$product->slug)}}" class="thumbnail">
-                                <img src="{{asset('/backend/upload/images/product/'.$product->image)}}" alt="product" style=" height: 110px !important;">
-                            </a>
-                            <div class="body-content">
-                                <div class="top">
-                                    <div class="stars-area">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </div>
-                                    <a href="{{route('shop-product.details',$product->slug)}}">
-                                        <h4 class="title">{{$product->name}}</h4>
-                                    </a>
-                                    <div class="price-area">
-                                        <span class="current">${{$product->product_price}}</span>
-                                        <div class="previous">${{$product->selling_price}}</div>
-                                    </div>
-                                    <div class="mt-1">
-                                        <a href="" class ="btn btn-success ">Add to Cart</a>
+                                <a href="{{route('shop-product.details',$product->slug)}}" class="thumbnail">
+                                    <img src="{{asset('/backend/upload/images/product/'.$product->image)}}" alt="product" style=" height: 110px !important;" >
+                                </a>
+
+                                <div class="body-content">
+                                      <div class="top">
+                                        <div class="stars-area">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                        </div>
+                                        <a href="{{route('shop-product.details',$product->slug)}}">
+                                            <h4 class="title">{{$product->name}}</h4>
+                                        </a>
+                                        <div class="price-area">
+                                            <span class="current">${{$product->product_price}}</span>
+                                            <div class="previous">${{$product->selling_price}}</div>
+                                        </div>
+                                          <form action="{{route('cart.store',['id'=>$product->id])}}" method="post" enctype="multipart/form-data">
+                                              @csrf
+
+
+                                              <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                              <button  class="btn btn-success mt-1" style="font-size: 10px; height: 27px; width: 69px !important;">Add to Cart</button>
+
+
+                                          </form>
                                     </div>
                                 </div>
-                            </div>
                         </div>
                         @endforeach
 
@@ -536,10 +554,11 @@
                                 Top Selling
                             </h2>
                         </div>
+                       @foreach($topSellingProducts as $product)
                         <div class="single-product-list">
 
-                            <a href="shop-details.html" class="thumbnail">
-                                <img src="{{asset('/')}}website/assets/images/grocery/06.jpg" alt="product">
+                            <a href="{{route('shop-product.details',$product->slug)}}" class="thumbnail">
+                                <img src="{{asset('/backend/upload/images/product/'.$product->image)}}" alt="product" style=" height:110px !important;">
 
                             </a>
                             <div class="body-content">
@@ -551,100 +570,48 @@
                                         <i class="fa-solid fa-star"></i>
                                         <i class="fa-solid fa-star"></i>
                                     </div>
-                                    <a href="shop-details.html">
-                                        <h4 class="title">Pastine Mellin Filid Angelo 100% Di Grano Tenero</h4>
+
+                                    <a href="{{route('shop-product.details',$product->slug)}}">
+                                        <h4 class="title">{{$product->name}}</h4>
                                     </a>
                                     <div class="price-area">
-                                        <span class="current">$36.00</span>
-                                        <div class="previous">$36.00</div>
+                                        <span class="current">{{$product->selling_price}}</span>
+                                        <div class="previous">{{$product->product_price}}</div>
                                     </div>
+                                    <form action="{{route('cart.store',['id'=>$product->id])}}" method="post" enctype="multipart/form-data">
+                                        @csrf
+
+
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                        <button  class="btn btn-success mt-1" style="font-size: 10px; height: 27px !important; width: 69px !important;">Add to Cart</button>
+
+
+                                    </form>
+
+
+
                                 </div>
                             </div>
                         </div>
-                        <div class="single-product-list">
-                            <a href="shop-details.html" class="thumbnail">
-                                <img src="{{asset('/')}}website/assets/images/grocery/04.jpg" alt="product">
-                            </a>
-                            <div class="body-content">
-                                <div class="top">
-                                    <div class="stars-area">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </div>
-                                    <a href="shop-details.html">
-                                        <h4 class="title">Lay's Potato Chips, Sweet Southern Heat ...</h4>
-                                    </a>
-                                    <div class="price-area">
-                                        <span class="current">$36.00</span>
-                                        <div class="previous">$36.00</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="single-product-list">
-                            <a href="shop-details.html" class="thumbnail">
-                                <img src="{{asset('/')}}website/assets/images/grocery/01.jpg" alt="product">
-                            </a>
-                            <div class="body-content">
-                                <div class="top">
-                                    <div class="stars-area">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </div>
-                                    <a href="shop-details.html">
-                                        <h4 class="title">Hillshire Farm Sliced Honey
-                                            Deli Lunch Meat</h4>
-                                    </a>
-                                    <div class="price-area">
-                                        <span class="current">$36.00</span>
-                                        <div class="previous">$36.00</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="single-product-list">
-                            <a href="shop-details.html" class="thumbnail">
-                                <img src="{{asset('/')}}website/assets/images/grocery/02.jpg" alt="product">
-                            </a>
-                            <div class="body-content">
-                                <div class="top">
-                                    <div class="stars-area">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </div>
-                                    <a href="shop-details.html">
-                                        <h4 class="title">Pastine Mellin Filid Angelo 100% Di Grano Tenero</h4>
-                                    </a>
-                                    <div class="price-area">
-                                        <span class="current">$36.00</span>
-                                        <div class="previous">$36.00</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
+
                     </div>
                     <!-- single four feature end -->
                 </div>
                 <div class="col-lg-3">
+
                     <!-- single four feature -->
                     <div class="feature-product-list-wrapper">
                         <div class="title-area">
                             <h2 class="title">
-                                Deals of the day
+                               Top Views
                             </h2>
                         </div>
+
+                        @foreach($topViewProducts as $product)
                         <div class="single-product-list">
-                            <a href="shop-details.html" class="thumbnail">
-                                <img src="{{asset('/')}}website/assets/images/grocery/06.jpg" alt="product">
+                            <a href="{{route('shop-product.details',$product->slug)}}" class="thumbnail">
+                                <img src="{{asset('/backend/upload/images/product/'.$product->image)}}" class="" alt="product" style=" height: 110px !important;">
                             </a>
                             <div class="body-content">
                                 <div class="top">
@@ -655,86 +622,27 @@
                                         <i class="fa-solid fa-star"></i>
                                         <i class="fa-solid fa-star"></i>
                                     </div>
-                                    <a href="shop-details.html">
-                                        <h4 class="title">Pastine Mellin Filid Angelo 100% Di Grano Tenero</h4>
+                                    <a href="{{route('shop-product.details',$product->slug)}}">
+                                        <h4 class="title">{{$product->name}}</h4>
                                     </a>
                                     <div class="price-area">
-                                        <span class="current">$36.00</span>
-                                        <div class="previous">$36.00</div>
+                                        <span class="current"> {{$product->selling_price}} </span>
+                                        <div class="previous">{{$product->product_price}}</div>
                                     </div>
+                                    <form action="{{route('cart.store',['id'=>$product->id])}}" method="post" enctype="multipart/form-data">
+                                        @csrf
+
+
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                        <button  class="btn btn-success mt-1" style="font-size: 10px; height: 27px; width: 69px !important;">Add to Cart</button>
+
+
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                        <div class="single-product-list">
-                            <a href="shop-details.html" class="thumbnail">
-                                <img src="{{asset('/')}}website/assets/images/grocery/04.jpg" alt="product">
-                            </a>
-                            <div class="body-content">
-                                <div class="top">
-                                    <div class="stars-area">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </div>
-                                    <a href="shop-details.html">
-                                        <h4 class="title">Lay's Potato Chips, Sweet Southern Heat ...</h4>
-                                    </a>
-                                    <div class="price-area">
-                                        <span class="current">$36.00</span>
-                                        <div class="previous">$36.00</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="single-product-list">
-                            <a href="shop-details.html" class="thumbnail">
-                                <img src="{{asset('/')}}website/assets/images/grocery/01.jpg" alt="product">
-                            </a>
-                            <div class="body-content">
-                                <div class="top">
-                                    <div class="stars-area">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </div>
-                                    <a href="shop-details.html">
-                                        <h4 class="title">Hillshire Farm Sliced Honey
-                                            Deli Lunch Meat</h4>
-                                    </a>
-                                    <div class="price-area">
-                                        <span class="current">$36.00</span>
-                                        <div class="previous">$36.00</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="single-product-list">
-                            <a href="shop-details.html" class="thumbnail">
-                                <img src="{{asset('/')}}website/assets/images/grocery/02.jpg" alt="product">
-                            </a>
-                            <div class="body-content">
-                                <div class="top">
-                                    <div class="stars-area">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </div>
-                                    <a href="shop-details.html">
-                                        <h4 class="title">Pastine Mellin Filid Angelo 100% Di Grano Tenero</h4>
-                                    </a>
-                                    <div class="price-area">
-                                        <span class="current">$36.00</span>
-                                        <div class="previous">$36.00</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
+
                     </div>
                     <!-- single four feature end -->
                 </div>

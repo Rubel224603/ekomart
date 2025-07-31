@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Customer;
@@ -43,6 +44,7 @@ class OrderController extends Controller
         $products = Cart::where('ip_address' ,$request->ip())->get();
         //return $products;
 
+
         foreach ($products as $product){
             $orderDetails = new OrderDetails();
             $orderDetails->order_id         = $order->id;
@@ -52,17 +54,25 @@ class OrderController extends Controller
             $orderDetails->product_qty      = $product->qty;
 
             $orderDetails->save();
-            $product->delete();
+
+            //product sale count calculate...
+           $salesCountProduct = Product::find($product->product_id);
+
+           $salesCountProduct->sales_count++;
+           $salesCountProduct->save();
+
+           //Now cart product delete...
+           $product->delete();
 
         }
 
 
-
-
         return redirect()->route('order.welcome');
     }
+
+
     public function completedOrder(){
 
-        return "Thanks for Buying Our Product...";
+        return view('website.frontend.home.cart.order-completed');
     }
 }

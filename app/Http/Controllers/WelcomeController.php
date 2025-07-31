@@ -19,9 +19,19 @@ class WelcomeController extends Controller
         $subcategori =SubCategory::latest()->take(5)->with(['products'=> function($query){
             $query->take(3);
         }])->get();
-        $recentProducts = Product::latest()->take(4)->get();
+        $recentProducts   = Product::latest()->take(4)->get();
         $topRatedProducts = Product::latest()->skip(4)->take(4)->get();
-        return view('website.frontend.home.welcome',compact('categories','subcategories','products','subcategori','recentProducts','topRatedProducts'));
+
+        $maxHit = Product::max('hit_count');
+        //return $maxHit;
+        //$topViewProducts  = Product::where('hit_count',$maxHit)->take(4)->get();
+        $topViewProducts    = Product::orderBy('hit_count', 'desc')->take(4)->get();
+
+        $topSellingProducts = Product::orderBy('sales_count','desc')->take(4)->get();
+        //return $topSellingProducts;
+
+        //return $topViewProducts;
+        return view('website.frontend.home.welcome',compact('categories','subcategories','products','subcategori','recentProducts','topRatedProducts','topViewProducts','topSellingProducts'));
     }
     public function shop(){
         return view('website.frontend.home.shop');
@@ -47,14 +57,22 @@ class WelcomeController extends Controller
         //find work when id  get and it's primary key...
 
         $product = Product::where('slug',$slug)->first();
+
         //return $product;
+
+        //product hit count...
+        $product->hit_count++;
+        $product->save();
+        //return  $product->hit_count;
+
         //return $product->id;
         $otherImages= OtherImage::where('product_id',$product->id)->get();
         //return $otherImag;
 
-
         $categoryProducts = Product::where('category_id',$product->category_id)->latest()->get();
         //return $categoryProducts;
+
+
         return view('website.frontend.home.product.details',compact('product','otherImages','categoryProducts'));
     }
     public function categoryProducts($slug){

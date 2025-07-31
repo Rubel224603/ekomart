@@ -37,7 +37,7 @@ Route::get('/sub-category-product/{slug}', [WelcomeController::class, 'SubCatego
 Route::get('shop/product/details/{slug}',[WelcomeController::class,'productDetails'])->name('shop-product.details');
 
 //Cart...
-Route::get('/cart-all',[CartController::class,'all']);
+//Route::get('/cart-all',[CartController::class,'all']);
 Route::get('/cart-added/index',[CartController::class,'addToCart'])->name('cart.add');
 Route::post('/cart-store/{id}',[CartController::class,'cartStore'])->name('cart.store');
 Route::get('/cart-checkout/',[CartController::class,'checkout'])->name('cart.checkout');
