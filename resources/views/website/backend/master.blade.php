@@ -123,30 +123,9 @@
             });
 
         }
-        function getCourierByOrderEdit($courierId) {
-            $.ajax({
-                type:"GET",
-                url:"{{route('get-courier-by-order')}}",
-                data: {'id':$courierId},
-                DataType:"JSON",
-                success:function ($response) {
-                    console.log($response);
-                    var option='';
-                    option+='<option value=""> ---Select Courier---</option>';
-                    $.each($response, function(key , value){
-                        option+='<option value ="'+value.id+'">'+value.name+'</option>';
-                    });
-                    $('#subcategory').empty();
-                    $('#subcategory').append(option);
-
-
-
-
-                }
-            });
-
-        }
     </script>
+
+@stack('create_order')
 </body>
 
 

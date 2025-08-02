@@ -52,6 +52,10 @@
                                     <td>Delivery  Status</td>
                                      <td>{{isset($order->delivery_status)?$order->delivery_status:''}}</td>
                                </tr>
+                                <tr>
+                                    <td>Courier Name</td>
+                                    <td>{{isset($order->courier->name)?$order->courier->name:'NA'}}</td>
+                                </tr>
 
                                 <tr>
                                     <td class="fw-bold">Payment Amount</td>
