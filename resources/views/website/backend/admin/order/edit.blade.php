@@ -48,8 +48,12 @@
                         <div class="row mb-4">
                             <label class="col-sm-2 col-form-label" for="basic-default-message"> Courier Info</label>
                             <div class="col-sm-10">
-                                <select name="courier_id"  class="form-control">
-                                    <option value="">--Courier Status---</option>
+                                <select name="courier_id"  class="form-control" >
+                                    <option value="" selected disabled>--Courier Status---</option>
+                                    <option value="1">SA Paribahon Courier</option>
+                                    <option value="2">Sundorbon Courier</option>
+                                    <option value="3">Stead First Courier</option>
+                                    <option value="4">Ajad Courier</option>
 
                                 </select>
                             </div>

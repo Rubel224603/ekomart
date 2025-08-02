@@ -32,5 +32,9 @@ class AdminOrderController extends Controller
         $order = Order::find($id);
         return $order;
     }
+
+    public function getCourierByOrderEdit(){
+
+    }
 }
 
