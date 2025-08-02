@@ -1,77 +1,71 @@
 @extends('website.backend.master')
 
 @section('content')
-    <div class="container mt-8 ">
-        <div class="row">
+    <div class="row">
+        <!-- Basic Layout -->
+        <div class="col-xxl">
+            <div class="card mb-6">
+                <div class="card-header d-flex align-items-center justify-content-between">
 
-
-            <div class="col-lg-12 col-md-12">
-                <div class="card">
-                    <div class="card-header border-bottom">
-                        <h3 class="card-title">Brand Edit Form</h3>
-                    </div>
-                    <div class="card-body">
-                        <form class="form-horizontal" method="post" action ="{{route('brand.update',['id'=>$brand->id])}}" enctype="multipart/form-data" >
-                            @csrf
-                            <div class="row mb-4">
-                                <label for="firstName" class="col-md-3 form-label">Brand Name</label>
-                                <div class="col-md-7">
-                                    <input class="form-control" id="firstName" value="{{$brand->name}}" type="text" name="name">
-                                </div>
+                </div>
+                <div class="card-body">
+                    <form action="{{route('admin.order.update',['id'=>$order->id])}}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <p class="text-success">{{session('message')}}</p>
+                        <div class="row mb-4">
+                            <label class="col-sm-2 col-form-label" for="basic-default-name">Order total</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control"  placeholder="Order total" name="order_total" value="{{$order->order_total}}" readonly/>
                             </div>
-                            <div class="row mb-4">
-                                <label for="" class="col-md-3 form-label">Published Status</label>
-                                <div class="d-flex gap-3 col-md-9">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="status" value="1" {{$brand->status==1?"checked":""}} >
-                                        <label class="form-check-label" for="Published">
-                                            Published</label>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="status" value="0"{{$brand->status==0?'checked':''}} >
-                                        <label class="form-check-label" for="Unpublished">
-                                            Unpublished
-                                        </label>
-                                    </div>
-                                </div>
-
+                        </div>
+                        <div class="row mb-4">
+                            <label class="col-sm-2 col-form-label" for="basic-default-name">Customer Info </label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control"   name="name" value="{{$order->customer->full_name}}"  readonly/>
 
                             </div>
-                            <div class="row mb-4">
-                                <label for="email" class="col-md-3 form-label">Description</label>
-                                <div class="col-md-7">
-                                    <input class="form-control"  value="{{$brand->description}}" type="text" name="description">
+                        </div>
 
-                                </div>
+
+                        <div class="row mb-4">
+                            <label class="col-sm-2 col-form-label" for="basic-default-phone">Delivery Address</label>
+                            <div class="col-sm-10">
+                                <textarea name="delivery_address"  class="form-control" placeholder="delivery_address">{{$order->delivery_address}}</textarea>
                             </div>
-                            <div class="row mb-4">
-                                <label for="image" class="col-md-3 form-label">Image</label>
-                                <div class="col-md-7">
-                                    <input class="form-control" type="file" name="image">
-                                    <img src="{{asset('backend/upload/images/brand/'.$brand->image)}}" alt="" height="100" width="150" class="">
-                                </div>
+                        </div>
+                        <div class="row mb-4">
+                            <label class="col-sm-2 col-form-label" for="basic-default-message"> Order Status</label>
+                            <div class="col-sm-10">
+                                <select name="order_status" class="form-control">
+                                    <option value="" selected disabled>--Order  Status---</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Processing">Processing</option>
+                                    <option value="Cancel">Cancel</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
                             </div>
-                            <div class="row mb-4">
-                                <label for="email" class="col-md-3 form-label"></label>
-                                <div class="col-md-7">
+                        </div>
+                        <div class="row mb-4">
+                            <label class="col-sm-2 col-form-label" for="basic-default-message"> Courier Info</label>
+                            <div class="col-sm-10">
+                                <select name="courier_id"  class="form-control">
+                                    <option value="">--Courier Status---</option>
 
-                                    <button class="btn btn-primary" type="submit">Update Brand</button>                                   </div>
+                                </select>
                             </div>
-
-
-                        </form>
-                    </div>
+                        </div>
+                        <div class="row justify-content-end">
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary">Update Order Information</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-
-
-
-
-
-
-
         </div>
+
     </div>
+
+
 
 @endsection

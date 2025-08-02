@@ -13,6 +13,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Backend\AdminOrderController;
+use App\Http\Controllers\Backend\CourierController;
 
 //Route::get('/', function () {
 //    return view('welcome');
@@ -100,5 +101,18 @@ Route::middleware('auth','admin')->group(function(){
 
     //Order Manage...
     Route::get('/admin/order',[AdminOrderController::class,'index'])->name('order.index');
+    Route::get('/admin/order/details/{id}',[AdminOrderController::class,'details'])->name('admin.order.details');
+    Route::get('/admin/order/edit/{id}',[AdminOrderController::class,'editOrder'])->name('admin.order.edit');
+    Route::get('/admin/order/update/{id}',[AdminOrderController::class,'updateOrder'])->name('admin.order.update');
+    Route::get('/admin/order/delete/{id}',[AdminOrderController::class,'editOrder'])->name('admin.product.delete');
+
+
+    //Courier Manage...
+    Route::get('/admin/courier/add',[CourierController::class,'createCourier'])->name('courier.add');
+    Route::get('/admin/courier/list',[CourierController::class,'listCourier'])->name('courier.index');
+    Route::post('/admin/courier/store',[CourierController::class,'storeCourier'])->name('courier.store');
+    Route::get('/admin/courier/edit/{id}',[CourierController::class,'editCourier'])->name('courier.edit');
+    Route::post('/admin/courier/update/{id}',[CourierController::class,'updateCourier'])->name('courier.update');
+    Route::get('/admin/courier/delete/{id}',[CourierController::class,'courierDelete'])->name('courier.delete');
 
 });

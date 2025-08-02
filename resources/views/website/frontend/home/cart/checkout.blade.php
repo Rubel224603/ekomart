@@ -22,22 +22,23 @@
 
                             @csrf
 
+                        {{session('message')}}
 
                     <div class="mb-3">
                         <label for="" class="form-label">Your Name</label>
-                        <input class="form-control" type="text" name="full_name" placeholder="Enter your Name" style="font-size: 15px !important;border:1px solid #CED4DA !important;padding:4px !important;border-radius: .25rem; !important; " />
+                        <input class="form-control" type="text" name="full_name" placeholder="Enter your Name" style="font-size: 15px !important;border:1px solid #CED4DA !important;padding:4px !important;border-radius: .25rem; !important; " required/>
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Email</label>
-                        <input  class="form-control" type="email" name="email" placeholder="enter your Email" style="font-size: 15px !important;border:1px solid #CED4DA !important;padding:4px !important;border-radius: .25rem; !important;"  />
+                        <input  class="form-control" type="email" name="email" placeholder="enter your Email" style="font-size: 15px !important;border:1px solid #CED4DA !important;padding:4px !important;border-radius: .25rem; !important;"  required/>
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Phone</label>
-                        <input class="form-control " type="number" name="phone" placeholder="01xxxxxxxx"  style="font-size: 15px !important;border:1px solid #CED4DA !important;padding:4px !important;border-radius: .25rem; !important; "/>
+                        <input class="form-control " type="number" name="phone" placeholder="01xxxxxxxx" required  style="font-size: 15px !important;border:1px solid #CED4DA !important;padding:4px !important;border-radius: .25rem; !important; "/>
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Delivery Address</label>
-                        <textarea class="form-control" rows="4" placeholder="enter your address"  name="address" style="font-size: 15px !important;border:1px solid #CED4DA !important;padding:4px !important;border-radius: .25rem; !important;" ></textarea>
+                        <textarea class="form-control" rows="4" placeholder="enter your address" required name="address" style="font-size: 15px !important;border:1px solid #CED4DA !important;padding:4px !important;border-radius: .25rem; !important;" ></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Payment Method</label> <br>

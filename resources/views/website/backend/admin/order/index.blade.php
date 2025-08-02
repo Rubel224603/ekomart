@@ -39,12 +39,12 @@
 
 
                                     <td class="text-center">
-                                        <a href="{{route('product.details',['id'=>$order->id])}}" class="btn btn-primary">View </a>
-                                        <a href="{{route('product.edit',['id'=>$order->id])}}" class="btn btn-warning">Edit</a>
+                                        <a href="{{route('admin.order.details',['id'=>$order->id])}}" class="btn btn-primary">View </a>
+                                        <a href="{{route('admin.order.edit',['id'=>$order->id])}}" class="btn btn-warning">Edit</a>
 
                                         <a href="" class="btn btn-primary">Invoice</a>
                                         <a href="" target="_blank" class="btn btn-warning">Print</a>
-                                        <a href="{{route('product.delete',['id'=>$order->id])}}" class="btn btn-danger" onclick="return confirm('Are you sure? Delete this!!!')">Delete</a>
+                                        <a href="{{route('admin.product.delete',['id'=>$order->id])}}" class="btn btn-danger" onclick="return confirm('Are you sure? Delete this!!!')">Delete</a>
                                     </td>
 
                                 </tr>
