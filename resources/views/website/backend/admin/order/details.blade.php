@@ -62,13 +62,18 @@
                                      <td>{{$order->payment_amount}}</td>
                                </tr>
                                 <tr>
+                                    <td class="fw-bold">Payment Status</td>
+                                     <td>{{isset($order->payment_status)?$order->payment_status:'NA'}}</td>
+                               </tr>
+                                <tr>
                                     <th class="fw-bold">Payment Method</th>
                                      <td>{{isset($order->payment_method)?$order->payment_method:'NA'}}</td>
                                </tr>
                                 <tr>
                                     <td  class="fw-bold">Payment Date</td>
-                                     <td>{{isset($order->paryment_date)?$order->paryment_date:'NA'}}</td>
+                                     <td>{{isset($order->payment_date)?$order->payment_date:'NA'}}</td>
                                </tr>
+
 
                             </thead>
 

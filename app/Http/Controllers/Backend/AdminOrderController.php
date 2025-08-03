@@ -34,15 +34,58 @@ class AdminOrderController extends Controller
         //return $request;
         $order = Order::find($id);
         //return $order;
-        $order->delivery_address = $request->delivery_address;
-        $order->order_status     = $request->order_status;
-        $order->courier_id       = $request->courier_id;
+        if($request->order_status     == "Pending"){
+            $order->delivery_address  = $request->delivery_address;
+            $order->order_status      = $request->order_status;
+            $order->payment_status    = $request->order_status;
+
+
+        }elseif($request->order_status == "Processing"){
+            $order->delivery_address   = $request->delivery_address;
+            $order->order_status       = $request->order_status;
+            $order->courier_id         = $request->courier_id;
+            $order->payment_status     = $request->order_status;
+
+        }elseif($request->order_status == 'Completed'){
+
+            $order->order_status       = $request->order_status;
+            //$order->courier_id       = $request->courier_id;
+
+            $order->delivery_timestamp = strtotime(date('Y-m-d'));
+            $order->delivery_date      = date('Y-m-d');
+            $order->delivery_status    = $request->order_status;
+            $order->payment_amount     = $order->order_total;
+            $order->payment_date       = date('Y-m-d');
+            $order->payment_timestamp  = strtotime(date('Y-m-d'));
+
+            $order->payment_status     = $request->order_status;
+
+
+
+        }elseif($request->order_status == 'Cancel'){
+            $order->order_status       = $request->order_status;
+            $order->delivery_status    = $request->order_status;
+            $order->payment_status     =  $request->order_status;
+        }
         $order->save();
+
         return redirect()->route('order.index');
+    }
+
+    public function invoiceOrder($id){
+        $order = Order::find($id);
+
+        return view('website.backend.admin.order.invoice',compact('order'));
+    }
+    public function deleteOrder($id){
+
     }
 
     public function createOrder(){
         return view('website.backend.admin.order.create');
+    }
+    public function printOrder(){
+
     }
 }
 

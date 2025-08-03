@@ -7,8 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class OrderDetails extends Model
 {
     //
-    //    public function products(){
-    //        return $this->hasMany(Product::class,'product_id','id');
-    //    }
 
 }

@@ -104,7 +104,9 @@ Route::middleware('auth','admin')->group(function(){
     Route::get('/admin/order/details/{id}',[AdminOrderController::class,'details'])->name('admin.order.details');
     Route::get('/admin/order/edit/{id}',[AdminOrderController::class,'editOrder'])->name('admin.order.edit');
     Route::post('/admin/order/update/{id}',[AdminOrderController::class,'updateOrder'])->name('admin.order.update');
-    Route::get('/admin/order/delete/{id}',[AdminOrderController::class,'editOrder'])->name('admin.product.delete');
+    Route::get('/admin/order/invoice/{id}',[AdminOrderController::class,'invoiceOrder'])->name('admin.order.invoice');
+    Route::get('/admin/order/print/{id}',[AdminOrderController::class,'printOrder'])->name('admin.order.print');
+    Route::get('/admin/order/delete/{id}',[AdminOrderController::class,'deleteOrder'])->name('admin.order.delete');
     Route::get('/admin/order/create',[AdminOrderController::class,'createOrder'])->name('admin.product.create');
 
 

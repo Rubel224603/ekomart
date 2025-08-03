@@ -13,6 +13,10 @@ class Order extends Model
     public function courier(){
         return $this->belongsTo(Courier::class,'courier_id','id');
     }
+    public function orderProducts(){
+        return $this->hasMany(OrderDetails::class,'order_id','id');
+    }
+
 
 
 }
