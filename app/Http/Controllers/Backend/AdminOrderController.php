@@ -7,6 +7,7 @@ use App\Models\Courier;
 use App\Models\Order;
 use App\Models\OrderDetails;
 use Illuminate\Http\Request;
+use PDF;
 
 class AdminOrderController extends Controller
 {
@@ -81,11 +82,16 @@ class AdminOrderController extends Controller
 
     }
 
+
     public function createOrder(){
         return view('website.backend.admin.order.create');
     }
-    public function printOrder(){
+    public function printOrder($id){
 
+        $order= Order::find($id);
+        //return $order;
+        $pdf = PDF::loadView('website.backend.admin.order.invoice-print',compact('order'));
+        return $pdf->stream('invoice.pdf');
     }
 }
 
