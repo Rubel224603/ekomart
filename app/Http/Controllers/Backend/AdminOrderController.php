@@ -79,6 +79,20 @@ class AdminOrderController extends Controller
         return view('website.backend.admin.order.invoice',compact('order'));
     }
     public function deleteOrder($id){
+        $order = Order::find($id);
+        //return $order;
+        if($order->order_status == "Cancel"){
+            return back()->with('message',"Sorry, you can't delete this!!!");
+
+        }
+        $order->delete();
+        $orderProducts = OrderDetails::where('order_id',$order->id)->get();
+        foreach ($orderProducts as $product){
+            $product->delete();
+        }
+        //return $orderProducts;
+        return back()->with('message',"Order Deleted Successfully!");
+
 
     }
 

@@ -9,6 +9,7 @@
                     <h3 class="card-title">Product List </h3>
                     <a href="{{route('product.create')}}" class="btn btn-primary">Add New</a>
                 </div>
+                     <p class="text-center text-primary">{{session('message')}}</p>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table text-nowrap text-md-nowrap table-bordered">
