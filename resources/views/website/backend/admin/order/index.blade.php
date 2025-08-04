@@ -7,7 +7,7 @@
             <div class="card custom-card">
                 <div class="card-header border-bottom d-flex justify-content-between">
                     <h3 class="card-title">Product List </h3>
-                    <a href="{{route('product.create')}}" class="btn btn-primary">Add New</a>
+                    <a href="{{route('admin.order.create')}}" class="btn btn-primary">Add New</a>
                 </div>
                      <p class="text-center text-primary">{{session('message')}}</p>
                 <div class="card-body">

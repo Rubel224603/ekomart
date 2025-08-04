@@ -98,7 +98,8 @@ class AdminOrderController extends Controller
 
 
     public function createOrder(){
-        return view('website.backend.admin.order.create');
+        $couriers = Courier::all();
+        return view('website.backend.admin.order.create',compact('couriers'));
     }
     public function printOrder($id){
 

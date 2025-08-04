@@ -107,7 +107,7 @@ Route::middleware('auth','admin')->group(function(){
     Route::get('/admin/order/invoice/{id}',[AdminOrderController::class,'invoiceOrder'])->name('admin.order.invoice');
     Route::get('/admin/order/print/{id}',[AdminOrderController::class,'printOrder'])->name('admin.order.print');
     Route::get('/admin/order/delete/{id}',[AdminOrderController::class,'deleteOrder'])->name('admin.order.delete');
-    Route::get('/admin/order/create',[AdminOrderController::class,'createOrder'])->name('admin.product.create');
+    Route::get('/admin/order/create',[AdminOrderController::class,'createOrder'])->name('admin.order.create');
 
 
     //Courier Manage...

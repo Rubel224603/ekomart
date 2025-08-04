@@ -11,7 +11,8 @@
                        <div class="card-body">
                            <div class="container form-container">
                                <h2 class="mb-4 text-center">Create Manual Order</h2>
-                               <form>
+                               <form action="{{route('manual.order.store')}}" method="post" enctype="multipart/form-data">
+                                   @csrf
                                    <div class="card mb-4">
                                        <div class="card-header bg-dark text-white">
                                            Customer Information
@@ -48,18 +49,27 @@
                                                        <th>Action</th>
                                                    </tr>
                                                    </thead>
-                                                   <tbody id="product-rows">
-                                                   <tr>
-                                                       <td><input type="text" class="form-control" placeholder="Product Name"></td>
-                                                       <td><input type="number" class="form-control product-price" placeholder="Price"></td>
-                                                       <td><input type="number" class="form-control product-qty" placeholder="Qty"></td>
-                                                       <td><input type="text" class="form-control product-total" readonly></td>
-                                                       <td><button type="button" class="btn btn-danger btn-sm remove-row">Remove</button></td>
-                                                   </tr>
+                                                   <tbody id="productRow">
+                                                       <tr>
+                                                           <td><input type="text" class="form-control" placeholder="Product Name"></td>
+                                                           <td><input type="number" class="form-control product-price" placeholder="Price"></td>
+                                                           <td><input type="number" class="form-control product-qty" placeholder="Qty"></td>
+                                                           <td><input type="text" class="form-control product-total" readonly></td>
+                                                           <td><button type="button" class="btn btn-danger btn-sm remove-row">Remove</button></td>
+                                                       </tr>
                                                    </tbody>
+                                                   <tfoot>
+                                                        <tr>
+                                                            <td colspan="2" > Total</td>
+                                                            <td colspan="3"><input type="text" class="form-control all-product-total" readonly></td>
+
+
+
+                                                        </tr>
+                                                   </tfoot>
                                                </table>
                                            </div>
-                                           <button type="button" class="btn btn-primary btn-sm mt-2" id="add-product-row">Add New Product</button>
+                                           <button type="button" class="btn btn-primary btn-sm mt-2" id="btnAddNewProduct">Add New Product</button>
                                        </div>
                                    </div>
 
@@ -74,8 +84,13 @@
                                                    <input type="date" class="form-control" id="orderDate">
                                                </div>
                                                <div class="col-md-6 mb-3">
-                                                   <label for="courierName" class="form-label">Courier Name</label>
-                                                   <input type="text" class="form-control" id="courierName" placeholder="e.g. Sundarban Courier">
+                                                   <label class="form-label">Courier </label>
+                                                   <select  name="courier_id"  class="form-control">
+                                                       <option value="" selected disabled>Select Courier</option>
+                                                       @foreach($couriers as $courier)
+                                                           <option value="">{{$courier->name}}</option>
+                                                       @endforeach
+                                                   </select>
                                                </div>
                                            </div>
                                            <div class="row">
@@ -97,14 +112,24 @@
                                                    </select>
                                                </div>
                                            </div>
-                                           <div class="mb-3">
-                                               <label for="orderTotal" class="form-label">Order Total</label>
-                                               <input type="text" class="form-control" id="orderTotal" readonly>
+                                            <div class="row">
+                                               <div class="col-md-6 mb-3">
+                                                   <label for="orderStatus" class="form-label">Shipping Total</label>
+                                                   <input type="text" class="form-control " value="100" readonly>
+
+                                               </div>
+                                               <div class="col-md-6 mb-3">
+                                                   <label for="paymentMethod" class="form-label">Total Payable </label>
+                                                   <input type="text" class="form-control totalPayable" name="total_pay" readonly>
+
+                                               </div>
                                            </div>
+
                                        </div>
                                    </div>
 
-                                   <button type="submit" class="btn btn-success w-100">Create Order</button>
+                                   <button type="submit" id="btn" class="btn btn-success w-100">Create Order</button>
+
                                </form>
                            </div>
 
@@ -126,65 +151,105 @@
 
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Function to calculate and update totals
-            function updateTotals() {
+
+        //add New row...
+
+        document.querySelector('#btnAddNewProduct').addEventListener('click',function () {
+            //alert('hi');
+                let productRowArea = document.querySelector('#productRow');
+                //console.log(productRowArea.id);
+                let newRow = document.createElement('tr');
+
+                 newRow.innerHTML = `<td><input type="text" class="form-control" placeholder="Product Name"></td>
+                                     <td><input type="number" class="form-control product-price" placeholder="Price"></td>
+                                     <td><input type="number" class="form-control product-qty" placeholder="Qty"></td>
+                                      <td><input type="text" class="form-control product-total" readonly></td>
+                                      <td><button type="button" class="btn btn-danger btn-sm remove-row">Remove</button></td> `;
+
+            productRowArea.append(newRow);
+
+        });
+
+        //remove row...
+        let productRowArea = document.querySelector('#productRow');
+
+        document.querySelector('#productRow').addEventListener('click', function(e) {
+            if (e.target && e.target.classList.contains('remove-row')) {
+                e.target.closest('tr').remove();
+
+
+                //update total ...
+
                 let grandTotal = 0;
-                document.querySelectorAll('#product-rows tr').forEach(function(row) {
-                    const priceInput = row.querySelector('.product-price');
-                    const qtyInput = row.querySelector('.product-qty');
-                    const totalInput = row.querySelector('.product-total');
-
-                    const price = parseFloat(priceInput.value) || 0;
-                    const qty = parseInt(qtyInput.value) || 0;
-                    const rowTotal = price * qty;
-
-                    totalInput.value = rowTotal.toFixed(2);
-                    grandTotal += rowTotal;
+                document.querySelectorAll('.product-total').forEach(function (input) {
+                    grandTotal += parseFloat(input.value) || 0;
                 });
-                document.getElementById('orderTotal').value = grandTotal.toFixed(2);
+
+                if(grandTotal>0){
+                    document.querySelector('.all-product-total').value = grandTotal;
+                }else{
+                    document.querySelector('.all-product-total').value = 0;
+                }
+
+
+                //update total pay...
+                totalPayable();
+
             }
 
-            // Event listeners for calculating totals
-            document.getElementById('product-rows').addEventListener('input', function(event) {
-                if (event.target.classList.contains('product-price') || event.target.classList.contains('product-qty')) {
-                    updateTotals();
-                }
+        })
+
+       //calculate product price...
+
+        document.querySelector('#productRow').addEventListener('input',function(event){
+            if (event.target.classList.contains('product-price') || event.target.classList.contains('product-qty')) {
+                const row   = event.target.closest('tr');
+                const price = row.querySelector('.product-price').value;
+                const qty   = row.querySelector('.product-qty').value;
+                let total   = price * qty;
+                let showTotal = row.querySelector('.product-total');
+                showTotal.value = total;
+
+                let grandTotal = 0;
+                document.querySelectorAll('.product-total').forEach(function (input) { //inputItem means ek ek ta input  jetgulo .product-total class deya bola
+                    grandTotal += parseFloat(input.value);
+                });
+
+                document.querySelector('.all-product-total').value = grandTotal;
+
+               //update total pay...
+                totalPayable();
+
+            }
+        })
+        //total Payable ...
+
+        function totalPayable(){
+            let grandTotal = 0;
+            document.querySelectorAll('.product-total').forEach(function (input) {
+                grandTotal += parseFloat(input.value) || 0;
             });
+            const shipping = 100;
+           let totalPayableAmount = 0
+            if(grandTotal>0){
+                 totalPayableAmount  = shipping + grandTotal;
+            }else{
+                 totalPayableAmount  = 0;
+            }
 
-            // Add new product row functionality
-            document.getElementById('add-product-row').addEventListener('click', function() {
-                const productRows = document.getElementById('product-rows');
-                const newRow = document.createElement('tr');
-                newRow.innerHTML = `
-                    <td><input type="text" class="form-control" placeholder="Product Name"></td>
-                    <td><input type="number" class="form-control product-price" placeholder="Price"></td>
-                    <td><input type="number" class="form-control product-qty" placeholder="Qty"></td>
-                    <td><input type="text" class="form-control product-total" readonly></td>
-                    <td><button type="button" class="btn btn-danger btn-sm remove-row">Remove</button></td>
-                `;
-                productRows.appendChild(newRow);
-                updateTotals();
-            });
 
-            // Remove product row functionality
-            document.getElementById('product-rows').addEventListener('click', function(event) {
-                if (event.target.classList.contains('remove-row')) {
-                    event.target.closest('tr').remove();
-                    updateTotals();
-                }
-            });
+            document.querySelector('.totalPayable').value = totalPayableAmount;
+            console.log(totalPayableAmount);
 
-            // Set current date on load
-            const today = new Date();
-            const year = today.getFullYear();
-            const month = (today.getMonth() + 1).toString().padStart(2, '0');
-            const day = today.getDate().toString().padStart(2, '0');
-            document.getElementById('orderDate').value = `${year}-${month}-${day}`;
 
-            // Initial calculation
-            updateTotals();
-        });
+        }
+        totalPayable();
+
+
+
+
+
+
     </script>
 
 @endpush
