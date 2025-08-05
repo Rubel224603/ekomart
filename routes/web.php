@@ -12,6 +12,8 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\Backend\AdminOrderController;
+use App\Http\Controllers\Backend\CourierController;
 
 //Route::get('/', function () {
 //    return view('welcome');
@@ -97,5 +99,29 @@ Route::middleware('auth','admin')->group(function(){
     Route::get('/admin/product-delete/{id}',[ProductController::class,'deleteProduct'])->name("product.delete");
     Route::get('/get-category-by-sub-category',[ProductController::class,'getCategoryBySubCategory'])->name('get-category-by-sub-category');
 
+    //Order Manage...
+    Route::get('/admin/order',[AdminOrderController::class,'index'])->name('order.index');
+    Route::get('/admin/order/details/{id}',[AdminOrderController::class,'details'])->name('admin.order.details');
+    Route::get('/admin/order/edit/{id}',[AdminOrderController::class,'editOrder'])->name('admin.order.edit');
+    Route::post('/admin/order/update/{id}',[AdminOrderController::class,'updateOrder'])->name('admin.order.update');
+    Route::get('/admin/order/invoice/{id}',[AdminOrderController::class,'invoiceOrder'])->name('admin.order.invoice');
+    Route::get('/admin/order/print/{id}',[AdminOrderController::class,'printOrder'])->name('admin.order.print');
+    Route::get('/admin/order/delete/{id}',[AdminOrderController::class,'deleteOrder'])->name('admin.order.delete');
+
+    //Admin Manual Order...
+    Route::get('/admin/order/create/product/',[AdminOrderController::class,'createOrderProduct'])->name('admin.order.create');
+    Route::get('/admin/order/manual-add/product/{id}',[AdminOrderController::class,'cartManualStore'])->name('admin.order.manual-add');
+    Route::get('/admin/order/manual/cart-index',[AdminOrderController::class,'cartManualIndex'])->name('admin.order.manual.order-index');
+    Route::get('/admin/order/manual/cart-delete/{id}',[AdminOrderController::class,'cartManualDelete'])->name('admin.manual.cart.product.delete');
+    Route::post('/admin/manual-order/create',[AdminOrderController::class,'manualOrderStore'])->name('manual.order.store');
+
+
+    //Courier Manage...
+    Route::get('/admin/courier/add',[CourierController::class,'createCourier'])->name('courier.add');
+    Route::get('/admin/courier/list',[CourierController::class,'listCourier'])->name('courier.index');
+    Route::post('/admin/courier/store',[CourierController::class,'storeCourier'])->name('courier.store');
+    Route::get('/admin/courier/edit/{id}',[CourierController::class,'editCourier'])->name('courier.edit');
+    Route::post('/admin/courier/update/{id}',[CourierController::class,'updateCourier'])->name('courier.update');
+    Route::get('/admin/courier/delete/{id}',[CourierController::class,'courierDelete'])->name('courier.delete');
 
 });

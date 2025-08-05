@@ -124,6 +124,8 @@
 
         }
     </script>
+
+@stack('create_order')
 </body>
 
 
