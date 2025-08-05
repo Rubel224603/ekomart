@@ -107,13 +107,18 @@ class AdminOrderController extends Controller
         $pdf = PDF::loadView('website.backend.admin.order.invoice-print',compact('order'));
         return $pdf->stream('invoice.pdf');
     }
+
+    //Manual order ...
+
     public function createOrderProduct(){
 
         $products = Product::all();
-        return view('website.backend.admin.order.product-list',compact('products'));
+        return view('website.backend.admin.order.manual.product-list',compact('products'));
     }
 
-    public function addOrderManual(Request $request,$id){
+
+
+    public function cartManualStore(Request $request,$id){
 
         $couriers = Courier::all();
         $product  = Product::find($id);
@@ -133,10 +138,26 @@ class AdminOrderController extends Controller
         $cart->price        = $product->selling_price;
       //  return $cart;
         $cart->save();
-        $carts = Cart::where('ip_address',$request->ip())->get();
-        //return $carts;
 
-        return view('website.backend.admin.order.create',compact('couriers','product','carts'));
+        return redirect()->route('admin.order.manual.order-index');
+    }
+
+    public function cartManualIndex(Request $request){
+        $carts = Cart::where('ip_address',$request->ip())->latest()->get();
+       // return $carts;
+        $couriers = Cart::latest()->get();
+        //return $couriers;
+
+        return view('website.backend.admin.order.manual.cart-index',compact('carts','couriers'));
+
+    }
+    public function cartManualDelete($id){
+        $cart = Cart::find($id);
+         $cart->delete();
+        flash()->success('deleted successfully!');
+         return back();
+
+
     }
     public function manualOrderStore(Request $request){
         return $request;

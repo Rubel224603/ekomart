@@ -87,20 +87,9 @@ class CartController extends Controller
 
 
 
-//   public function all(){
-////        $cart = Cart::with(['product'=>function($query){
-////                $query->select('id','product_price');
-////            }])->where('id',$id)->get();
-////
-////        return $cart;
-//
-//       $carts = Cart::whereHas('product', function($q) {
-//                    $q->where('product_price', 400);
-//                })->with('product')->get();
-//       return $carts;
-//
-//
-//    }
+
+
+
 
 
 
