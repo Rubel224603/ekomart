@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Courier;
 use App\Models\Order;
 use App\Models\OrderDetails;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use PDF;
 
@@ -97,16 +99,47 @@ class AdminOrderController extends Controller
     }
 
 
-    public function createOrder(){
-        $couriers = Courier::all();
-        return view('website.backend.admin.order.create',compact('couriers'));
-    }
+
     public function printOrder($id){
 
         $order= Order::find($id);
         //return $order;
         $pdf = PDF::loadView('website.backend.admin.order.invoice-print',compact('order'));
         return $pdf->stream('invoice.pdf');
+    }
+    public function createOrderProduct(){
+
+        $products = Product::all();
+        return view('website.backend.admin.order.product-list',compact('products'));
+    }
+
+    public function addOrderManual(Request $request,$id){
+
+        $couriers = Courier::all();
+        $product  = Product::find($id);
+        //return $product;
+        $cart =  new Cart();
+        $cart->ip_address   = $request->ip();
+        //return $request->ip();
+        $cart->product_id   = $product->id;
+        $cart->product_name = $product->name;
+        if(isset($request->qty)){
+            $cart->qty      = $request->qty;
+
+        }else{
+            $cart->qty      = 1;
+        }
+
+        $cart->price        = $product->selling_price;
+      //  return $cart;
+        $cart->save();
+        $carts = Cart::where('ip_address',$request->ip())->get();
+        //return $carts;
+
+        return view('website.backend.admin.order.create',compact('couriers','product','carts'));
+    }
+    public function manualOrderStore(Request $request){
+        return $request;
     }
 }
 
