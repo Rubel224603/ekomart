@@ -97,7 +97,7 @@
                                                 <select  name="courier_id"  class="form-control">
                                                     <option value="" selected disabled>Select Courier</option>
                                                     @foreach($couriers as $courier)
-                                                        <option value="">{{$courier->name}}</option>
+                                                        <option value="{{$courier->id}}">{{$courier->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -181,7 +181,7 @@
                     let productTotal = row.querySelector('.productTotal');
                     //alert(productTotal);
                     let cartId = row.dataset.cartId; //dataset use for data-attribute...
-                    alert(cartId);
+                    //alert(cartId);
 
 
                     if (qty <100) {

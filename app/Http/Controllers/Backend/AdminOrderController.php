@@ -144,10 +144,11 @@ class AdminOrderController extends Controller
     }
 
     public function cartManualIndex(Request $request){
+
         $carts = Cart::where('ip_address',$request->ip())->latest()->get();
        // return $carts;
-        $couriers = Cart::latest()->get();
-        //return $couriers;
+        $couriers = Courier::all();
+         //return $couriers;
 
         return view('website.backend.admin.order.manual.cart-index',compact('carts','couriers'));
 
