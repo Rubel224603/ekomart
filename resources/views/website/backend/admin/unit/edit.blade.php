@@ -8,7 +8,7 @@
             <div class="col-lg-12 col-md-12">
                 <div class="card">
                     <div class="card-header border-bottom">
-                        <h3 class="card-title">Brand Edit Form</h3>
+                        <h3 class="card-title">Unit Edit Form</h3>
                     </div>
                     <div class="card-body">
                         <form class="form-horizontal" method="post" action ="{{route('unit.update',['id'=>$unit->id])}}" enctype="multipart/form-data" >

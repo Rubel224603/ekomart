@@ -28,8 +28,9 @@ class CourierController extends Controller
 
         }
         $courier->save();
-        return back();
         flash()->success('Courier created successfully!');
+        return back();
+
 
 
     }
@@ -60,8 +61,9 @@ class CourierController extends Controller
             $courier->image = $imageName;
         }
         $courier->save();
-        return redirect()->route('courier.index');
         flash()->success('Courier updated successfully!');
+        return redirect()->route('courier.index');
+
 
 
     }
@@ -72,8 +74,9 @@ class CourierController extends Controller
             unlink('backend/upload/images/courier/'.$courier->image);
         }
         $courier->delete();
-        return back();
         flash()->success('Courier deleted successfully!');
+        return back();
+
 
     }
 }

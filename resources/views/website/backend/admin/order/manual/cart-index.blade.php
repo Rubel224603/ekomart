@@ -34,23 +34,23 @@
                                                 </thead>
                                                 <tbody id="productRow">
                                                 @foreach($carts as $cart)
-                                                    <tr>
+                                                    <tr data-cart-id="{{ $cart->id }}">
                                                         <td>{{$cart->product_name}}</td>
-                                                        <td>{{$cart->price}}</td>
+                                                        <td class="price">{{$cart->price}}</td>
 
 
                                                         <td>
                                                             <div class="d-flex justify-content-around align-items-center">
-                                                                <button type='button' class="btn btn-sm btn-success " id="qtyPlusBtn">+</button>
-                                                                <input type="number" value="1" id="inputValue" class="form-control form-control-sm  text-center border-0 shadow-none" style="width: 60px;">
-                                                                <button type='button' class="btn btn-sm btn-success " id="qtyMinusBtn">-</button>
+                                                                <button type='button' class="btn btn-sm btn-success qtyPlusBtn" id="">+</button>
+                                                                <input type="number" value="1"  class="form-control form-control-sm  text-center border-0 shadow-none inputQtyValue" style="width: 60px;">
+                                                                <button type='button' class="btn btn-sm btn-success qtyMinusBtn" id="">-</button>
                                                             </div>
                                                         </td>
 
 
 
 
-                                                        <td>{{$cart->price * 1}}</td>
+                                                        <td class="productTotal">{{$cart->price * 1}}</td>
                                                         <td><img src="{{asset('backend/upload/images/product/'.$cart->product->image)}}" alt="product image" style="height: 100px;"></td>
                                                         <td><a href="{{route('admin.manual.cart.product.delete',['id'=>$cart->id])}}" class="btn btn-danger" onclick="return confirm('are you sure?? to delete this')">Delete</a></td>
                                                     </tr>
@@ -162,30 +162,61 @@
         document.addEventListener("DOMContentLoaded", function () {
 
 
-            const inputValueElement = document.querySelector('#inputValue');
-            const plusBtn = document.querySelector('#qtyPlusBtn');
-            const minusBtn = document.querySelector('#qtyMinusBtn');
+            const inputQtyElement = document.querySelector('.inputQtyValue');
+            const plusBtns = document.querySelectorAll('.qtyPlusBtn');
+            const minusBtns = document.querySelectorAll('.qtyMinusBtn');
+            let productTotalElement = document.querySelectorAll('.productTotal');
+
+            const productPrice = document.querySelectorAll('.price').textContent;
+           // console.log(productPrice);
 
 
-            let inputValue = inputValueElement.value;
-            // alert(inputValue);
-            //increase value...
-            plusBtn.addEventListener('click', function () {
-                if (inputValue < 100) {
-                    inputValue++;
-                    inputValueElement.value = inputValue;
-                }
+
+            plusBtns.forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    const row = this.closest('tr');
+                    const price = parseFloat(row.querySelector('.price').textContent);
+                    const qtyInput = row.querySelector('.inputQtyValue');
+                    let qty  =  parseFloat(qtyInput.value);
+                    let productTotal = row.querySelector('.productTotal');
+                    //alert(productTotal);
+                    let cartId = row.dataset.cartId; //dataset use for data-attribute...
+                    alert(cartId);
+
+
+                    if (qty <100) {
+                        qty++;
+                        qtyInput.value = qty;
+                        productTotal.textContent = (qty * price).toFixed(2);
+
+                        //quantity update  db...
+                        //fetch()
+
+                    }
+                });
             });
-            //decrease value...
-            minusBtn.addEventListener('click', function () {
-                //alert(inputValue);
-                if (inputValue > 1) {
-                    inputValue--;
-                    inputValueElement.value = inputValue;
-                }
-            })
+
+            minusBtns.forEach(function (btn) {
+                btn.addEventListener('click',function () {
+                    //alert(1);
+                    const row = this.closest('tr');
+                    const price = parseFloat(row.querySelector('.price').textContent);
+                    const qtyInput = row.querySelector('.inputQtyValue');
+                    let qty  =  parseFloat(qtyInput.value);
+                    let productTotal = row.querySelector('.productTotal');
+                    if (qty >1) {
+                        qty--;
+                        qtyInput.value = qty;
+                        productTotal.textContent = (qty * price).toFixed(2);
+
+                    }
+                });
+            });
+
+
 
         })
+
 
     </script>
 

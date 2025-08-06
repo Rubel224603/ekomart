@@ -71,7 +71,7 @@ class AdminOrderController extends Controller
             $order->payment_status     =  $request->order_status;
         }
         $order->save();
-
+        flash()->success('Order Updated successfully!');
         return redirect()->route('order.index');
     }
 
@@ -93,6 +93,7 @@ class AdminOrderController extends Controller
             $product->delete();
         }
         //return $orderProducts;
+        flash()->success('order deleted successfully!');
         return back()->with('message',"Order Deleted Successfully!");
 
 
