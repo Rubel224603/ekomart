@@ -59,6 +59,7 @@ class CartController extends Controller
 
     public function update(Request $request)
     {
+        //dd( "hi");
 
         $cart = Cart::find($request->cart_id);
 
@@ -72,6 +73,7 @@ class CartController extends Controller
         }
 
     }
+
 
     public function cartDelete(Request $request)
     {

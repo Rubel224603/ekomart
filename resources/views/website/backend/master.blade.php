@@ -10,6 +10,7 @@
     <meta name="description" content="Noa - Laravel Bootstrap 5 Admin & Dashboard Template">
     <meta name="author" content="Spruko Technologies Private Limited">
     <meta name="keywords" content="Ekomart eCommerce ">
+    @yield('cart_manual')
 
     <!-- TITLE -->
     <title>Ekomart eCommerce </title>
