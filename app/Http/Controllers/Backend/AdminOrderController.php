@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Courier;
+use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\Product;
@@ -161,8 +162,52 @@ class AdminOrderController extends Controller
 
 
     }
-    public function manualOrderStore(Request $request){
-        return $request;
+    public function manualOrderStore(Request $request)
+    {
+        //return $request;
+        $userIp = $request->ip();
+
+        //customer info...
+        $customer               = new Customer();
+        $customer->full_name    = $request->full_name;
+        $customer->phone        = $request->phone;
+        $customer->address      = $request->delivery_address;
+        $customer->ip_address   = $userIp;
+        $customer->save();
+
+        //order info save...
+        $order                  = new Order();
+        $order->customer_id     = $customer->id;
+        //$order->customer_id   = 1;
+        $order->order_total     = $request->total_pay;
+        $order->shipping_total  = $request->shipping_total;
+        $order->order_date      = date('Y-m-d');
+        $order->order_timestamp = strtotime(date('Y-m-d'));
+        $order->delivery_address= $request->delivery_address;
+        $order->payment_method  = $request->payment_method;
+        $order->save();
+
+        //product info....save to order details..
+        $orderProducts = Cart::where('ip_address', $userIp)->latest()->get();
+         //return $orderProducts;
+        foreach ($orderProducts as $product){
+            $orderDetails = new OrderDetails();
+            $orderDetails->order_id     = $order->id;
+            $orderDetails->product_id   = $product->product_id;
+            $orderDetails->product_name = $product->product_name;
+            $orderDetails->product_price= $product->price;
+            $orderDetails->product_qty  = $product->qty;
+            $orderDetails->save();
+
+            //delete cart  product...
+            $product->delete();
+
+        }
+        flash()->success('Order successfully Created!');
+        return back();
+
+
+
     }
 }
 

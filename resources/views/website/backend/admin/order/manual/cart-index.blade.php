@@ -70,79 +70,59 @@
                                     </div>
                                 </div>
                                 <div class="card mb-4">
-                                    <div class="card-header bg-primary text-white">
-                                        Customer Information
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="mb-3">
-                                            <label for="customerName" class="form-label">Customer Name</label>
-                                            <input type="text" class="form-control" id="customerName" placeholder="Name">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="customerPhone" class="form-label">Customer Phone</label>
-                                            <input type="tel" class="form-control" id="customerPhone" placeholder="Number">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="deliveryAddress" class="form-label">Delivery Address</label>
-                                            <textarea class="form-control" id="deliveryAddress" rows="3" placeholder="Delivery address"></textarea>
-                                        </div>
-                                    </div>
+
+                                   <div class="row">
+                                       <div class="col-md-6">
+                                         <div class="card">
+
+                                             <div class="card-body ">
+                                                 <h3>Customer info</h3>
+                                                 <hr>
+                                                 <div class="mb-3">
+                                                     <label for="customerName" class="form-label">Customer Name</label>
+                                                     <input type="text"  name="full_name" class="form-control" id="customerName" placeholder="Name">
+                                                 </div>
+                                                 <div class="mb-3">
+                                                     <label for="customerPhone" class="form-label">Customer Phone</label>
+                                                     <input type="number" class="form-control" name="phone" id="customerPhone" placeholder="Number">
+                                                 </div>
+                                                 <div class="mb-3">
+                                                     <label for="deliveryAddress" class="form-label">Delivery Address</label>
+                                                     <textarea class="form-control" id="deliveryAddress" name="delivery_address" rows="3" placeholder="Delivery address"></textarea>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                       </div>
+                                       <div class="col-md-6">
+                                         <div class="card">
+                                             <div class="card-body">
+                                                 <h3>Order info</h3>
+                                                 <hr>
+                                                 <div class="mb-3">
+                                                     <label for="orderStatus" class="form-label">Shipping </label>
+                                                     <input type="text" id="shipping" class="form-control" value="100" name="shipping_total" readonly>
+
+                                                 </div>
+                                                 <div class="mb-3">
+                                                     <label for="paymentMethod" class="form-label">Total Payable </label>
+                                                     <input type="text" id="totalPayable"  class="form-control " name="total_pay" readonly>
+
+                                                 </div>
+                                                 <div class="mb-3">
+                                                     <label for="paymentMethod" class="form-label">Payment Method</label>
+                                                     <select class="form-select" id="paymentMethod" name="payment_method">
+                                                         <option value="Cash">Cash</option>
+
+                                                         <option value="Bkash">Bkash</option>
+                                                     </select>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                       </div>
+                                   </div>
                                 </div>
 
-                                <div class="card mb-4">
-                                    <div class="card-header bg-primary text-white">
-                                        Order Summary
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <label for="orderDate" class="form-label">Order Date</label>
-                                                <input type="date" class="form-control" id="orderDate">
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label class="form-label">Courier </label>
-                                                <select  name="courier_id"  class="form-control">
-                                                    <option value="" selected disabled>Select Courier</option>
-                                                    @foreach($couriers as $courier)
-                                                        <option value="{{$courier->id}}">{{$courier->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <label for="orderStatus" class="form-label">Order Status</label>
-                                                <select class="form-select" id="orderStatus">
-                                                    <option value="Pending">Pending</option>
-                                                    <option value="Processing">Processing</option>
-                                                    <option value="Shipped">Shipped</option>
-                                                    <option value="Delivered">Delivered</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="paymentMethod" class="form-label">Payment Method</label>
-                                                <select class="form-select" id="paymentMethod">
-                                                    <option value="Cash">Cash</option>
-                                                    <option value="Card">Card</option>
-                                                    <option value="Bkash">Bkash</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <label for="orderStatus" class="form-label">Shipping Total</label>
-                                                <input type="text" id="shipping" class="form-control  " value="100" readonly>
 
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="paymentMethod" class="form-label">Total Payable </label>
-                                                <input type="text" id="totalPayable"  class="form-control " name="total_pay" readonly>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
 
                                 <button type="submit" id="btn" class="btn btn-dark w-100">Create Order</button>
 
