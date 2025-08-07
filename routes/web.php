@@ -112,6 +112,7 @@ Route::middleware('auth','admin')->group(function(){
     Route::get('/admin/order/create/product/',[AdminOrderController::class,'createOrderProduct'])->name('admin.order.create');
     Route::get('/admin/order/manual-add/product/{id}',[AdminOrderController::class,'cartManualStore'])->name('admin.order.manual-add');
     Route::get('/admin/order/manual/cart-index',[AdminOrderController::class,'cartManualIndex'])->name('admin.order.manual.order-index');
+    Route::get('/admin/order/manual/cart-checkout',[AdminOrderController::class,'cartCheckout'])->name('cart.manual-checkout');
     Route::get('/admin/order/manual/cart-delete/{id}',[AdminOrderController::class,'cartManualDelete'])->name('admin.manual.cart.product.delete');
     Route::post('/admin/manual-order/create',[AdminOrderController::class,'manualOrderStore'])->name('manual.order.store');
 

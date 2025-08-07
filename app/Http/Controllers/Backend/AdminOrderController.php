@@ -11,6 +11,7 @@ use App\Models\OrderDetails;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use PDF;
+use function Symfony\Component\Console\Tester\complete;
 
 class AdminOrderController extends Controller
 {
@@ -178,7 +179,6 @@ class AdminOrderController extends Controller
         //order info save...
         $order                  = new Order();
         $order->customer_id     = $customer->id;
-        //$order->customer_id   = 1;
         $order->order_total     = $request->total_pay;
         $order->shipping_total  = $request->shipping_total;
         $order->order_date      = date('Y-m-d');
@@ -208,6 +208,13 @@ class AdminOrderController extends Controller
 
 
 
+    }
+
+    public function cartCheckout(Request $request){
+        $carts = Cart::where('ip_address',$request->ip())->latest()->get();
+        //return $carts;
+
+        return view('website.backend.admin.order.manual.cart-checkout',compact('carts'));
     }
 }
 
