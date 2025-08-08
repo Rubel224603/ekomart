@@ -1,6 +1,6 @@
 
 @extends('website.backend.master')
-@section('cart_manual')
+@section('cart_manual_checkout')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 

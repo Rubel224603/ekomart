@@ -1,4 +1,9 @@
 @extends('website.backend.master')
+@section('cart_manual')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+
+@endsection
 @section('content')
 
     <div class="checkout-area rts-section-gap">
@@ -62,39 +67,66 @@
                             <div class="card-header bg-dark text-white">
                                 <h5 class="mb-0">Your Cart</h5>
                             </div>
+
                             <div class="card-body">
 
-                                <!-- Sample Cart Items -->
+                                <table class="table align-middle table-bordered">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Price</th>
+                                            <th >Quantity</th>
+                                            <th>Total</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($carts as $index=>$product)
+                                        <tr data-product-id='{{$product->id}}'>
+                                            <td>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <img src="{{ asset('/backend/upload/images/product/'.$product->product->image) }}" alt="product" class="img-thumbnail" style="width: 60px; height: 60px;">
+                                                    <div>
+                                                        <p class="mb-0 fw-semibold">{{ $product->product_name }}</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                            <td>{{$product->price}}</td>
+                                            <td>
+                                                <div class="input-group input-group-sm">
+                                                    <button class="btn btn-outline-secondary btn-sm minusBtn" type="button">-</button>
+                                                    <input type="text" class="form-control text-center qtyElement" value="{{ $product->qty }}" readonly>
+                                                    <button class="btn btn-outline-secondary btn-sm plusBtn" type="button">+</button>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span class="fw-bold priceElement">{{ $product->price }}</span>
+                                            </td>
 
 
-                                @foreach ($carts as $product)
-                                    <div class="d-flex justify-content-between align-items-center border-bottom py-3">
-                                        <div class="d-flex align-items-center gap-2">
-                                            <img src="{{ asset('/backend/upload/images/product/'.$product->product->image) }}" alt="product" class="img-thumbnail" style="width: 60px; height: 60px;">
-                                            <div>
-                                                <p class="mb-1 fw-semibold">{{ $product->product_name}}</p>
-                                            </div>
-                                        </div>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
 
-                                        <div class="input-group input-group-sm" style="width: 110px;">
-                                            <button class="btn btn-outline-secondary btn-sm" type="button">-</button>
-                                            <input type="text" class="form-control text-center" value="{{$product->qty}}" readonly>
-                                            <button class="btn btn-outline-secondary btn-sm" type="button">+</button>
-                                        </div>
-
-                                        <div>
-                                            <span class="fw-bold">{{ $product->price}}</span>
-                                        </div>
-                                    </div>
-                                @endforeach
-
-                                <div class="d-flex justify-content-between pt-3">
-                                    <strong>Total</strong>
-                                    <strong class="text-success">
-                                    </strong>
-                                </div>
+                                    <tfoot>
+                                    <tr>
+                                        <th colspan="2" class="text-end">Total</th>
+                                        <th class="text-success fw-bold">
+                                            {{100}}
+                                        </th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
 
                             </div>
+
+
+
+
+
+
+
                         </div>
                     </div>
 
@@ -106,5 +138,90 @@
 
 
 @endsection
+
+@push("manual_cart_index")
+
+    <script>
+       document.addEventListener('DOMContentLoaded',function () {
+            //alert('hi');
+           const minusBtns = document.querySelectorAll('.minusBtn');
+           const plusBtns = document.querySelectorAll('.plusBtn');
+           //alert(plusBtns);
+           const length = minusBtns.length;
+           //alert(length);
+           let priceElement = document.querySelector('.priceElement');
+            plusBtns.forEach(function (btn) {
+                btn.addEventListener('click',function () {
+                    //alert('hi');
+
+                    let row = this.closest('tr') ;
+                    console.log(row);
+                    let cartId = row.dataset.productId;
+                    //alert(productId);
+                    let qtyElement = row.querySelector('.qtyElement');
+                    qty = qtyElement.value;
+                    //alert(qty);
+                    if(qty<100){
+                       // alert('hi');
+                        qty++
+                        qtyElement.value=qty;
+                        let priceElement=row.querySelector('.priceElement');
+                        let  productPrice = parseFloat(row.querySelector('.priceElement').textContent);
+                        //console.log(priceElement);
+                        let productTotal = qty* productPrice;
+                        //alert(productTotal);
+                        priceElement.textContent = productTotal;
+
+                        fetch('/cart/update',{
+                            method:"POST",
+                            headers:{
+                                "Content-Type": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+
+                            },
+                            body:JSON.stringify({
+                                cart_id: cartId,
+                                qty: qtyElement.value,
+                                product_total: parseFloat(priceElement.textContent)
+                            })
+
+                        })
+                            .then(res => res.json())
+                            .then(data => console.log(data.message))
+                            .catch(error => console.error("Error updating cart:", error));
+
+
+                    }
+
+                });
+            });
+            minusBtns.forEach(function (btn) {
+                btn.addEventListener('click',function () {
+                    //alert('hi');
+
+                    let row = this.closest('tr') ;
+                    //console.log(row);
+                    let productId = row.dataset.productId;
+                    //alert(productId);
+
+                });
+            });
+            minusBtns.forEach(function (btn) {
+                btn.addEventListener('click',function () {
+                    //alert('hi');
+
+                    const row = this.closest('tr') ;
+                    //console.log(row);
+                    let productId = row.dataset.productId;
+                    //alert(productId);
+
+                });
+            });
+
+
+
+       })
+    </script>
+@endpush
 
 

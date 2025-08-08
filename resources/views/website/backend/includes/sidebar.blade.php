@@ -93,7 +93,7 @@
                         <span class="side-menu__label">Order Manage</span><i class="angle fa fa-angle-right"></i></a>
                     <ul class="slide-menu">
 
-                        <li><a href="{{route('admin.order.create')}}" class="slide-item">Add  Order</a></li>   <li><a href="{{route('admin.order.create')}}" class="slide-item">Add  Order</a></li>
+                        <li><a href="{{route('admin.order.create')}}" class="slide-item">Add  Order</a></li>
                         <li><a href="{{route('order.index')}}" class="slide-item">List  Order</a></li>
 
                     </ul>

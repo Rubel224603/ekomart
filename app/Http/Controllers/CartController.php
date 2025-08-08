@@ -65,6 +65,8 @@ class CartController extends Controller
 
         if ($cart) {
             $cart->qty = $request->qty;
+            $cart->product_total = $request->product_total;
+
             $cart->save();
 
             return response()->json(['message' => 'Cart updated successfully.']);

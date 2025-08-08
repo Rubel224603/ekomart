@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('color')->nullable();
             $table->string('size')->nullable();
             $table->double('price');
+            $table->double('product_total')->nullable();
             $table->timestamps();
         });
     }
