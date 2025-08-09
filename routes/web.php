@@ -116,7 +116,7 @@ Route::middleware('auth','admin')->group(function(){
     Route::get('/admin/order/manual/cart-index',[AdminManualOrderController::class,'cartManualIndex'])->name('admin.order.manual.order-index');
     Route::get('/admin/order/manual/cart-checkout',[AdminManualOrderController::class,'cartManualCheckout'])->name('cart.manual-checkout');
     Route::get('/admin/order/manual/cart-delete/{id}',[AdminManualOrderController::class,'cartManualDelete'])->name('admin.manual.cart.product.delete');
-    Route::post('/admin/manual-order/create',[AdminManualOrderController::class,'manualOrderStore'])->name('manual.order.store');
+    Route::post('/admin/manual-order/store',[AdminManualOrderController::class,'manualOrderStore'])->name('manual.order.store');
 
 
     //Courier Manage...

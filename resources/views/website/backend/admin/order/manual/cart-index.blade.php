@@ -156,6 +156,7 @@
     <script>
        document.addEventListener('DOMContentLoaded',function () {
             //alert('hi');
+
            const minusBtns = document.querySelectorAll('.minusBtn');
            const plusBtns = document.querySelectorAll('.plusBtn');
            //alert(plusBtns);
@@ -283,7 +284,7 @@
                }else{
                    let pay= orderSubTotal + 100;
 
-                   grandTotalElement.textContent = pay;
+                   grandTotalElement.textContent = pay.toFixed(2);
                }
 
             }
