@@ -48,7 +48,7 @@ class CartController extends Controller
 
 
     }
-     public function checkout(Request $request){
+     public function cartCheckout(Request $request){
         //return $request->ip();
          $cartProducts= Cart::with('product')->where('ip_address',$request->ip())->get();
          //return $cartProducts;
@@ -57,7 +57,7 @@ class CartController extends Controller
 
 
 
-    public function update(Request $request)
+    public function cartUpdate(Request $request)
     {
         //dd( "hi");
 
@@ -65,7 +65,7 @@ class CartController extends Controller
 
         if ($cart) {
             $cart->qty = $request->qty;
-            $cart->product_total = $request->product_total;
+            //$cart->product_total = $request->product_total * $cart->qty;
 
             $cart->save();
 

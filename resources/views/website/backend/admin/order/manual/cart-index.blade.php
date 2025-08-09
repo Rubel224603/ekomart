@@ -15,7 +15,7 @@
                     <!-- Billing Info -->
                     <div class="col-md-6">
                         <div class="card shadow-sm">
-                            <div class="card-header bg-primary text-white">
+                            <div class="card-header bg-dark text-white">
                                 <h3 class="card-title">Billing info</h3>
                             </div>
 
@@ -92,7 +92,7 @@
                                                 </div>
                                             </td>
 
-                                            <td>{{$product->price}}</td>
+                                            <td class="unitPrice">{{$product->price}}</td>
                                             <td>
                                                 <div class="input-group input-group-sm">
                                                     <button class="btn btn-outline-secondary btn-sm minusBtn" type="button">-</button>
@@ -101,7 +101,7 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <span class="fw-bold priceElement">{{ $product->price }}</span>
+                                                <span class="fw-bold productTotal">{{ $product->product_total }}</span>
                                             </td>
 
 
@@ -111,8 +111,20 @@
 
                                     <tfoot>
                                     <tr>
-                                        <th colspan="2" class="text-end">Total</th>
+                                        <th colspan="3" class="text-end">Sub Total</th>
+                                        <th class="text-success fw-bold subTotal">
+                                            {{100}}
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="3" class="text-end">Shipping</th>
                                         <th class="text-success fw-bold">
+                                            {{100}}
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="3" class="text-end">Grand Total</th>
+                                        <th class="text-success fw-bold grandTotal">
                                             {{100}}
                                         </th>
                                     </tr>
@@ -165,14 +177,14 @@
                        // alert('hi');
                         qty++
                         qtyElement.value=qty;
-                        let priceElement=row.querySelector('.priceElement');
-                        let  productPrice = parseFloat(row.querySelector('.priceElement').textContent);
+                        let productTotalElement=row.querySelector('.productTotal');
+                        let  productPrice = parseFloat(row.querySelector('.unitPrice').textContent);
                         //console.log(priceElement);
-                        let productTotal = qty* productPrice;
+                        let productTotal = qty * productPrice;
                         //alert(productTotal);
-                        priceElement.textContent = productTotal;
+                        productTotalElement.textContent = productTotal;
 
-                        fetch('/cart/update',{
+                        fetch('/cart/manual-update',{
                             method:"POST",
                             headers:{
                                 "Content-Type": "application/json",
@@ -182,7 +194,7 @@
                             body:JSON.stringify({
                                 cart_id: cartId,
                                 qty: qtyElement.value,
-                                product_total: parseFloat(priceElement.textContent)
+                                product_total: productTotal
                             })
 
                         })
@@ -190,34 +202,92 @@
                             .then(data => console.log(data.message))
                             .catch(error => console.error("Error updating cart:", error));
 
-
+                        subTotal();
+                        payAble();
                     }
 
                 });
             });
-            minusBtns.forEach(function (btn) {
-                btn.addEventListener('click',function () {
-                    //alert('hi');
 
-                    let row = this.closest('tr') ;
-                    //console.log(row);
-                    let productId = row.dataset.productId;
-                    //alert(productId);
 
-                });
-            });
             minusBtns.forEach(function (btn) {
                 btn.addEventListener('click',function () {
                     //alert('hi');
 
                     const row = this.closest('tr') ;
                     //console.log(row);
-                    let productId = row.dataset.productId;
-                    //alert(productId);
+                    let cartId = row.dataset.productId;
+                    //alert(cartId);
+                    let qtyElement = row.querySelector('.qtyElement');
+                    let qty = qtyElement.value;
+
+                    //alert(price);
+                    //alert(productTotal);
+                    if(qty>1){
+                      // alert(qty);
+                        qty--;
+                        qtyElement.value=qty;
+                        let productTotalElement = row.querySelector('.productTotal');
+
+                        let priceElement =row.querySelector('.unitPrice');
+                        let productPrice = parseFloat(priceElement.textContent);
+
+                        let productTotal = qty * productPrice;
+                        productTotalElement.textContent = productTotal;
+                        //alert(productTotal);
+                        fetch('/cart/manual-update',{
+                            method:"POST",
+                            headers:{
+                                "Content-Type": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+
+                            },
+                            body:JSON.stringify({
+                                cart_id: cartId,
+                                qty: qtyElement.value,
+                                product_total:productTotal
+
+                            })
+
+                        })
+                          .then(res => res.json())
+                          .then(data => console.log(data.message))
+                           .catch(error => console.error("Error updating cart:", error));
+
+                        subTotal();
+                        payAble();
+                    }
 
                 });
             });
 
+            function subTotal(){
+                const subTotalElement = document.querySelector('.subTotal');
+                const productTotalElement = document.querySelectorAll('.productTotal');
+                let length =productTotalElement.length;
+               // alert(productTotalElement);
+                let total =0;
+                for(let i= 0;i<length;i++){
+                   total += parseFloat(productTotalElement[i].textContent);
+                }
+                subTotalElement.textContent = total.toFixed(2);
+
+            }
+           subTotal();
+           function payAble() {
+                let orderSubTotal =parseFloat(document.querySelector('.subTotal').textContent);
+               let grandTotalElement= document.querySelector('.grandTotal');
+               // alert(orderSubTotal);
+               if(orderSubTotal == 0){
+                   grandTotalElement.textContent = orderSubTotal.toFixed(2);
+               }else{
+                   let pay= orderSubTotal + 100;
+
+                   grandTotalElement.textContent = pay;
+               }
+
+            }
+           payAble();
 
 
        })
