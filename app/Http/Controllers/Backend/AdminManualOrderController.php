@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Courier;
 use App\Models\Cart;
-
+use App\Models\Customer;
+use App\Models\Order;
+use App\Models\OrderDetails;
 
 class AdminManualOrderController extends Controller
 {
@@ -76,7 +78,7 @@ class AdminManualOrderController extends Controller
         $customer               = new Customer();
         $customer->full_name    = $request->full_name;
         $customer->phone        = $request->phone;
-        $customer->address      = $request->delivery_address;
+        $customer->address      = $request->address;
         $customer->ip_address   = $userIp;
         $customer->save();
 
@@ -84,10 +86,10 @@ class AdminManualOrderController extends Controller
         $order                  = new Order();
         $order->customer_id     = $customer->id;
         $order->order_total     = $request->total_pay;
-        $order->shipping_total  = $request->shipping_total;
+        $order->shipping_total  = 100;
         $order->order_date      = date('Y-m-d');
         $order->order_timestamp = strtotime(date('Y-m-d'));
-        $order->delivery_address= $request->delivery_address;
+        $order->delivery_address = $request->address;
         $order->payment_method  = $request->payment_method;
         $order->save();
 

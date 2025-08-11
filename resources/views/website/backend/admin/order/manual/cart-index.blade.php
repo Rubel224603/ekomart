@@ -6,9 +6,9 @@
 @endsection
 @section('content')
 
-    <div class="checkout-area rts-section-gap">
+    <div class="checkout-area rts-section-gap mt-5">
         <div class="container">
-            <form action="{{ route('order.confirm') }}" method="POST">
+            <form action="{{ route('manual.order.store') }}" method="POST">
                 @csrf
                 <div class="row">
                     <a href="{{route('cart.manual-checkout')}}" class="btn btn-dark mb-3">other view</a>
@@ -38,7 +38,7 @@
 
                                 <div class="mb-3">
                                     <label class="form-label">Delivery Address</label>
-                                    <textarea class="form-control" rows="4" placeholder="Enter your address" required name="address"></textarea>
+                                    <textarea class="form-control" rows="4" name="address" placeholder="Enter your address" required ></textarea>
                                 </div>
 
                                 <div class="mb-3">
@@ -82,18 +82,18 @@
                                     </thead>
                                     <tbody>
                                     @foreach ($carts as $index=>$product)
-                                        <tr data-product-id='{{$product->id}}'>
-                                            <td>
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <img src="{{ asset('/backend/upload/images/product/'.$product->product->image) }}" alt="product" class="img-thumbnail" style="width: 60px; height: 60px;">
+                                        <tr data-product-id='{{$product->id}}'  class="align-items-center">
+                                            <td >
+                                                <div class="d-flex align-items-center gap-1" style="white-space: nowrap;">
+                                                    <img src="{{ asset('/backend/upload/images/product/'.$product->product->image) }}" alt="product" class="img-thumbnail" style="width: 60px; height: 60px; flex-shrink: 0;">
                                                     <div>
-                                                        <p class="mb-0 fw-semibold">{{ $product->product_name }}</p>
+                                                        <span class="mb-0 fw-semibold text-truncate">{{ $product->product_name }}</span>
                                                     </div>
                                                 </div>
                                             </td>
 
                                             <td class="unitPrice">{{$product->price}}</td>
-                                            <td>
+                                            <td class="">
                                                 <div class="input-group input-group-sm">
                                                     <button class="btn btn-outline-secondary btn-sm minusBtn" type="button">-</button>
                                                     <input type="text" class="form-control text-center qtyElement" value="{{ $product->qty }}" readonly>
@@ -106,29 +106,30 @@
 
 
                                         </tr>
+
                                     @endforeach
                                     </tbody>
 
                                     <tfoot>
-                                    <tr>
-                                        <th colspan="3" class="text-end">Sub Total</th>
-                                        <th class="text-success fw-bold subTotal">
-                                            {{100}}
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="3" class="text-end">Shipping</th>
-                                        <th class="text-success fw-bold">
-                                            {{100}}
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="3" class="text-end">Grand Total</th>
-                                        <th class="text-success fw-bold grandTotal">
-                                            {{100}}
-                                        </th>
-                                    </tr>
+
+                                        <tr>
+                                            <td colspan="3" class="text-end">Sub Total</td>
+                                            <td class="text-success fw-bold subTotal">{{ 100 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" class="text-end">Shipping</td>
+                                            <td class="text-success fw-bold">{{ 100 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" class="text-end">Grand Total</td>
+                                            <td>
+                                                <input type="text" name="total_pay" id="grandTotal" class="form-control text-success fw-bold" readonly>
+                                            </td>
+                                        </tr>
+
+
                                     </tfoot>
+
                                 </table>
 
                             </div>
@@ -277,14 +278,15 @@
            subTotal();
            function payAble() {
                 let orderSubTotal =parseFloat(document.querySelector('.subTotal').textContent);
-               let grandTotalElement= document.querySelector('.grandTotal');
+               let grandTotalElement= document.querySelector('#grandTotal');
+               console.log(grandTotalElement.value);
                // alert(orderSubTotal);
                if(orderSubTotal == 0){
-                   grandTotalElement.textContent = orderSubTotal.toFixed(2);
+                   grandTotalElement.value = orderSubTotal.toFixed(2);
                }else{
                    let pay= orderSubTotal + 100;
 
-                   grandTotalElement.textContent = pay.toFixed(2);
+                   grandTotalElement.value = pay.toFixed(2);
                }
 
             }

@@ -90,7 +90,7 @@
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="deliveryAddress" class="form-label">Delivery Address</label>
-                                                        <textarea class="form-control" id="deliveryAddress" name="delivery_address" rows="3" placeholder="Delivery address"></textarea>
+                                                        <textarea class="form-control" id="deliveryAddress" name="address" rows="3" placeholder="Delivery address"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
