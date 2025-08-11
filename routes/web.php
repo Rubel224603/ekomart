@@ -14,6 +14,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Backend\AdminOrderController;
 use App\Http\Controllers\Backend\CourierController;
+use App\Http\Controllers\Backend\AdminManualOrderController;
 
 //Route::get('/', function () {
 //    return view('welcome');
@@ -42,14 +43,15 @@ Route::get('shop/product/details/{slug}',[WelcomeController::class,'productDetai
 //Route::get('/cart-all',[CartController::class,'all']);
 Route::get('/cart-added/index',[CartController::class,'addToCart'])->name('cart.add');
 Route::post('/cart-store/{id}',[CartController::class,'cartStore'])->name('cart.store');
-Route::get('/cart-checkout/',[CartController::class,'checkout'])->name('cart.checkout');
+Route::get('/cart-checkout/',[CartController::class,'cartCheckout'])->name('cart.checkout');
 
 //New order...
 Route::post('/order-confirm/',[OrderController::class,'confirmOrder'])->name('order.confirm');
 Route::get('/completed-order/welcome',[OrderController::class,'completedOrder'])->name('order.welcome');
 
-//ajax fetch...
-Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+// cart ajax fetch...
+Route::post('/cart/update', [CartController::class, 'cartUpdate'])->name('cart.update');
+Route::post('/cart/manual-update',[AdminManualOrderController::class,'cartManualUpdate']);
 Route::post('/cart/delete', [CartController::class, 'cartDelete'])->name('cart.delete');
 
 //Backend route....
@@ -109,11 +111,12 @@ Route::middleware('auth','admin')->group(function(){
     Route::get('/admin/order/delete/{id}',[AdminOrderController::class,'deleteOrder'])->name('admin.order.delete');
 
     //Admin Manual Order...
-    Route::get('/admin/order/create/product/',[AdminOrderController::class,'createOrderProduct'])->name('admin.order.create');
-    Route::get('/admin/order/manual-add/product/{id}',[AdminOrderController::class,'cartManualStore'])->name('admin.order.manual-add');
-    Route::get('/admin/order/manual/cart-index',[AdminOrderController::class,'cartManualIndex'])->name('admin.order.manual.order-index');
-    Route::get('/admin/order/manual/cart-delete/{id}',[AdminOrderController::class,'cartManualDelete'])->name('admin.manual.cart.product.delete');
-    Route::post('/admin/manual-order/create',[AdminOrderController::class,'manualOrderStore'])->name('manual.order.store');
+    Route::get('/admin/order/create/product/',[AdminManualOrderController::class,'createOrderProduct'])->name('admin.order.create');
+    Route::get('/admin/order/manual-add/product/{id}',[AdminManualOrderController::class,'cartManualStore'])->name('admin.order.manual-add');
+    Route::get('/admin/order/manual/cart-index',[AdminManualOrderController::class,'cartManualIndex'])->name('admin.order.manual.order-index');
+    Route::get('/admin/order/manual/cart-checkout',[AdminManualOrderController::class,'cartManualCheckout'])->name('cart.manual-checkout');
+    Route::get('/admin/order/manual/cart-delete/{id}',[AdminManualOrderController::class,'cartManualDelete'])->name('admin.manual.cart.product.delete');
+    Route::post('/admin/manual-order/store',[AdminManualOrderController::class,'manualOrderStore'])->name('manual.order.store');
 
 
     //Courier Manage...

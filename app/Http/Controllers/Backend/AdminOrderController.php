@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Courier;
+use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use PDF;
+use function Symfony\Component\Console\Tester\complete;
 
 class AdminOrderController extends Controller
 {
@@ -71,7 +73,7 @@ class AdminOrderController extends Controller
             $order->payment_status     =  $request->order_status;
         }
         $order->save();
-
+        flash()->success('Order Updated successfully!');
         return redirect()->route('order.index');
     }
 
@@ -93,6 +95,7 @@ class AdminOrderController extends Controller
             $product->delete();
         }
         //return $orderProducts;
+        flash()->success('order deleted successfully!');
         return back()->with('message',"Order Deleted Successfully!");
 
 
@@ -108,59 +111,6 @@ class AdminOrderController extends Controller
         return $pdf->stream('invoice.pdf');
     }
 
-    //Manual order ...
 
-    public function createOrderProduct(){
-
-        $products = Product::all();
-        return view('website.backend.admin.order.manual.product-list',compact('products'));
-    }
-
-
-
-    public function cartManualStore(Request $request,$id){
-
-        $couriers = Courier::all();
-        $product  = Product::find($id);
-        //return $product;
-        $cart =  new Cart();
-        $cart->ip_address   = $request->ip();
-        //return $request->ip();
-        $cart->product_id   = $product->id;
-        $cart->product_name = $product->name;
-        if(isset($request->qty)){
-            $cart->qty      = $request->qty;
-
-        }else{
-            $cart->qty      = 1;
-        }
-
-        $cart->price        = $product->selling_price;
-      //  return $cart;
-        $cart->save();
-
-        return redirect()->route('admin.order.manual.order-index');
-    }
-
-    public function cartManualIndex(Request $request){
-        $carts = Cart::where('ip_address',$request->ip())->latest()->get();
-       // return $carts;
-        $couriers = Cart::latest()->get();
-        //return $couriers;
-
-        return view('website.backend.admin.order.manual.cart-index',compact('carts','couriers'));
-
-    }
-    public function cartManualDelete($id){
-        $cart = Cart::find($id);
-         $cart->delete();
-        flash()->success('deleted successfully!');
-         return back();
-
-
-    }
-    public function manualOrderStore(Request $request){
-        return $request;
-    }
 }
 

@@ -1,14 +1,15 @@
 @extends('website.backend.master')
 
 @section('content')
-    <div class="row">
+    <div class="row mt-8">
         <!-- Basic Layout -->
         <div class="col-xxl">
             <div class="card mb-6">
-                <div class="card-header d-flex align-items-center justify-content-between">
-
+                <div class="">
+                    <h4 class="ms-5 mt-5 text-primary">Order Edit</h4>
                 </div>
                 <div class="card-body">
+
                     <form action="{{route('admin.order.update',['id'=>$order->id])}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <p class="text-success">{{session('message')}}</p>

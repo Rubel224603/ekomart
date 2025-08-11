@@ -37,7 +37,7 @@ class OrderController extends Controller
             $order->shipping_total  = 100;
             $order->delivery_address= $customer->address;
             $order->payment_method  = $request->payment_method;
-            $order->order_date      = date('Y-m-y');
+            $order->order_date      = date('Y-m-d');
             $order->order_timestamp = strtotime(date('Y-m-d'));
 
             //return $order;
