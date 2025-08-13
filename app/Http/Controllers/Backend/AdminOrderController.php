@@ -73,7 +73,7 @@ class AdminOrderController extends Controller
             $order->payment_status     =  $request->order_status;
         }
         $order->save();
-        flash()->success('Order Updated successfully!');
+        toastr()->success('Order Updated successfully!');
         return redirect()->route('order.index');
     }
 

@@ -16,7 +16,7 @@
                         <div class=" card  shadow  p-5">
 
                             <h3 class="title">Your Order Completed </h3>
-                            <span>Our represtative , call you soon for your product delivery</span>
+                            <span>Our representative , call you soon for your product delivery</span>
 
                         </div>
 
