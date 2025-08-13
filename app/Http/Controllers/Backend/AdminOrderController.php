@@ -112,5 +112,11 @@ class AdminOrderController extends Controller
     }
 
 
+    //Incomplete Order...
+    public function listIncompleteOrder(){
+        $products = Cart::latest()->get();
+        return view('website.backend.admin.order.incomplete.list',compact('products'));
+    }
+
 }
 

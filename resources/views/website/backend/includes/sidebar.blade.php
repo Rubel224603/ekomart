@@ -95,6 +95,7 @@
 
                         <li><a href="{{route('admin.order.create')}}" class="slide-item">Add  Order</a></li>
                         <li><a href="{{route('order.index')}}" class="slide-item">List  Order</a></li>
+                        <li><a href="{{route('order.list-incomplete')}}" class="slide-item">List Incomplete Order</a></li>
 
                     </ul>
                 </li>
