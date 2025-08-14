@@ -164,7 +164,6 @@
                     const qtyInput = row.querySelector('.inputQtyValue');
                     let qty  =  parseFloat(qtyInput.value);
 
-                    //alert(productTotal);
                     let cartId = row.dataset.cartId; //dataset use for data-attribute...
                     //alert(cartId);
                    // let cartIndex = row.dataset.index;
