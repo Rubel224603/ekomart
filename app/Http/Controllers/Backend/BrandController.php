@@ -57,13 +57,13 @@ class BrandController extends Controller
             $brand->image = $imageName;
         }
         $brand->save();
-        flash()->success('Brand updated successfully!');
+        toastr()->success('Brand updated successfully!');
         return redirect()->route('brand.list');
     }
     public function deleteBrand($id){
         $brand = Brand::find($id);
         $brand->delete();
-        flash()->success('Brand added successfully!');
+        flash()->warning('Brand added successfully!');
         return redirect()->back();
 
     }

@@ -73,7 +73,7 @@ class AdminOrderController extends Controller
             $order->payment_status     =  $request->order_status;
         }
         $order->save();
-        flash()->success('Order Updated successfully!');
+        toastr()->success('Order Updated successfully!');
         return redirect()->route('order.index');
     }
 
@@ -111,6 +111,12 @@ class AdminOrderController extends Controller
         return $pdf->stream('invoice.pdf');
     }
 
+
+    //Incomplete Order...
+    public function listIncompleteOrder(){
+        $products = Cart::latest()->get();
+        return view('website.backend.admin.order.incomplete.list',compact('products'));
+    }
 
 }
 

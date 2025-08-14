@@ -83,6 +83,7 @@ class OrderController extends Controller
 
 
     public function completedOrder(){
+        toastr()->success('Well Done!!,Your order completed');
 
         return view('website.frontend.home.cart.order-completed');
     }

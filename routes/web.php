@@ -49,6 +49,9 @@ Route::get('/cart-checkout/',[CartController::class,'cartCheckout'])->name('cart
 Route::post('/order-confirm/',[OrderController::class,'confirmOrder'])->name('order.confirm');
 Route::get('/completed-order/welcome',[OrderController::class,'completedOrder'])->name('order.welcome');
 
+//Incomplete order...
+Route::get('incomplete/order-list',[AdminOrderController::class,'listIncompleteOrder'])->name('order.list-incomplete');
+
 // cart ajax fetch...
 Route::post('/cart/update', [CartController::class, 'cartUpdate'])->name('cart.update');
 Route::post('/cart/manual-update',[AdminManualOrderController::class,'cartManualUpdate']);

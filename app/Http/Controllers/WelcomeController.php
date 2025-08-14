@@ -20,7 +20,8 @@ class WelcomeController extends Controller
             $query->take(3);
         }])->get();
         $recentProducts   = Product::latest()->take(4)->get();
-        $topRatedProducts = Product::latest()->skip(4)->take(4)->get();
+        $topRatedProducts = Product::orderBy('selling_price','desc')->take(4)->get();
+        //return $topRatedProducts;
 
         $maxHit = Product::max('hit_count');
         //return $maxHit;

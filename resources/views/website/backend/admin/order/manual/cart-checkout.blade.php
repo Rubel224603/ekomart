@@ -53,7 +53,7 @@
                                                                 <button type='button' class="btn btn-sm btn-success qtyMinusBtn" id="">-</button>
                                                             </div>
                                                         </td>
-                                                        <td class="productTotal">{{$cart->price * 1}}</td>
+                                                        <td class="productTotal">{{ $cart->product_total }}</td>
                                                         <td><img src="{{asset('backend/upload/images/product/'.$cart->product->image)}}" alt="product image" style="height: 100px;"></td>
                                                         <td><a href="{{route('admin.manual.cart.product.delete',['id'=>$cart->id])}}" class="btn btn-danger" onclick="return confirm('are you sure?? to delete this')">Delete</a></td>
                                                     </tr>
@@ -137,10 +137,6 @@
 
 
 
-
-
-
-
         </div>
     </div>
 
@@ -151,12 +147,12 @@
         document.addEventListener("DOMContentLoaded", function () {
 
 
-            const inputQtyElement = document.querySelector('.inputQtyValue');
+
             const plusBtns = document.querySelectorAll('.qtyPlusBtn');
             const minusBtns = document.querySelectorAll('.qtyMinusBtn');
-            //let productTotalElement = document.querySelectorAll('.productTotal');
 
-            const productPrice = document.querySelectorAll('.price').textContent;
+
+            //const productPrice = document.querySelectorAll('.price').textContent;
             // console.log(productPrice);
 
 
@@ -164,24 +160,30 @@
             plusBtns.forEach(function (btn) {
                 btn.addEventListener('click', function () {
                     const row = this.closest('tr');
-                    const price = parseFloat(row.querySelector('.price').textContent);
+
                     const qtyInput = row.querySelector('.inputQtyValue');
                     let qty  =  parseFloat(qtyInput.value);
-                    let productTotal = row.querySelector('.productTotal');
-                    //alert(productTotal);
+
                     let cartId = row.dataset.cartId; //dataset use for data-attribute...
                     //alert(cartId);
-                    let cartIndex = row.dataset.index;
+                   // let cartIndex = row.dataset.index;
                     //alert(cartIndex);
 
 
                     if (qty <100) {
                         qty++;
                         qtyInput.value = qty;
-                        productTotal.textContent = (qty * price).toFixed(2);
+                        //let productTotalElement = row.querySelector('.productTotal');
+                        //console.log(productTotal);
+                        const price = parseFloat(row.querySelector('.price').textContent);
+                        //alert(price);
+                        let productTotal = qty * price;
+                        //alert(productTotal);
+                        //productTotalElement.textContent = productTotal.toFixed(2);
+                        row.querySelector('.productTotal').textContent = productTotal;
 
                         //quantity update  db...
-                        fetch('/cart/update', {
+                        fetch('/cart/manual-update', {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
@@ -189,7 +191,8 @@
                             },
                             body: JSON.stringify({
                                 cart_id: cartId,
-                                qty: qtyInput.value
+                                qty: qtyInput.value,
+                                product_total: productTotal
                             })
                         })
                             .then(res => res.json())
@@ -209,19 +212,26 @@
                 btn.addEventListener('click',function () {
                     //alert(1);
                     const row = this.closest('tr');
-                    const price = parseFloat(row.querySelector('.price').textContent);
+                   // const price = parseFloat(row.querySelector('.price').textContent);
                     const qtyInput = row.querySelector('.inputQtyValue');
                     let qty  =  parseFloat(qtyInput.value);
-                    let productTotal = row.querySelector('.productTotal');
+                   // let productTotal = row.querySelector('.productTotal');
                     let cartId = row.dataset.cartId; //dataset use for data-attribute... catching cart Id..
 
                     if (qty >1) {
                         qty--;
+
                         qtyInput.value = qty;
-                        productTotal.textContent = (qty * price).toFixed(2);
+                        //let productTotalElement = row.querySelector('.productTotal');
+                        //console.log(productTotal);
+                        const price = parseFloat(row.querySelector('.price').textContent);
+                        //alert(price);
+                        let productTotal = qty * price;
+                        //alert(productTotal);
+                        //productTotalElement.textContent = productTotal.toFixed(2);
+                        row.querySelector('.productTotal').textContent = productTotal;
 
-
-                        fetch('/cart/update',{
+                        fetch('/cart/manual-update',{
                             method:"POST",
                             headers:{
                                 "Content-Type": "application/json",
@@ -230,7 +240,8 @@
                             },
                             body:JSON.stringify({
                                 cart_id: cartId,
-                                qty: qtyInput.value
+                                qty: qtyInput.value,
+                                product_total: productTotal
                             })
 
                         })

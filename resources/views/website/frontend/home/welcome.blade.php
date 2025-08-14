@@ -526,8 +526,8 @@
                                             <h4 class="title">{{$product->name}}</h4>
                                         </a>
                                         <div class="price-area">
-                                            <span class="current">${{$product->product_price}}</span>
-                                            <div class="previous">${{$product->selling_price}}</div>
+                                            <span class="current">${{$product->selling_price}}</span>
+                                            <div class="previous">$ {{$product->product_price}}</div>
                                         </div>
                                           <form action="{{route('cart.store',['id'=>$product->id])}}" method="post" enctype="multipart/form-data">
                                               @csrf
