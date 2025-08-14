@@ -130,4 +130,10 @@ Route::middleware('auth','admin')->group(function(){
     Route::post('/admin/courier/update/{id}',[CourierController::class,'updateCourier'])->name('courier.update');
     Route::get('/admin/courier/delete/{id}',[CourierController::class,'courierDelete'])->name('courier.delete');
 
+    //User Manage...
+    Route::get('admin/user-list',[AdminController::class,'userList'])->name('admin.user.list');
+    Route::get('admin/user-edit/{id}',[AdminController::class,'userEdit'])->name('admin.user.edit');
+    Route::post('admin/user-update/{id}',[AdminController::class,'userUpdate'])->name('admin.user.update');
+    Route::get('admin/user-delete/{id}',[AdminController::class,'userDelete'])->name('admin.user.delete');
+
 });
