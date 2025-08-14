@@ -102,20 +102,7 @@
     <!-- ROW-1 END-->
 
     <!-- ROW-2 -->
-    <div class="row">
-        <div class="col-md-3">
-            <h1>Hello</h1>
-        </div>
-        <div class="col-md-3">
-            <h3>Nothing</h3>
-        </div>
-        <div class="col-md-3">
-            <h4>Ok DOne</h4>
-        </div>
-        <div class="col-md-3">
-            <h4>Done!!</h4>
-        </div>
-    </div>
+   
     <!-- ROW-2 END -->
 
     <!-- ROW-3 -->
