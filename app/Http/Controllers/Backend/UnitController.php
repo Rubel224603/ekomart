@@ -20,7 +20,7 @@ class UnitController extends Controller
        $unit->status= $request->status;
        $unit->description= $request->description;
        $unit->save();
-       flash()->success("Unit Save Successfully!!");
+        toastr()->success("Unit Save Successfully!!");
        return back();
 
     }
@@ -39,13 +39,13 @@ class UnitController extends Controller
         $unit->status = $request->status;
         $unit->description = $request->description;
         $unit->save();
-        flash()->success("Unit Save Successfully!!");
+        toastr()->success("Unit Save Successfully!!");
         return redirect()->route('unit.list');
     }
      public function deleteUnit($id){
          $unit = Unit::find($id);
          $unit->delete();
-         flash()->success("Unit deleted !!");
+         toastr()->warning("Unit deleted !!");
          return back();
     }
 

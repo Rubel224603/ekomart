@@ -64,7 +64,7 @@ class AdminManualOrderController extends Controller
     public function cartManualDelete($id){
         $cart = Cart::find($id);
         $cart->delete();
-        flash()->success('deleted successfully!');
+        toastr()->success('deleted successfully!');
         return back();
 
 
@@ -109,7 +109,7 @@ class AdminManualOrderController extends Controller
             $product->delete();
 
         }
-        flash()->success('Order successfully Created!');
+        toastr()->success('Order successfully Created!');
         return back();
 
 

@@ -40,7 +40,7 @@ class SubCategoryController extends Controller
         }
 
         $subCategory->save();
-        flash()->success('Sub-Category created successfully!');
+        toastr()->success('Sub-Category created successfully!');
 
 
 
@@ -81,7 +81,7 @@ class SubCategoryController extends Controller
             $subCategory->image     = $imageName;
         }
         $subCategory->save();
-        flash()->success('Sub-Category Updated successfully!');
+        toastr()->success('Sub-Category Updated successfully!');
 
         return redirect()->route('list.sub-category');
 
@@ -96,7 +96,7 @@ class SubCategoryController extends Controller
 
         }
         $subCategory->delete();
-        flash()->success('Sub-Category deleted!');
+        toastr()->warning('Sub-Category deleted!');
         return redirect()->route('list.sub-category');
 
     }
