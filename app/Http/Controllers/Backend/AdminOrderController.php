@@ -95,7 +95,7 @@ class AdminOrderController extends Controller
             $product->delete();
         }
         //return $orderProducts;
-        flash()->success('order deleted successfully!');
+        toastr()->warning('order deleted successfully!');
         return back()->with('message',"Order Deleted Successfully!");
 
 

@@ -27,7 +27,7 @@ class BrandController extends Controller
 
         }
         $brand->save();
-        flash()->success('Brand added successfully!');
+        toastr()->success('Brand added successfully!');
         return redirect()->back();
 
     }
@@ -63,7 +63,7 @@ class BrandController extends Controller
     public function deleteBrand($id){
         $brand = Brand::find($id);
         $brand->delete();
-        flash()->warning('Brand added successfully!');
+        toastr()->warning('Brand added successfully!');
         return redirect()->back();
 
     }

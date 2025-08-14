@@ -39,7 +39,7 @@ class CategoryController extends Controller
         }
 
         $newCategory->save();
-        flash()->success('Product created successfully!');
+        toastr()->success('Product created successfully!');
 
 
 
@@ -78,7 +78,7 @@ class CategoryController extends Controller
             $category->image = $imageName;
         }
         $category->save();
-        flash()->success('Category Updated successfully!');
+        toastr()->success('Category Updated successfully!');
 
         return redirect()->route('category.list');
 
@@ -92,7 +92,7 @@ class CategoryController extends Controller
 
         }
         $category->delete();
-        flash()->success('Category deleted!');
+        toastr()->warning('Category deleted!');
         return redirect()->route('category.list');
 
     }

@@ -82,7 +82,7 @@ class ProductController extends Controller
               $otherImage->save();
             }
         }
-        flash()->success('Product added successfully!');
+        toastr()->success('Product added successfully!');
         return redirect()->back();
 
 
@@ -170,7 +170,7 @@ class ProductController extends Controller
 
 
         }
-        flash()->success('Product Updated successfully!');
+        toastr()->success('Product Updated successfully!');
         return redirect()->route('product.list');
 
 
@@ -198,7 +198,7 @@ class ProductController extends Controller
 
         }
 
-        flash()->success('Product Deleted !');
+        toastr()->success('Product Deleted !');
         return redirect()->back();
 
 
