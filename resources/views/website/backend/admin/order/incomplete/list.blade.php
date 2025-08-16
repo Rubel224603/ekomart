@@ -42,9 +42,9 @@
 
 
                                     <td class="text-center">
-                                        <a href="{{route('admin.order.details',['id'=>$product->id])}}" class="btn btn-primary">View </a>
+                                        <a href="#" class="btn btn-primary">View </a>
 
-                                        <a href="{{route('admin.order.delete',['id'=>$product->id])}}" class="btn btn-danger" onclick="return confirm('Are you sure? Delete this!!!')">Delete</a>
+                                        <a href="#" class="btn btn-danger" onclick="return confirm('Are you sure? Delete this!!!')">Delete</a>
                                     </td>
 
                                 </tr>
