@@ -49,13 +49,12 @@ Route::get('/cart-checkout/',[CartController::class,'cartCheckout'])->name('cart
 Route::post('/order-confirm/',[OrderController::class,'confirmOrder'])->name('order.confirm');
 Route::get('/completed-order/welcome',[OrderController::class,'completedOrder'])->name('order.welcome');
 
-//Incomplete order...
-Route::get('incomplete/order-list',[AdminOrderController::class,'listIncompleteOrder'])->name('order.list-incomplete');
 
 // cart ajax fetch...
 Route::post('/cart/update', [CartController::class, 'cartUpdate'])->name('cart.update');
 Route::post('/cart/manual-update',[AdminManualOrderController::class,'cartManualUpdate']);
 Route::post('/cart/delete', [CartController::class, 'cartDelete'])->name('cart.delete');
+
 
 //Backend route....
 Route::middleware('auth','admin')->group(function(){
@@ -120,6 +119,10 @@ Route::middleware('auth','admin')->group(function(){
     Route::get('/admin/order/manual/cart-checkout',[AdminManualOrderController::class,'cartManualCheckout'])->name('cart.manual-checkout');
     Route::get('/admin/order/manual/cart-delete/{id}',[AdminManualOrderController::class,'cartManualDelete'])->name('admin.manual.cart.product.delete');
     Route::post('/admin/manual-order/store',[AdminManualOrderController::class,'manualOrderStore'])->name('manual.order.store');
+
+
+    //Incomplete order...
+    Route::get('admin/incomplete/order-list',[AdminOrderController::class,'listIncompleteOrder'])->name('order.list-incomplete');
 
 
     //Courier Manage...
