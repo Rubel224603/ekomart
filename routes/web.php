@@ -15,12 +15,17 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Backend\AdminOrderController;
 use App\Http\Controllers\Backend\CourierController;
 use App\Http\Controllers\Backend\AdminManualOrderController;
+use App\Http\Controllers\Example\PaymentServiceExampleController;
 
 //Route::get('/', function () {
 //    return view('welcome');
 //});
 
 Auth::routes();
+
+//just check for Services which i made .. provider & container via controller...
+
+Route::get('/pay',[PaymentServiceExampleController::class,'pay']);
 
 //frontend routes....
 
